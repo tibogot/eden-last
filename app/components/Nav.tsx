@@ -7,7 +7,7 @@ export default function Nav() {
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="text-lg font-semibold text-zinc-900 dark:text-zinc-100"
+            className="text-lg font-semibold font-ivy-light text-zinc-900 dark:text-zinc-100"
           >
             Logo
           </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useEffect, useRef } from "react";
-import { ReactLenis, useLenis } from "lenis/react";
+import { ReactLenis, useLenis, type LenisRef } from "lenis/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname } from "next/navigation";
@@ -70,7 +70,7 @@ function LenisController() {
 }
 
 export default function LenisProvider({ children }: LenisProviderProps) {
-  const lenisRef = useRef<any>(null);
+  const lenisRef = useRef<LenisRef>(null);
 
   // CRITICAL: Integrate Lenis with GSAP ticker
   // This is the official pattern from Lenis documentation
@@ -119,4 +119,3 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     </ReactLenis>
   );
 }
-
