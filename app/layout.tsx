@@ -5,6 +5,7 @@ import "./globals.css";
 import LenisProvider from "./components/LenisProvider";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,8 +39,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${ivyPrestoHeadline.variable} antialiased flex flex-col min-h-screen`}
       >
         <LenisProvider>
+          <ScrollToTop />
           <Nav />
-          {children}
+          <div className="pt-20">
+            {children}
+          </div>
           <Footer />
         </LenisProvider>
       </body>

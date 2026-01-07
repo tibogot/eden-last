@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Nav() {
   return (
-    <nav className="w-full border-b border-zinc-200 dark:border-zinc-800">
+    <nav className="fixed top-0 left-0 right-0 w-full border-b border-zinc-200 dark:border-zinc-800 bg-background z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link
