@@ -14,13 +14,15 @@ export default function Home() {
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
           <div className="container mx-auto px-4">
             <h1
-              className="font-ivy-light mb-4 text-4xl text-white"
+              className="font-ivy-light mb-4 text-7xl leading-tight text-white md:text-8xl lg:text-9xl"
               style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
             >
-              Welcome Home
+              Experience paradise in every sip and bite
             </h1>
-            <p className="mx-auto max-w-2xl text-lg text-white">
-              Discover our restaurant, experiences, and events.
+            <p className="mx-auto mt-16 max-w-lg text-lg text-white">
+              Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
+              blend of entertainment and relaxation. From live music and dance
+              shows to thrilling football matches, there.
             </p>
           </div>
         </div>
