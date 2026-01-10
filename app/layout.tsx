@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import LenisProvider from "./components/LenisProvider";
 import PushOverNav from "./components/PushOverNav";
 import Footer from "./components/Footer";
 import { ScrollToTop } from "./components/ScrollToTop";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const ivyPrestoHeadline = localFont({
   src: "./fonts/ivy-presto-headline-light.otf",
@@ -42,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${ivyPrestoHeadline.variable} ${neueHaasDisplay.variable} antialiased`}
+        className={`${ivyPrestoHeadline.variable} ${neueHaasDisplay.variable} antialiased`}
       >
         <LenisProvider>
           <PushOverNav />

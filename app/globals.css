@@ -10,8 +10,6 @@
   --color-foreground: var(--foreground);
   --color-primary: #465643;
   --color-secondary: #fffdf6;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --font-ivy-light: var(--font-ivy-presto-headline);
   --font-neue-haas: var(--font-neue-haas-display);
 }
