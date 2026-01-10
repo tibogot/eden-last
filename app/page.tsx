@@ -3,15 +3,15 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main className="bg-secondary text-primary">
-      <section className="relative h-[100svh] w-full overflow-hidden">
+      <section className="relative h-svh w-full overflow-hidden">
         <Image
-          src="/images/hero.jpg"
+          src="/images/hero-2.jpg"
           alt="Hero image"
           fill
           priority
           className="object-cover"
         />
-        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center">
+        <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
           <div className="container mx-auto px-4">
             <h1
               className="font-ivy-light mb-4 text-4xl text-white"
@@ -19,7 +19,7 @@ export default function Home() {
             >
               Welcome Home
             </h1>
-            <p className="max-w-2xl text-lg mx-auto text-white">
+            <p className="mx-auto max-w-2xl text-lg text-white">
               Discover our restaurant, experiences, and events.
             </p>
           </div>
