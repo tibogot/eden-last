@@ -260,7 +260,7 @@ export default function PushOverNav() {
         hamburgerBar2Ref.current &&
         hamburgerBar3Ref.current
       ) {
-        // Change bar colors to secondary color
+        // Change bar colors to white for dark overlay
         tl.to(
           [
             hamburgerBar1Ref.current,
@@ -268,20 +268,19 @@ export default function PushOverNav() {
             hamburgerBar3Ref.current,
           ],
           {
-            backgroundColor: "#fffdf6",
+            backgroundColor: "#fff",
             duration: 0.3,
             ease: customEase,
           },
           "<",
         );
 
-        // Change logo to secondary color (#fffdf6 - warm white/cream)
+        // Change logo to white (invert filter to make it white)
         if (logoRef.current) {
           tl.to(
             logoRef.current,
             {
-              filter:
-                "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)",
+              filter: "brightness(0) invert(1)",
               duration: 0.3,
               ease: customEase,
             },
@@ -499,9 +498,9 @@ export default function PushOverNav() {
 
   return (
     <>
-      <nav className="pointer-events-none fixed inset-0 z-[50] overflow-hidden">
+      <nav className="pointer-events-none fixed top-0 left-0 z-[50] h-screen w-screen overflow-hidden">
         {/* Menu Bar */}
-        <div className="pointer-events-auto fixed inset-x-0 top-0 z-[50] flex w-full items-center justify-between px-8 py-8 text-[#5f5f5f]">
+        <div className="pointer-events-auto fixed top-0 left-0 z-[50] flex w-screen items-center justify-between px-8 py-8 text-[#5f5f5f]">
           <div className="relative h-8 w-8">
             <Link href="/" className="relative block h-full w-full">
               <div
@@ -555,26 +554,41 @@ export default function PushOverNav() {
         {/* Menu Overlay */}
         <div
           ref={menuOverlayRef}
-          className="bg-primary text-secondary fixed inset-0 z-[1] overflow-hidden will-change-[clip-path]"
+          className="fixed top-0 left-0 z-[1] h-screen w-screen overflow-hidden bg-[#0f0f0f] text-white will-change-[clip-path]"
           style={{
             clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
           }}
         >
           <div
             ref={menuOverlayContainerRef}
-            className="pointer-events-auto fixed inset-0 flex h-full w-full will-change-transform"
+            className="pointer-events-auto fixed top-0 left-0 flex h-screen w-screen will-change-transform"
           >
-            {/* Content Wrapper - Now on the left */}
+            {/* Media Wrapper */}
+            <div
+              ref={menuMediaWrapperRef}
+              className="will-change-opacity hidden flex-[2] opacity-0 lg:block"
+            >
+              <div className="relative h-full w-full">
+                <Image
+                  src="/menu-media.jpg"
+                  alt="Menu background"
+                  fill
+                  className="object-cover opacity-25"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* Content Wrapper */}
             <div className="relative flex w-full flex-[3] flex-col">
-              <div className="absolute top-1/2 left-4 flex w-full -translate-y-1/2 transform flex-col items-start gap-12 py-8 md:left-8 lg:w-3/4 lg:flex-row lg:items-end lg:gap-8">
+              <div className="absolute top-1/2 left-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform flex-col items-start gap-12 px-8 py-8 lg:w-3/4 lg:flex-row lg:items-end lg:gap-8">
                 {/* Main Menu Links */}
-                <div className="menu-col text-secondary flex flex-[3] flex-col gap-2">
+                <div className="menu-col flex flex-[3] flex-col gap-2 text-white">
                   <div className="menu-link">
                     <Link
                       href="/"
                       onClick={handleLinkClick}
-                      className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
-                      style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+                      className="block text-5xl leading-tight font-medium text-white lg:text-7xl"
                     >
                       Home
                     </Link>
@@ -583,8 +597,7 @@ export default function PushOverNav() {
                     <Link
                       href="/restaurant"
                       onClick={handleLinkClick}
-                      className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
-                      style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+                      className="block text-5xl leading-tight font-medium text-white lg:text-7xl"
                     >
                       Restaurant
                     </Link>
@@ -593,8 +606,7 @@ export default function PushOverNav() {
                     <Link
                       href="/experiences"
                       onClick={handleLinkClick}
-                      className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
-                      style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+                      className="block text-5xl leading-tight font-medium text-white lg:text-7xl"
                     >
                       Experiences
                     </Link>
@@ -603,8 +615,7 @@ export default function PushOverNav() {
                     <Link
                       href="/events"
                       onClick={handleLinkClick}
-                      className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
-                      style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+                      className="block text-5xl leading-tight font-medium text-white lg:text-7xl"
                     >
                       Events
                     </Link>
@@ -613,46 +624,57 @@ export default function PushOverNav() {
                     <Link
                       href="/contact"
                       onClick={handleLinkClick}
-                      className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
-                      style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+                      className="block text-5xl leading-tight font-medium text-white lg:text-7xl"
                     >
                       Contact
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Tags Column */}
+                <div className="menu-col flex flex-[2] flex-col gap-2">
+                  <div className="menu-tag">
+                    <Link
+                      href="/restaurant"
+                      className="block text-lg text-zinc-500 lg:text-xl"
+                    >
+                      Fine Dining
+                    </Link>
+                  </div>
+                  <div className="menu-tag">
+                    <Link
+                      href="/experiences"
+                      className="block text-lg text-zinc-500 lg:text-xl"
+                    >
+                      Unique Experiences
+                    </Link>
+                  </div>
+                  <div className="menu-tag">
+                    <Link
+                      href="/events"
+                      className="block text-lg text-zinc-500 lg:text-xl"
+                    >
+                      Special Events
                     </Link>
                   </div>
                 </div>
               </div>
 
               {/* Footer */}
-              <div className="mt-auto flex w-full flex-col items-start gap-8 py-8 pl-4 md:pl-8 lg:w-3/4 lg:flex-row">
+              <div className="mx-auto mt-auto flex w-3/4 flex-col items-end gap-8 px-8 py-8 lg:w-3/4 lg:flex-row">
                 <div className="menu-col flex flex-col gap-2">
-                  <p className="text-secondary text-sm font-medium">
+                  <p className="text-sm font-medium text-zinc-500">
                     Eden Garden
                   </p>
                 </div>
                 <div className="menu-col flex flex-col gap-2">
-                  <p className="text-secondary text-sm font-medium">
+                  <p className="text-sm font-medium text-zinc-500">
                     +1 437 555 0199
                   </p>
-                  <p className="text-secondary text-sm font-medium">
+                  <p className="text-sm font-medium text-zinc-500">
                     hello@edengarden.com
                   </p>
                 </div>
-              </div>
-            </div>
-
-            {/* Media Wrapper - Now on the right */}
-            <div
-              ref={menuMediaWrapperRef}
-              className="will-change-opacity hidden flex-[2] pr-4 opacity-0 md:pr-8 lg:flex lg:items-center lg:justify-end"
-            >
-              <div className="relative h-[60vh] w-full max-w-md">
-                <Image
-                  src="/images/jordan.jpg"
-                  alt="Menu background"
-                  fill
-                  className="object-cover"
-                  priority
-                />
               </div>
             </div>
           </div>

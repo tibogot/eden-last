@@ -1,17 +1,28 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
     <main className="bg-secondary text-primary">
-      <section className="h-screen flex flex-col items-center justify-center text-center">
-        <div className="container mx-auto px-4">
-          <h1
-            className="font-ivy-light mb-4 text-4xl"
-            style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
-          >
-            Welcome Home
-          </h1>
-          <p className="max-w-2xl text-lg mx-auto">
-            Discover our restaurant, experiences, and events.
-          </p>
+      <section className="relative h-[100svh] w-full overflow-hidden">
+        <Image
+          src="/images/hero.jpg"
+          alt="Hero image"
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center">
+          <div className="container mx-auto px-4">
+            <h1
+              className="font-ivy-light mb-4 text-4xl text-white"
+              style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+            >
+              Welcome Home
+            </h1>
+            <p className="max-w-2xl text-lg mx-auto text-white">
+              Discover our restaurant, experiences, and events.
+            </p>
+          </div>
         </div>
       </section>
       <section className="container mx-auto px-4 py-16">
