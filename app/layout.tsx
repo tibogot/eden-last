@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import LenisProvider from "./components/LenisProvider";
-import Nav from "./components/Nav";
+import PushOverNav from "./components/PushOverNav";
 import Footer from "./components/Footer";
 import { ScrollToTop } from "./components/ScrollToTop";
 
@@ -42,13 +42,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${ivyPrestoHeadline.variable} ${neueHaasDisplay.variable} flex min-h-screen flex-col antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${ivyPrestoHeadline.variable} ${neueHaasDisplay.variable} antialiased`}
       >
         <LenisProvider>
-          <ScrollToTop />
-          <Nav />
-          {children}
-          <Footer />
+          <PushOverNav />
+          <div className="content-container bg-background text-foreground relative translate-y-0 transform">
+            <ScrollToTop />
+            {children}
+            <Footer />
+          </div>
         </LenisProvider>
       </body>
     </html>

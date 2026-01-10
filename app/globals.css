@@ -32,3 +32,13 @@ body {
 p {
   font-family: var(--font-neue-haas-display);
 }
+
+/* Push Over Nav Styles */
+.content-container {
+  will-change: transform;
+}
+
+.line {
+  position: relative;
+  will-change: transform;
+}
