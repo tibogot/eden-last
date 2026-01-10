@@ -1,6 +1,6 @@
 export default function Events() {
   return (
-    <main className="bg-secondary text-primary">
+    <main className="bg-secondary text-primary pt-20">
       <section className="container mx-auto px-4 py-16">
         <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
           <h1 className="text-4xl font-ivy-light mb-4">
