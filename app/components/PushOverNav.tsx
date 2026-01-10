@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLenis } from "lenis/react";
+import { useRouter } from "next/navigation";
 import { gsap, SplitText, useGSAP } from "../lib/gsapConfig";
 
 // Custom ease matching the original "hop" ease
@@ -11,6 +12,7 @@ const customEase = "cubic-bezier(0.87, 0, 0.13, 1)";
 
 export default function PushOverNav() {
   const lenis = useLenis();
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -485,15 +487,173 @@ export default function PushOverNav() {
     }
   };
 
-  const handleLinkClick = () => {
+  // Helper function to wait for images in the hero section to load
+  const waitForHeroImages = (): Promise<void> => {
+    return new Promise((resolve) => {
+      let hasResolved = false;
+
+      // Give React time to render the new page content
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Find all images in the hero section (first section)
+          const heroSection = document.querySelector(
+            "main section:first-of-type, main > section:first-child",
+          );
+          if (!heroSection) {
+            // If no hero section found, wait a bit more and resolve
+            if (!hasResolved) {
+              hasResolved = true;
+              setTimeout(resolve, 100);
+            }
+            return;
+          }
+
+          // Check for both regular img tags and Next.js Image component images
+          const images = Array.from(
+            heroSection.querySelectorAll<HTMLImageElement>("img"),
+          );
+
+          if (images.length === 0) {
+            // No images in hero, resolve after a short delay to ensure layout is ready
+            if (!hasResolved) {
+              hasResolved = true;
+              setTimeout(resolve, 50);
+            }
+            return;
+          }
+
+          let loadedCount = 0;
+          const totalImages = images.length;
+
+          // Set a timeout to resolve even if images don't load (max 3 seconds)
+          const timeout = setTimeout(() => {
+            if (!hasResolved) {
+              hasResolved = true;
+              resolve();
+            }
+          }, 3000);
+
+          const checkComplete = () => {
+            if (hasResolved) return;
+            loadedCount++;
+            if (loadedCount >= totalImages) {
+              hasResolved = true;
+              clearTimeout(timeout); // Clear timeout since we resolved early
+              // All images loaded, wait one more frame for layout to settle
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  resolve();
+                });
+              });
+            }
+          };
+
+          images.forEach((img) => {
+            // For Next.js Image components, check if the underlying img is loaded
+            if (img.complete && img.naturalHeight !== 0) {
+              // Image already loaded
+              checkComplete();
+            } else if (img.complete && img.naturalHeight === 0) {
+              // Image failed to load, count it anyway
+              checkComplete();
+            } else {
+              // Wait for image to load
+              const onLoad = () => {
+                checkComplete();
+              };
+              const onError = () => {
+                checkComplete();
+              };
+              img.addEventListener("load", onLoad, { once: true });
+              img.addEventListener("error", onError, { once: true });
+            }
+          });
+
+          // If all images were already loaded when we checked, resolve immediately
+          if (loadedCount >= totalImages && !hasResolved) {
+            clearTimeout(timeout);
+            hasResolved = true;
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                resolve();
+              });
+            });
+          }
+        });
+      });
+    });
+  };
+
+  const handleLinkClick = async (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     // Always close menu when clicking a link, even if animations are running
     if (isMenuOpen) {
+      e.preventDefault();
+
       // Kill any running animations immediately
       if (currentTimelineRef.current) {
         currentTimelineRef.current.kill();
         currentTimelineRef.current = null;
       }
+
+      // Prefetch the route to start loading assets early
+      router.prefetch(href);
+
+      // Navigate to the new page (this starts the navigation process)
+      router.push(href);
+
+      // Wait for the route to actually change and React to render the new page
+      await new Promise<void>((resolve) => {
+        let checkCount = 0;
+        const maxChecks = 100; // Max 100 frames (~1.6 seconds at 60fps)
+
+        const checkRouteChange = () => {
+          checkCount++;
+          // Check if the URL has changed
+          if (window.location.pathname === href || checkCount >= maxChecks) {
+            // Give React multiple frames to fully render the new page content
+            // This ensures the DOM is updated with the new page structure
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  resolve();
+                });
+              });
+            });
+          } else {
+            // Check again on next frame
+            requestAnimationFrame(checkRouteChange);
+          }
+        };
+        // Start checking immediately
+        checkRouteChange();
+      });
+
+      // Scroll to top immediately so the hero section is visible when animation starts
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      } else {
+        // Fallback if Lenis is not available
+        window.scrollTo(0, 0);
+      }
+
+      // Wait one frame to ensure scroll position is fully set
+      await new Promise<void>((resolve) => {
+        requestAnimationFrame(() => {
+          resolve();
+        });
+      });
+
+      // Now wait for hero images to be fully loaded
+      await waitForHeroImages();
+
+      // Start the slide-up animation now that content is ready
       handleMenuToggle();
+    } else {
+      // Menu is not open, navigate normally (don't prevent default)
+      // Let Next.js handle navigation normally
     }
   };
 
@@ -572,7 +732,7 @@ export default function PushOverNav() {
                   <div className="menu-link">
                     <Link
                       href="/"
-                      onClick={handleLinkClick}
+                      onClick={(e) => handleLinkClick(e, "/")}
                       className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                       style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
                     >
@@ -582,7 +742,7 @@ export default function PushOverNav() {
                   <div className="menu-link">
                     <Link
                       href="/restaurant"
-                      onClick={handleLinkClick}
+                      onClick={(e) => handleLinkClick(e, "/restaurant")}
                       className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                       style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
                     >
@@ -592,7 +752,7 @@ export default function PushOverNav() {
                   <div className="menu-link">
                     <Link
                       href="/experiences"
-                      onClick={handleLinkClick}
+                      onClick={(e) => handleLinkClick(e, "/experiences")}
                       className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                       style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
                     >
@@ -602,7 +762,7 @@ export default function PushOverNav() {
                   <div className="menu-link">
                     <Link
                       href="/events"
-                      onClick={handleLinkClick}
+                      onClick={(e) => handleLinkClick(e, "/events")}
                       className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                       style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
                     >
@@ -612,7 +772,7 @@ export default function PushOverNav() {
                   <div className="menu-link">
                     <Link
                       href="/contact"
-                      onClick={handleLinkClick}
+                      onClick={(e) => handleLinkClick(e, "/contact")}
                       className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                       style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
                     >
