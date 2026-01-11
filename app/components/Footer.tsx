@@ -50,6 +50,12 @@ export default function Footer() {
               Events
             </Link>
             <Link
+              href="/about"
+              className="text-sm text-white transition-colors hover:text-white/80"
+            >
+              About
+            </Link>
+            <Link
               href="/contact"
               className="text-sm text-white transition-colors hover:text-white/80"
             >
@@ -57,6 +63,16 @@ export default function Footer() {
             </Link>
           </div>
           <p className="text-sm text-white/80">© 2026 All rights reserved.</p>
+          <div className="flex justify-center pt-6">
+            <Image
+              src="/navlogo.svg"
+              alt="Eden Garden Logo"
+              width={500}
+              height={239}
+              className="h-auto w-auto"
+              priority={false}
+            />
+          </div>
         </div>
       </div>
     </footer>

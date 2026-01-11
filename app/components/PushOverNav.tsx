@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLenis } from "lenis/react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { gsap, SplitText, useGSAP } from "../lib/gsapConfig";
 
 // Custom ease - using expo.out for snappier, more dynamic animation
@@ -14,8 +14,12 @@ const customEase = "expo.out"; // Try: "expo.out", "power3.out", "power4.out", o
 export default function PushOverNav() {
   const lenis = useLenis();
   const router = useRouter();
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isInHero, setIsInHero] = useState(true);
+  const isInHeroRef = useRef(true); // Ref to track current hero state for closures
+  const wasInHeroBeforeOpenRef = useRef(true); // Store hero state when opening menu
 
   const menuToggleBtnRef = useRef<HTMLButtonElement>(null);
   const menuOverlayRef = useRef<HTMLDivElement>(null);
@@ -147,6 +151,117 @@ export default function PushOverNav() {
     { dependencies: [] },
   );
 
+  // Detect hero section using IntersectionObserver
+  useEffect(() => {
+    let observer: IntersectionObserver | null = null;
+    let raf: number | null = null;
+
+    // Wait for DOM to be ready
+    raf = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // Find the first section with an image (hero section)
+        const heroSection = document.querySelector(
+          "main > section:first-of-type",
+        ) as HTMLElement;
+
+        if (!heroSection) {
+          // If no hero section found, default to not in hero
+          isInHeroRef.current = false;
+          setIsInHero(false);
+          return;
+        }
+
+        // Check if hero section has an image
+        const hasImage = heroSection.querySelector("img") !== null;
+        if (!hasImage) {
+          isInHeroRef.current = false;
+          setIsInHero(false);
+          return;
+        }
+
+        // Initial check: see if hero section is currently visible
+        const rect = heroSection.getBoundingClientRect();
+        const isCurrentlyVisible =
+          rect.top < window.innerHeight && rect.bottom > 80; // 80px accounts for nav
+        isInHeroRef.current = isCurrentlyVisible;
+        setIsInHero(isCurrentlyVisible);
+
+        // Use IntersectionObserver to detect when hero section is in view
+        observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              // If hero section is intersecting (visible), we're in hero
+              // Use a threshold that triggers when we've scrolled past most of it
+              const isInHeroNow =
+                entry.isIntersecting && entry.intersectionRatio > 0.1;
+              isInHeroRef.current = isInHeroNow;
+              setIsInHero(isInHeroNow);
+            });
+          },
+          {
+            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+            rootMargin: "-80px 0px 0px 0px", // Account for nav height
+          },
+        );
+
+        observer.observe(heroSection);
+      });
+    });
+
+    return () => {
+      if (raf !== null) {
+        cancelAnimationFrame(raf);
+      }
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, [pathname]); // Re-run when route changes
+
+  // Update nav colors based on hero section and menu state
+  // Only applies when menu is closed (when menu is open, keep existing behavior)
+  useEffect(() => {
+    if (isMenuOpen || isAnimating) {
+      // Don't change colors when menu is open or animating
+      return;
+    }
+
+    // Colors: secondary (#fffdf6) when in hero, primary (#465643) when past hero
+    const targetColor = isInHero ? "#fffdf6" : "#465643";
+    const logoFilter = isInHero
+      ? "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)"
+      : "brightness(0) saturate(100%) invert(27%) sepia(12%) saturate(600%) hue-rotate(60deg) brightness(95%) contrast(85%)";
+
+    // Update burger colors
+    if (
+      hamburgerBar1Ref.current &&
+      hamburgerBar2Ref.current &&
+      hamburgerBar3Ref.current
+    ) {
+      gsap.to(
+        [
+          hamburgerBar1Ref.current,
+          hamburgerBar2Ref.current,
+          hamburgerBar3Ref.current,
+        ],
+        {
+          backgroundColor: targetColor,
+          duration: 0.3,
+          ease: "power2.out",
+        },
+      );
+    }
+
+    // Update logo filter
+    if (logoRef.current) {
+      gsap.to(logoRef.current, {
+        filter: logoFilter,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    }
+  }, [isInHero, isMenuOpen, isAnimating]);
+
   const handleMenuToggle = () => {
     // Get the content container (this will be the main page content)
     const contentContainer = document.querySelector(
@@ -165,7 +280,9 @@ export default function PushOverNav() {
     }
 
     if (!isMenuOpen) {
-      // Opening menu
+      // Opening menu - store current hero state before opening
+      wasInHeroBeforeOpenRef.current = isInHeroRef.current;
+
       setIsAnimating(true);
       if (lenis) lenis.stop();
 
@@ -475,7 +592,7 @@ export default function PushOverNav() {
           "<",
         );
 
-        // Show middle bar and change colors back to gray
+        // Show middle bar
         tl.to(
           hamburgerBar2Ref.current,
           {
@@ -486,6 +603,14 @@ export default function PushOverNav() {
           "<0.2",
         );
 
+        // Use the color that was active BEFORE opening the menu
+        const targetColor = wasInHeroBeforeOpenRef.current
+          ? "#fffdf6"
+          : "#465643";
+        const logoFilter = wasInHeroBeforeOpenRef.current
+          ? "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)"
+          : "brightness(0) saturate(100%) invert(27%) sepia(12%) saturate(600%) hue-rotate(60deg) brightness(95%) contrast(85%)";
+
         tl.to(
           [
             hamburgerBar1Ref.current,
@@ -493,20 +618,19 @@ export default function PushOverNav() {
             hamburgerBar3Ref.current,
           ],
           {
-            backgroundColor: "#5f5f5f",
+            backgroundColor: targetColor,
             duration: 0.3,
             ease: customEase,
           },
           "<",
         );
 
-        // Change logo back to gray (same timing as hamburger)
+        // Change logo color based on hero section state (same timing as hamburger)
         if (logoRef.current) {
           tl.to(
             logoRef.current,
             {
-              filter:
-                "brightness(0) saturate(100%) invert(37%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(95%) contrast(90%)",
+              filter: logoFilter,
               duration: 0.3,
               ease: customEase,
             },
@@ -693,7 +817,7 @@ export default function PushOverNav() {
     <>
       <nav className="pointer-events-none fixed inset-0 z-[50] overflow-hidden">
         {/* Menu Bar */}
-        <div className="pointer-events-auto fixed inset-x-0 top-0 z-[50] flex w-full items-center justify-between px-8 py-8 text-[#5f5f5f]">
+        <div className="text-primary pointer-events-auto fixed inset-x-0 top-0 z-[50] flex w-full items-center justify-between px-8 py-8">
           <div className="relative h-12 w-24">
             <Link href="/" className="relative block h-full w-full">
               <div
@@ -701,7 +825,7 @@ export default function PushOverNav() {
                 className="relative h-full w-full will-change-[filter]"
                 style={{
                   filter:
-                    "brightness(0) saturate(100%) invert(37%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(95%) contrast(90%)",
+                    "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)",
                 }}
               >
                 <Image
@@ -727,17 +851,17 @@ export default function PushOverNav() {
             >
               <span
                 ref={hamburgerBar1Ref}
-                className="absolute h-[1.5px] w-full origin-center overflow-visible bg-[#5f5f5f] transition-colors duration-300 ease-in-out will-change-transform"
+                className="bg-secondary absolute h-[1.5px] w-full origin-center overflow-visible transition-colors duration-300 ease-in-out will-change-transform"
                 style={{ transform: "translateY(-6px)" }}
               ></span>
               <span
                 ref={hamburgerBar2Ref}
-                className="absolute h-[1.5px] w-full origin-center overflow-visible bg-[#5f5f5f] opacity-100 transition-colors duration-300 ease-in-out will-change-transform"
+                className="bg-secondary absolute h-[1.5px] w-full origin-center overflow-visible opacity-100 transition-colors duration-300 ease-in-out will-change-transform"
                 style={{ transform: "translateY(0)" }}
               ></span>
               <span
                 ref={hamburgerBar3Ref}
-                className="absolute h-[1.5px] w-full origin-center overflow-visible bg-[#5f5f5f] transition-colors duration-300 ease-in-out will-change-transform"
+                className="bg-secondary absolute h-[1.5px] w-full origin-center overflow-visible transition-colors duration-300 ease-in-out will-change-transform"
                 style={{ transform: "translateY(6px)" }}
               ></span>
             </div>
@@ -795,6 +919,15 @@ export default function PushOverNav() {
                       className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                     >
                       Events
+                    </Link>
+                  </div>
+                  <div className="menu-link">
+                    <Link
+                      href="/about"
+                      onClick={(e) => handleLinkClick(e, "/about")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
+                    >
+                      About
                     </Link>
                   </div>
                   <div className="menu-link">
