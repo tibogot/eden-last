@@ -7,8 +7,9 @@ import { useLenis } from "lenis/react";
 import { useRouter } from "next/navigation";
 import { gsap, SplitText, useGSAP } from "../lib/gsapConfig";
 
-// Custom ease matching the original "hop" ease
-const customEase = "cubic-bezier(0.87, 0, 0.13, 1)";
+// Custom ease - using expo.out for snappier, more dynamic animation
+// If this doesn't match the original, import the old project to compare
+const customEase = "expo.out"; // Try: "expo.out", "power3.out", "power4.out", or keep original: "cubic-bezier(0.87, 0, 0.13, 1)"
 
 export default function PushOverNav() {
   const lenis = useLenis();
@@ -102,6 +103,14 @@ export default function PushOverNav() {
     () => {
       if (menuOverlayContainerRef.current) {
         gsap.set(menuOverlayContainerRef.current, { yPercent: -50 });
+      }
+
+      // Set initial media wrapper state (hidden from bottom, opacity 0)
+      if (menuMediaWrapperRef.current) {
+        gsap.set(menuMediaWrapperRef.current, {
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+          opacity: 0,
+        });
       }
 
       // Set initial hamburger bar positions
@@ -209,12 +218,19 @@ export default function PushOverNav() {
         );
       }
 
-      // Fade in media
+      // Animate media with clip-path from bottom to top
       if (menuMediaWrapperRef.current) {
+        // Set initial state: hidden from bottom (clip from bottom) and make visible
+        gsap.set(menuMediaWrapperRef.current, {
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+          opacity: 1,
+        });
+
+        // Animate clip-path to reveal from bottom to top
         tl.to(
           menuMediaWrapperRef.current,
           {
-            opacity: 1,
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
             duration: 0.75,
             ease: "power2.out",
             delay: 0.5,
@@ -355,7 +371,10 @@ export default function PushOverNav() {
             document.querySelectorAll<HTMLElement>(".menu-col");
           gsap.set(allMenuCols, { opacity: 1 });
           if (menuMediaWrapperRef.current) {
-            gsap.set(menuMediaWrapperRef.current, { opacity: 0 });
+            gsap.set(menuMediaWrapperRef.current, {
+              opacity: 1,
+              clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+            });
           }
 
           setIsAnimating(false);
@@ -407,6 +426,19 @@ export default function PushOverNav() {
           allMenuCols,
           {
             opacity: 0.25,
+            duration: 1,
+            ease: customEase,
+          },
+          "<",
+        );
+      }
+
+      // Fade out media with opacity animation (same as text)
+      if (menuMediaWrapperRef.current) {
+        tl.to(
+          menuMediaWrapperRef.current,
+          {
+            opacity: 0,
             duration: 1,
             ease: customEase,
           },
@@ -662,7 +694,7 @@ export default function PushOverNav() {
       <nav className="pointer-events-none fixed inset-0 z-[50] overflow-hidden">
         {/* Menu Bar */}
         <div className="pointer-events-auto fixed inset-x-0 top-0 z-[50] flex w-full items-center justify-between px-8 py-8 text-[#5f5f5f]">
-          <div className="relative h-8 w-8">
+          <div className="relative h-12 w-24">
             <Link href="/" className="relative block h-full w-full">
               <div
                 ref={logoRef}
@@ -673,12 +705,12 @@ export default function PushOverNav() {
                 }}
               >
                 <Image
-                  src="/logo.png"
+                  src="/navlogo.svg"
                   alt="Logo"
                   fill
                   className="object-contain"
                   priority
-                  sizes="32px"
+                  sizes="96px"
                 />
               </div>
             </Link>
@@ -733,8 +765,7 @@ export default function PushOverNav() {
                     <Link
                       href="/"
                       onClick={(e) => handleLinkClick(e, "/")}
-                      className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
-                      style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                     >
                       Home
                     </Link>
@@ -743,8 +774,7 @@ export default function PushOverNav() {
                     <Link
                       href="/restaurant"
                       onClick={(e) => handleLinkClick(e, "/restaurant")}
-                      className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
-                      style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                     >
                       Restaurant
                     </Link>
@@ -753,8 +783,7 @@ export default function PushOverNav() {
                     <Link
                       href="/experiences"
                       onClick={(e) => handleLinkClick(e, "/experiences")}
-                      className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
-                      style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                     >
                       Experiences
                     </Link>
@@ -763,8 +792,7 @@ export default function PushOverNav() {
                     <Link
                       href="/events"
                       onClick={(e) => handleLinkClick(e, "/events")}
-                      className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
-                      style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                     >
                       Events
                     </Link>
@@ -773,8 +801,7 @@ export default function PushOverNav() {
                     <Link
                       href="/contact"
                       onClick={(e) => handleLinkClick(e, "/contact")}
-                      className="font-ivy-light text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
-                      style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
                     >
                       Contact
                     </Link>
@@ -803,7 +830,10 @@ export default function PushOverNav() {
             {/* Media Wrapper - Now on the right */}
             <div
               ref={menuMediaWrapperRef}
-              className="will-change-opacity hidden flex-[2] pr-4 opacity-0 md:pr-8 lg:flex lg:items-center lg:justify-end"
+              className="hidden flex-[2] pr-4 opacity-0 will-change-[clip-path] md:pr-8 lg:flex lg:items-center lg:justify-end"
+              style={{
+                clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+              }}
             >
               <div className="relative h-[60vh] w-full max-w-md">
                 <Image

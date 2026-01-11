@@ -12,59 +12,53 @@ export default function Footer() {
         className="object-cover"
         priority={false}
       />
-      
+
       {/* Content Overlay */}
       <div className="relative z-10 flex h-full w-full flex-col px-4 pt-8 md:px-8">
         {/* Top Left Text */}
         <div className="mb-auto">
-          <p
-            className="font-ivy-light text-4xl leading-tight text-white md:text-5xl lg:text-6xl xl:text-7xl"
-            style={{ fontFamily: "var(--font-ivy-presto-headline)" }}
-          >
+          <p className="font-ivy-headline max-w-lg text-4xl leading-tight text-white md:text-5xl">
             There is no place like Eden garden in Abuja
           </p>
         </div>
 
         {/* Footer Links - Bottom */}
         <div className="mt-auto flex flex-col items-center justify-center gap-4 pb-8">
-          <div className="flex gap-6 flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center gap-6">
             <Link
               href="/"
-              className="text-sm text-white hover:text-white/80 transition-colors"
+              className="text-sm text-white transition-colors hover:text-white/80"
             >
               Home
             </Link>
             <Link
               href="/restaurant"
-              className="text-sm text-white hover:text-white/80 transition-colors"
+              className="text-sm text-white transition-colors hover:text-white/80"
             >
               Restaurant
             </Link>
             <Link
               href="/experiences"
-              className="text-sm text-white hover:text-white/80 transition-colors"
+              className="text-sm text-white transition-colors hover:text-white/80"
             >
               Experiences
             </Link>
             <Link
               href="/events"
-              className="text-sm text-white hover:text-white/80 transition-colors"
+              className="text-sm text-white transition-colors hover:text-white/80"
             >
               Events
             </Link>
             <Link
               href="/contact"
-              className="text-sm text-white hover:text-white/80 transition-colors"
+              className="text-sm text-white transition-colors hover:text-white/80"
             >
               Contact
             </Link>
           </div>
-          <p className="text-sm text-white/80">
-            © 2026 All rights reserved.
-          </p>
+          <p className="text-sm text-white/80">© 2026 All rights reserved.</p>
         </div>
       </div>
     </footer>
   );
 }
-

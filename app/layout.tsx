@@ -10,12 +10,14 @@ const ivyPrestoHeadline = localFont({
   src: "./fonts/ivy-presto-headline-light.otf",
   variable: "--font-ivy-presto-headline",
   weight: "300",
+  display: "swap",
 });
 
 const neueHaasDisplay = localFont({
   src: "./fonts/NeueHaasDisplay-Roman.woff",
   variable: "--font-neue-haas-display",
   weight: "400",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -29,10 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${ivyPrestoHeadline.variable} ${neueHaasDisplay.variable} antialiased`}
-      >
+    <html
+      lang="en"
+      className={`${ivyPrestoHeadline.variable} ${neueHaasDisplay.variable}`}
+    >
+      <body className="antialiased">
         <LenisProvider>
           <PushOverNav />
           <div className="content-container bg-background text-foreground relative translate-y-0 transform">
