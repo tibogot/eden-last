@@ -38,13 +38,19 @@ export default function PinnedImageReveal({
       if (!mounted) return;
 
       // Check if we're currently in a page transition
-      const contentContainer = document.querySelector(".content-container") as HTMLElement;
+      const contentContainer = document.querySelector(
+        ".content-container",
+      ) as HTMLElement;
       if (contentContainer) {
         const transform = window.getComputedStyle(contentContainer).transform;
         // Check if content is currently transformed (mid-animation)
         if (transform && transform !== "none") {
           // Wait for transition to complete
-          window.addEventListener("pageTransitionComplete", handleTransitionComplete, { once: true });
+          window.addEventListener(
+            "pageTransitionComplete",
+            handleTransitionComplete,
+            { once: true },
+          );
         } else {
           // No animation in progress, ready after a small delay
           timeoutId = setTimeout(() => {
@@ -65,7 +71,10 @@ export default function PinnedImageReveal({
     return () => {
       mounted = false;
       clearTimeout(timeoutId);
-      window.removeEventListener("pageTransitionComplete", handleTransitionComplete);
+      window.removeEventListener(
+        "pageTransitionComplete",
+        handleTransitionComplete,
+      );
     };
   }, [pathname]);
 
@@ -88,7 +97,7 @@ export default function PinnedImageReveal({
             pin: true,
             pinReparent: true,
             scrub: 1,
-            markers: true,
+            // markers: true,
             pinSpacing: true,
           },
         },

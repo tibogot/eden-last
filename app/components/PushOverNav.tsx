@@ -881,7 +881,9 @@ export default function PushOverNav() {
 
       // CRITICAL: Reset content container position immediately
       // So the new page content is visible at the correct position
-      const contentContainer = document.querySelector(".content-container") as HTMLElement;
+      const contentContainer = document.querySelector(
+        ".content-container",
+      ) as HTMLElement;
       if (contentContainer) {
         gsap.set(contentContainer, { y: "100svh" }); // Keep it pushed down initially
       }
@@ -928,7 +930,7 @@ export default function PushOverNav() {
       if (lenis) {
         lenis.scrollTo(0, { immediate: true, force: true });
       }
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
 
@@ -951,6 +953,14 @@ export default function PushOverNav() {
 
   return (
     <>
+      <style>{`
+        .menu-col:has(.menu-link:hover) .menu-link:not(:hover) {
+          opacity: 0.3;
+        }
+        .menu-link {
+          transition: opacity 0.3s ease;
+        }
+      `}</style>
       <nav className="pointer-events-none fixed inset-0 z-[50] overflow-hidden">
         {/* Menu Bar */}
         <div className="text-primary pointer-events-auto fixed inset-x-0 top-0 z-[50] flex w-full items-center justify-between px-8 py-8">
