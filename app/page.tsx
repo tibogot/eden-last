@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import TextReveal from "@/app/components/TextReveal";
 
 export default function Home() {
   return (
@@ -12,19 +13,41 @@ export default function Home() {
           priority
           className="object-cover"
         />
-        <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
-          <div className="container mx-auto px-4">
-            <h1 className="font-ivy-headline mb-4 text-7xl leading-tight text-white md:text-8xl lg:text-9xl">
-              Experience paradise in every sip and bite
-            </h1>
-            <p className="mx-auto mt-16 max-w-lg text-lg text-white">
-              Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
-              blend of entertainment and relaxation. From live music and dance
-              shows to thrilling football matches, there.
-            </p>
+        <div className="relative z-10 h-full">
+          {/* Title - Centered */}
+          <div className="absolute inset-0 flex items-center justify-center text-center">
+            <div className="container mx-auto px-4">
+              <h1 className="font-ivy-headline mb-4 text-7xl text-white md:text-8xl lg:text-9xl">
+                Experience paradise in every sip and bite
+              </h1>
+            </div>
+          </div>
+          {/* Paragraph - Bottom Center */}
+          <div className="absolute right-0 bottom-0 left-0 flex items-center justify-center pb-8 text-center">
+            <div className="container mx-auto px-4">
+              <p className="mx-auto max-w-lg text-base text-white">
+                Eden Park & Garden is a vibrant oasis in Abuja, offering a
+                unique blend of entertainment and relaxation. From live music
+                and dance shows to thrilling football matches, there.
+              </p>
+            </div>
           </div>
         </div>
       </section>
+
+      <section className="py-32 md:py-80">
+        <TextReveal
+          className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
+          startColor="rgba(70, 86, 67, 0.2)"
+          endColor="rgb(70, 86, 67)"
+        >
+          <h4 className="font-ivy-headline text-4xl leading-tight md:text-6xl">
+            Leading road construction and civil engineering solutions across
+            Nigeria and West Africa.
+          </h4>
+        </TextReveal>
+      </section>
+
       <section className="bg-secondary text-primary pt-32">
         <div className="container px-4 md:px-8">
           {/* First Section - PHILOSOPHY label and title */}
@@ -73,11 +96,17 @@ export default function Home() {
       <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center justify-center text-center">
-            <p className="font-ivy-headline text-primary max-w-4xl text-3xl leading-tight md:text-4xl lg:text-5xl">
-              Of all the vibrant spaces, it is the only one that becomes even
-              more captivating as you explore, ending not with a grand finale
-              but by seamlessly blending into the natural landscape.
-            </p>
+            <TextReveal
+              className="max-w-4xl"
+              startColor="rgba(70, 86, 67, 0.2)"
+              endColor="rgb(70, 86, 67)"
+            >
+              <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl lg:text-5xl">
+                Of all the vibrant spaces, it is the only one that becomes even
+                more captivating as you explore, ending not with a grand finale
+                but by seamlessly blending into the natural landscape.
+              </p>
+            </TextReveal>
           </div>
         </div>
       </section>

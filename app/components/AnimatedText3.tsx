@@ -1,6 +1,6 @@
 "use client";
 import { useRef, ReactNode, useState, useEffect } from "react";
-import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsapConfig";
+import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/app/lib/gsapConfig";
 
 // Function to fix SplitText clipping issues with descenders
 function fixMask(
@@ -55,10 +55,10 @@ function AnimatedText({
   isHero = false,
 }: AnimatedTextProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const splitRefs = useRef<any[]>([]); // Store all SplitText instances for cleanup
-  const scrollTriggerRefs = useRef<any[]>([]); // Store ScrollTrigger instances
+  const splitRefs = useRef<Array<ReturnType<typeof SplitText.create>>>([]); // Store all SplitText instances for cleanup
+  const scrollTriggerRefs = useRef<ScrollTrigger[]>([]); // Store ScrollTrigger instances
   const [fontsReady, setFontsReady] = useState(false);
-  const [splitTextCreated, setSplitTextCreated] = useState(false);
+  const [, setSplitTextCreated] = useState(false); // Only setter is used
 
   // Font loading detection using document.fonts.ready
   useEffect(() => {
@@ -72,7 +72,7 @@ function AnimatedText({
           // Fallback for browsers that don't support document.fonts
           setTimeout(() => setFontsReady(true), 100);
         }
-      } catch (error) {
+      } catch {
         // Fallback: proceed if font detection fails
         setTimeout(() => setFontsReady(true), 100);
       }
@@ -140,7 +140,7 @@ function AnimatedText({
             });
 
             // Force a reflow to ensure the element is fully rendered
-            child.offsetHeight;
+            void child.offsetHeight;
 
             const split = SplitText.create(child, {
               type: "lines",
@@ -213,7 +213,7 @@ function AnimatedText({
             } else {
               allInstancesCreated = false;
             }
-          } catch (error) {
+          } catch {
             allInstancesCreated = false;
           }
         });
