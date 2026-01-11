@@ -23,13 +23,13 @@ function LenisController() {
     ScrollTrigger.scrollerProxy(window, {
       scrollTop(value) {
         if (arguments.length) {
-          lenis.scrollTo(value, { immediate: true });
+          lenis.scrollTo(value as number, { immediate: true });
         }
         return lenis.scroll;
       },
       scrollLeft(value) {
         if (arguments.length) {
-          lenis.scrollTo(value, { immediate: true, horizontal: true });
+          lenis.scrollTo(value as number, { immediate: true, horizontal: true });
         }
         return lenis.scroll;
       },

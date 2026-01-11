@@ -4,7 +4,6 @@ import Image from "next/image";
 import PinnedImageReveal from "@/app/components/PinnedImageReveal";
 
 export default function About() {
-
   return (
     <main className="bg-secondary text-primary">
       <section className="relative h-svh w-full overflow-hidden">
@@ -30,11 +29,20 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="container mx-auto px-4 py-16">
-        <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
-          <h2 className="font-ivy-headline mb-4 text-3xl">About Us</h2>
-          <p className="max-w-2xl text-lg">
-            Experience excellence in every detail of your journey with us.
+      <section className="container mx-auto px-4 py-20 md:px-8">
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="font-neue-haas mb-4 text-xs tracking-wider uppercase">
+            ABOUT
+          </span>
+          <h2 className="font-ivy-headline mb-6 max-w-3xl text-5xl leading-tight">
+            A vibrant oasis in the heart of Abuja where entertainment meets
+            relaxation, where live music fills the air.
+          </h2>
+          <p className="text-primary/80 max-w-sm text-sm">
+            Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
+            blend of entertainment and relaxation. From live music and dance
+            shows to thrilling football matches, we create unforgettable
+            experiences that bring people together.
           </p>
         </div>
       </section>
