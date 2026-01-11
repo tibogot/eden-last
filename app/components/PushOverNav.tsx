@@ -991,6 +991,12 @@ export default function PushOverNav() {
         .menu-link {
           transition: opacity 0.3s ease;
         }
+        .menu-link-active {
+          opacity: 0.3;
+        }
+        .menu-link-active:hover {
+          opacity: 1;
+        }
       `}</style>
       <nav className="pointer-events-none fixed inset-0 z-[50] overflow-hidden">
         {/* Menu Bar */}
@@ -1059,59 +1065,59 @@ export default function PushOverNav() {
           >
             {/* Content Wrapper - Now on the left */}
             <div className="relative flex w-full flex-[3] flex-col">
-              <div className="absolute top-1/2 left-4 flex w-full -translate-y-1/2 transform flex-col items-start gap-12 py-8 md:left-8 lg:w-3/4 lg:flex-row lg:items-end lg:gap-8">
+              <div className="absolute top-1/2 left-4 flex w-full -translate-y-1/2 transform flex-col items-start gap-12 py-8 md:left-8 md:w-3/4 md:flex-row md:items-end md:gap-8">
                 {/* Main Menu Links */}
                 <div className="menu-col text-secondary flex flex-[3] flex-col gap-2">
-                  <div className="menu-link">
+                  <div className={`menu-link ${pathname === "/" ? "menu-link-active" : ""}`}>
                     <Link
                       href="/"
                       onClick={(e) => handleLinkClick(e, "/")}
-                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Home
                     </Link>
                   </div>
-                  <div className="menu-link">
+                  <div className={`menu-link ${pathname === "/restaurant" ? "menu-link-active" : ""}`}>
                     <Link
                       href="/restaurant"
                       onClick={(e) => handleLinkClick(e, "/restaurant")}
-                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Restaurant
                     </Link>
                   </div>
-                  <div className="menu-link">
+                  <div className={`menu-link ${pathname === "/experiences" ? "menu-link-active" : ""}`}>
                     <Link
                       href="/experiences"
                       onClick={(e) => handleLinkClick(e, "/experiences")}
-                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Experiences
                     </Link>
                   </div>
-                  <div className="menu-link">
+                  <div className={`menu-link ${pathname === "/events" ? "menu-link-active" : ""}`}>
                     <Link
                       href="/events"
                       onClick={(e) => handleLinkClick(e, "/events")}
-                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Events
                     </Link>
                   </div>
-                  <div className="menu-link">
+                  <div className={`menu-link ${pathname === "/about" ? "menu-link-active" : ""}`}>
                     <Link
                       href="/about"
                       onClick={(e) => handleLinkClick(e, "/about")}
-                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       About
                     </Link>
                   </div>
-                  <div className="menu-link">
+                  <div className={`menu-link ${pathname === "/contact" ? "menu-link-active" : ""}`}>
                     <Link
                       href="/contact"
                       onClick={(e) => handleLinkClick(e, "/contact")}
-                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium lg:text-7xl"
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Contact
                     </Link>
@@ -1120,7 +1126,7 @@ export default function PushOverNav() {
               </div>
 
               {/* Footer */}
-              <div className="mt-auto flex w-full flex-col items-start gap-8 py-8 pl-4 md:pl-8 lg:w-3/4 lg:flex-row">
+              <div className="mt-auto flex w-full flex-col items-start gap-8 py-8 pl-4 md:pl-8 md:w-3/4 md:flex-row">
                 <div className="menu-col flex flex-col gap-2">
                   <p className="text-secondary text-sm font-medium">
                     Eden Garden
@@ -1140,7 +1146,7 @@ export default function PushOverNav() {
             {/* Media Wrapper - Now on the right */}
             <div
               ref={menuMediaWrapperRef}
-              className="hidden flex-[2] pr-4 opacity-0 will-change-[clip-path] md:pr-8 lg:flex lg:items-center lg:justify-end"
+              className="hidden flex-[2] pr-4 opacity-0 will-change-[clip-path] md:pr-8 md:flex md:items-center md:justify-end"
               style={{
                 clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
               }}

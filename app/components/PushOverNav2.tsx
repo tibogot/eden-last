@@ -566,7 +566,7 @@ export default function PushOverNav() {
             {/* Media Wrapper */}
             <div
               ref={menuMediaWrapperRef}
-              className="will-change-opacity hidden flex-[2] opacity-0 lg:block"
+              className="will-change-opacity hidden flex-[2] opacity-0 md:block"
             >
               <div className="relative h-full w-full">
                 <Image
@@ -581,14 +581,14 @@ export default function PushOverNav() {
 
             {/* Content Wrapper */}
             <div className="relative flex w-full flex-[3] flex-col">
-              <div className="absolute top-1/2 left-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform flex-col items-start gap-12 px-8 py-8 lg:w-3/4 lg:flex-row lg:items-end lg:gap-8">
+              <div className="absolute top-1/2 left-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform flex-col items-start gap-12 px-8 py-8 md:w-3/4 md:flex-row md:items-end md:gap-8">
                 {/* Main Menu Links */}
                 <div className="menu-col flex flex-[3] flex-col gap-2 text-white">
                   <div className="menu-link">
                     <Link
                       href="/"
                       onClick={handleLinkClick}
-                      className="block text-5xl leading-tight font-medium text-white lg:text-7xl"
+                      className="block text-5xl leading-tight font-medium text-white md:text-7xl"
                     >
                       Home
                     </Link>
@@ -597,7 +597,7 @@ export default function PushOverNav() {
                     <Link
                       href="/restaurant"
                       onClick={handleLinkClick}
-                      className="block text-5xl leading-tight font-medium text-white lg:text-7xl"
+                      className="block text-5xl leading-tight font-medium text-white md:text-7xl"
                     >
                       Restaurant
                     </Link>
@@ -606,7 +606,7 @@ export default function PushOverNav() {
                     <Link
                       href="/experiences"
                       onClick={handleLinkClick}
-                      className="block text-5xl leading-tight font-medium text-white lg:text-7xl"
+                      className="block text-5xl leading-tight font-medium text-white md:text-7xl"
                     >
                       Experiences
                     </Link>
@@ -615,7 +615,7 @@ export default function PushOverNav() {
                     <Link
                       href="/events"
                       onClick={handleLinkClick}
-                      className="block text-5xl leading-tight font-medium text-white lg:text-7xl"
+                      className="block text-5xl leading-tight font-medium text-white md:text-7xl"
                     >
                       Events
                     </Link>
@@ -624,7 +624,7 @@ export default function PushOverNav() {
                     <Link
                       href="/contact"
                       onClick={handleLinkClick}
-                      className="block text-5xl leading-tight font-medium text-white lg:text-7xl"
+                      className="block text-5xl leading-tight font-medium text-white md:text-7xl"
                     >
                       Contact
                     </Link>
@@ -636,7 +636,7 @@ export default function PushOverNav() {
                   <div className="menu-tag">
                     <Link
                       href="/restaurant"
-                      className="block text-lg text-zinc-500 lg:text-xl"
+                      className="block text-lg text-zinc-500 md:text-xl"
                     >
                       Fine Dining
                     </Link>
@@ -644,7 +644,7 @@ export default function PushOverNav() {
                   <div className="menu-tag">
                     <Link
                       href="/experiences"
-                      className="block text-lg text-zinc-500 lg:text-xl"
+                      className="block text-lg text-zinc-500 md:text-xl"
                     >
                       Unique Experiences
                     </Link>
@@ -652,7 +652,7 @@ export default function PushOverNav() {
                   <div className="menu-tag">
                     <Link
                       href="/events"
-                      className="block text-lg text-zinc-500 lg:text-xl"
+                      className="block text-lg text-zinc-500 md:text-xl"
                     >
                       Special Events
                     </Link>
@@ -661,7 +661,7 @@ export default function PushOverNav() {
               </div>
 
               {/* Footer */}
-              <div className="mx-auto mt-auto flex w-3/4 flex-col items-end gap-8 px-8 py-8 lg:w-3/4 lg:flex-row">
+              <div className="mx-auto mt-auto flex w-3/4 flex-col items-end gap-8 px-8 py-8 md:w-3/4 md:flex-row">
                 <div className="menu-col flex flex-col gap-2">
                   <p className="text-sm font-medium text-zinc-500">
                     Eden Garden

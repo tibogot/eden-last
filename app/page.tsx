@@ -17,7 +17,7 @@ export default function Home() {
           {/* Title - Centered */}
           <div className="absolute inset-0 flex items-center justify-center text-center">
             <div className="container mx-auto px-4">
-              <h1 className="font-ivy-headline mb-4 text-7xl text-white md:text-8xl lg:text-9xl">
+              <h1 className="font-ivy-headline mb-4 text-5xl text-white md:text-8xl">
                 Experience paradise in every sip and bite
               </h1>
             </div>
@@ -55,7 +55,7 @@ export default function Home() {
             <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
               PHILOSOPHY
             </span>
-            <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl md:text-5xl lg:text-6xl">
+            <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl md:text-5xl">
               The shimmering tower offers a rarefied collection of breathtaking
               full-floor residences.
             </h2>
@@ -101,7 +101,7 @@ export default function Home() {
               startColor="rgba(70, 86, 67, 0.2)"
               endColor="rgb(70, 86, 67)"
             >
-              <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl lg:text-5xl">
+              <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl">
                 Of all the vibrant spaces, it is the only one that becomes even
                 more captivating as you explore, ending not with a grand finale
                 but by seamlessly blending into the natural landscape.
