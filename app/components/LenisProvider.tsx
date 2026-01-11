@@ -50,7 +50,6 @@ function LenisController() {
     return () => {
       // Clean up the scroll listener
       lenis.off("scroll", ScrollTrigger.update);
-      ScrollTrigger.scrollerProxy(window, false);
     };
   }, [lenis]);
 
