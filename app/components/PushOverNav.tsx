@@ -262,6 +262,128 @@ export default function PushOverNav() {
     }
   }, [isInHero, isMenuOpen, isAnimating]);
 
+  // Reset all elements to their initial state for opening menu
+  const resetToOpeningState = () => {
+    // Reset menu columns to full opacity (they might be at 0.25 from close animation)
+    const allMenuCols = document.querySelectorAll<HTMLElement>(".menu-col");
+    if (allMenuCols.length > 0) {
+      gsap.set(allMenuCols, { opacity: 1 });
+    }
+
+    // Reset SplitText lines to hidden position
+    splitTextInstancesRef.current.forEach((split) => {
+      if (
+        split &&
+        split.lines &&
+        Array.isArray(split.lines) &&
+        split.lines.length > 0
+      ) {
+        const validLines = split.lines.filter(
+          (line) => line && line.parentNode,
+        );
+        if (validLines.length > 0) {
+          gsap.set(validLines, { y: "-110%" });
+        }
+      }
+    });
+
+    // Reset overlay container position
+    if (menuOverlayContainerRef.current) {
+      gsap.set(menuOverlayContainerRef.current, { yPercent: -50 });
+    }
+
+    // Reset overlay clip-path to hidden
+    if (menuOverlayRef.current) {
+      gsap.set(menuOverlayRef.current, {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+      });
+    }
+
+    // Reset media wrapper to initial state for opening
+    // Note: opacity is set to 1 when opening (see opening animation code)
+    if (menuMediaWrapperRef.current) {
+      gsap.set(menuMediaWrapperRef.current, {
+        clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        opacity: 1,
+      });
+    }
+
+    // Reset content container position
+    const contentContainer = document.querySelector(
+      ".content-container",
+    ) as HTMLElement;
+    if (contentContainer) {
+      gsap.set(contentContainer, { y: "0svh" });
+    }
+  };
+
+  // Comprehensive cleanup function to kill all animations
+  const killAllAnimations = () => {
+    // Kill the timeline and clear callbacks to prevent onComplete from firing
+    if (currentTimelineRef.current) {
+      // Clear callbacks before killing to prevent state updates
+      currentTimelineRef.current.eventCallback("onComplete", null);
+      currentTimelineRef.current.eventCallback("onUpdate", null);
+      currentTimelineRef.current.eventCallback("onStart", null);
+      currentTimelineRef.current.kill();
+      currentTimelineRef.current = null;
+    }
+
+    // Get all animation targets
+    const contentContainer = document.querySelector(
+      ".content-container",
+    ) as HTMLElement;
+
+    // Kill all tweens on all animation targets
+    if (contentContainer) {
+      gsap.killTweensOf(contentContainer);
+    }
+    if (menuOverlayRef.current) {
+      gsap.killTweensOf(menuOverlayRef.current);
+    }
+    if (menuOverlayContainerRef.current) {
+      gsap.killTweensOf(menuOverlayContainerRef.current);
+    }
+    if (menuMediaWrapperRef.current) {
+      gsap.killTweensOf(menuMediaWrapperRef.current);
+    }
+    if (hamburgerBar1Ref.current) {
+      gsap.killTweensOf(hamburgerBar1Ref.current);
+    }
+    if (hamburgerBar2Ref.current) {
+      gsap.killTweensOf(hamburgerBar2Ref.current);
+    }
+    if (hamburgerBar3Ref.current) {
+      gsap.killTweensOf(hamburgerBar3Ref.current);
+    }
+    if (logoRef.current) {
+      gsap.killTweensOf(logoRef.current);
+    }
+
+    // Kill tweens on all menu columns and SplitText lines
+    const allMenuCols = document.querySelectorAll<HTMLElement>(".menu-col");
+    if (allMenuCols.length > 0) {
+      gsap.killTweensOf(allMenuCols);
+    }
+
+    // Kill tweens on all SplitText lines
+    splitTextInstancesRef.current.forEach((split) => {
+      if (
+        split &&
+        split.lines &&
+        Array.isArray(split.lines) &&
+        split.lines.length > 0
+      ) {
+        const validLines = split.lines.filter(
+          (line) => line && line.parentNode,
+        );
+        if (validLines.length > 0) {
+          gsap.killTweensOf(validLines);
+        }
+      }
+    });
+  };
+
   const handleMenuToggle = () => {
     // Get the content container (this will be the main page content)
     const contentContainer = document.querySelector(
@@ -273,13 +395,19 @@ export default function PushOverNav() {
       return;
     }
 
-    // Kill any running animations immediately
-    if (currentTimelineRef.current) {
-      currentTimelineRef.current.kill();
-      currentTimelineRef.current = null;
-    }
+    // Kill all running animations immediately using comprehensive cleanup
+    killAllAnimations();
+
+    // Immediately reset animating state since we killed animations
+    setIsAnimating(false);
+
+    // If lenis was stopped, restart it
+    if (lenis) lenis.start();
 
     if (!isMenuOpen) {
+      // When opening, reset everything to initial state first
+      // This ensures clean state even if we killed animations mid-close
+      resetToOpeningState();
       // Opening menu - store current hero state before opening
       wasInHeroBeforeOpenRef.current = isInHeroRef.current;
 
@@ -748,11 +876,8 @@ export default function PushOverNav() {
     if (isMenuOpen) {
       e.preventDefault();
 
-      // Kill any running animations immediately
-      if (currentTimelineRef.current) {
-        currentTimelineRef.current.kill();
-        currentTimelineRef.current = null;
-      }
+      // Kill all running animations immediately using comprehensive cleanup
+      killAllAnimations();
 
       // Prefetch the route to start loading assets early
       router.prefetch(href);
