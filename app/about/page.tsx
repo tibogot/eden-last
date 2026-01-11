@@ -8,7 +8,7 @@ export default function About() {
     <main className="bg-secondary text-primary">
       <section className="relative h-svh w-full overflow-hidden">
         <Image
-          src="/images/macdavis.jpg"
+          src="/images/jordan.jpg"
           alt="About image"
           fill
           priority
