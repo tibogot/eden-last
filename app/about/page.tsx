@@ -46,7 +46,7 @@ export default function About() {
           </p>
         </div>
       </section> */}
-      <div className="">
+      <div className="pt-20">
         <PinnedImageReveal
           imageSrc="/images/hero-2.jpg"
           imageAlt="Eden Garden"
