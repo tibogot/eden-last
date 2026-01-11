@@ -41,7 +41,7 @@ function LenisController() {
           height: window.innerHeight,
         };
       },
-      pinType: window.transform ? "transform" : "fixed",
+      pinType: "transform" as const,
     });
 
     // Update ScrollTrigger on every Lenis scroll event
