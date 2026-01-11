@@ -29,7 +29,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="container mx-auto px-4 py-16 pb-8 md:px-8">
+      {/* <section className="container mx-auto px-4 py-16 pb-8 md:px-8">
         <div className="flex flex-col items-center justify-center text-center">
           <span className="font-neue-haas mb-4 text-xs tracking-wider uppercase">
             ABOUT
@@ -45,11 +45,22 @@ export default function About() {
             experiences that bring people together.
           </p>
         </div>
-      </section>
-      <div className="-mt-32">
+      </section> */}
+      <div className="">
         <PinnedImageReveal
           imageSrc="/images/hero-2.jpg"
           imageAlt="Eden Garden"
+          textContent={
+            <>
+              <span className="font-neue-haas mb-4 text-xs tracking-wider uppercase">
+                ABOUT
+              </span>
+              <h2 className="font-ivy-headline mb-6 max-w-3xl text-5xl leading-tight">
+                A vibrant oasis in the heart of Abuja where entertainment meets
+                relaxation, where live music fills the air.
+              </h2>
+            </>
+          }
         />
       </div>
       <section className="container mx-auto px-4 py-32">

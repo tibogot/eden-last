@@ -8,7 +8,7 @@ export default function Contact() {
         <div className="relative z-10 flex h-full flex-col items-center justify-center">
           <div className="w-full px-4 md:px-8">
             <div className="flex flex-col items-start">
-              <h1 className="font-ivy-headline text-primary mb-4 max-w-2xl text-7xl leading-tight md:text-7xl">
+              <h1 className="font-ivy-headline text-primary mb-4 max-w-2xl text-7xl md:text-7xl">
                 Drawing people together.
               </h1>
               <p className="text-primary mt-16 max-w-sm text-lg">
