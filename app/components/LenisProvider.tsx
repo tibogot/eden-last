@@ -29,7 +29,7 @@ function LenisController() {
       },
       scrollLeft(value) {
         if (arguments.length) {
-          lenis.scrollTo(value as number, { immediate: true, horizontal: true });
+          lenis.scrollTo(value as number, { immediate: true });
         }
         return lenis.scroll;
       },
