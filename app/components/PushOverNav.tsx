@@ -39,6 +39,9 @@ export default function PushOverNav() {
   // Store timeline refs so we can kill them when needed
   const currentTimelineRef = useRef<gsap.core.Timeline | null>(null);
 
+  // Track if menu is closing due to navigation (to prevent premature scroll unblock)
+  const isNavigatingRef = useRef(false);
+
   // Initialize SplitText once on mount using best practices
   // Using scoped useGSAP with proper cleanup
   useGSAP(
@@ -262,6 +265,26 @@ export default function PushOverNav() {
     }
   }, [isInHero, isMenuOpen, isAnimating]);
 
+  // Reset navigation flag when page transition completes
+  useEffect(() => {
+    const handlePageTransitionComplete = () => {
+      // Reset navigation flag after transition is complete
+      isNavigatingRef.current = false;
+    };
+
+    window.addEventListener(
+      "pageTransitionComplete",
+      handlePageTransitionComplete,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "pageTransitionComplete",
+        handlePageTransitionComplete,
+      );
+    };
+  }, []);
+
   // Reset all elements to their initial state for opening menu
   const resetToOpeningState = () => {
     // Reset menu columns to full opacity (they might be at 0.25 from close animation)
@@ -401,8 +424,9 @@ export default function PushOverNav() {
     // Immediately reset animating state since we killed animations
     setIsAnimating(false);
 
-    // If lenis was stopped, restart it
-    if (lenis) lenis.start();
+    // If lenis was stopped, restart it (only if not currently navigating)
+    // During navigation, LenisProvider will restart Lenis after pageTransitionComplete
+    if (lenis && !isNavigatingRef.current) lenis.start();
 
     if (!isMenuOpen) {
       // When opening, reset everything to initial state first
@@ -623,7 +647,11 @@ export default function PushOverNav() {
           }
 
           setIsAnimating(false);
-          if (lenis) lenis.start();
+          // Only restart Lenis if not navigating
+          // During navigation, LenisProvider handles restarting after pageTransitionComplete
+          if (lenis && !isNavigatingRef.current) {
+            lenis.start();
+          }
           currentTimelineRef.current = null;
         },
       });
@@ -875,6 +903,9 @@ export default function PushOverNav() {
     // Always close menu when clicking a link, even if animations are running
     if (isMenuOpen) {
       e.preventDefault();
+
+      // Set navigation flag to prevent premature scroll unblock
+      isNavigatingRef.current = true;
 
       // Kill all running animations immediately using comprehensive cleanup
       killAllAnimations();
