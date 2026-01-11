@@ -89,6 +89,7 @@ export default function PinnedImageReveal({
             pinReparent: true,
             scrub: 1,
             markers: true,
+            pinSpacing: true,
           },
         },
       );

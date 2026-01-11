@@ -29,7 +29,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="container mx-auto px-4 py-20 md:px-8">
+      <section className="container mx-auto px-4 py-16 pb-8 md:px-8">
         <div className="flex flex-col items-center justify-center text-center">
           <span className="font-neue-haas mb-4 text-xs tracking-wider uppercase">
             ABOUT
@@ -46,9 +46,14 @@ export default function About() {
           </p>
         </div>
       </section>
-      <PinnedImageReveal imageSrc="/images/hero-2.jpg" imageAlt="Eden Garden" />
+      <div className="-mt-32">
+        <PinnedImageReveal
+          imageSrc="/images/hero-2.jpg"
+          imageAlt="Eden Garden"
+        />
+      </div>
       <section className="container mx-auto px-4 py-32">
-        <div className="flex min-h-screen flex-col items-center justify-center text-center">
+        <div className="flex flex-col items-center justify-center text-center">
           <h2 className="font-ivy-headline text-primary max-w-4xl text-6xl leading-tight md:text-8xl">
             A place where nature meets celebration
           </h2>
