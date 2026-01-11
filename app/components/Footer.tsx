@@ -64,14 +64,15 @@ export default function Footer() {
           </div>
           <p className="text-sm text-white/80">© 2026 All rights reserved.</p>
           <div className="flex justify-center pt-6">
-            <Image
-              src="/navlogo.svg"
-              alt="Eden Garden Logo"
-              width={500}
-              height={239}
-              className="h-auto w-auto"
-              priority={false}
-            />
+            <div className="relative h-24 w-48">
+              <Image
+                src="/navlogo.svg"
+                alt="Eden Garden Logo"
+                fill
+                className="object-contain"
+                priority={false}
+              />
+            </div>
           </div>
         </div>
       </div>

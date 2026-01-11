@@ -879,6 +879,16 @@ export default function PushOverNav() {
       // Kill all running animations immediately using comprehensive cleanup
       killAllAnimations();
 
+      // CRITICAL: Reset content container position immediately
+      // So the new page content is visible at the correct position
+      const contentContainer = document.querySelector(".content-container") as HTMLElement;
+      if (contentContainer) {
+        gsap.set(contentContainer, { y: "100svh" }); // Keep it pushed down initially
+      }
+
+      // Dispatch page transition start event
+      window.dispatchEvent(new Event("pageTransitionStart"));
+
       // Prefetch the route to start loading assets early
       router.prefetch(href);
 
@@ -912,26 +922,27 @@ export default function PushOverNav() {
         checkRouteChange();
       });
 
-      // Scroll to top immediately so the hero section is visible when animation starts
+      // CRITICAL: Scroll to top IMMEDIATELY after route change
+      // Even though content is hidden at y: "100svh", scrolling now ensures
+      // the hero section will be at the top when the slide animation reveals it
       if (lenis) {
-        lenis.scrollTo(0, { immediate: true });
-      } else {
-        // Fallback if Lenis is not available
-        window.scrollTo(0, 0);
+        lenis.scrollTo(0, { immediate: true, force: true });
       }
-
-      // Wait one frame to ensure scroll position is fully set
-      await new Promise<void>((resolve) => {
-        requestAnimationFrame(() => {
-          resolve();
-        });
-      });
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
 
       // Now wait for hero images to be fully loaded
       await waitForHeroImages();
 
       // Start the slide-up animation now that content is ready
       handleMenuToggle();
+
+      // Wait for the slide animation to complete (~1s) then dispatch completion event
+      // This allows ScrollTrigger to refresh after content is in final position
+      setTimeout(() => {
+        window.dispatchEvent(new Event("pageTransitionComplete"));
+      }, 1100); // Animation duration (1s) + small buffer
     } else {
       // Menu is not open, navigate normally (don't prevent default)
       // Let Next.js handle navigation normally

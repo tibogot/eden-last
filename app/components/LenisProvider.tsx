@@ -19,12 +19,38 @@ function LenisController() {
   useEffect(() => {
     if (!lenis) return;
 
+    // Set up scrollerProxy so ScrollTrigger knows about Lenis
+    ScrollTrigger.scrollerProxy(window, {
+      scrollTop(value) {
+        if (arguments.length) {
+          lenis.scrollTo(value, { immediate: true });
+        }
+        return lenis.scroll;
+      },
+      scrollLeft(value) {
+        if (arguments.length) {
+          lenis.scrollTo(value, { immediate: true, horizontal: true });
+        }
+        return lenis.scroll;
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+      },
+      pinType: window.transform ? "transform" : "fixed",
+    });
+
     // Update ScrollTrigger on every Lenis scroll event
     lenis.on("scroll", ScrollTrigger.update);
 
     return () => {
       // Clean up the scroll listener
       lenis.off("scroll", ScrollTrigger.update);
+      ScrollTrigger.scrollerProxy(window, false);
     };
   }, [lenis]);
 
@@ -45,6 +71,10 @@ function LenisController() {
       // Small delay to ensure animations have settled
       setTimeout(() => {
         lenis.start();
+
+        // Refresh ScrollTrigger after the slide animation completes
+        // This recalculates all trigger positions based on the final layout
+        ScrollTrigger.refresh();
       }, 100);
     };
 
@@ -72,36 +102,13 @@ function LenisController() {
 export default function LenisProvider({ children }: LenisProviderProps) {
   const lenisRef = useRef<LenisRef>(null);
 
-  // CRITICAL: Integrate Lenis with GSAP ticker
-  // This is the official pattern from Lenis documentation
-  // https://github.com/darkroomengineering/lenis
-  useEffect(() => {
-    function update(time: number) {
-      // Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
-      // Convert time from seconds (GSAP) to milliseconds (Lenis)
-      lenisRef.current?.lenis?.raf(time * 1000);
-    }
-
-    // Add the update function to GSAP's ticker
-    gsap.ticker.add(update);
-
-    // Disable lag smoothing in GSAP to prevent any delay in scroll animations
-    // This is required for proper Lenis + GSAP integration
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      // Clean up: remove the update function from GSAP's ticker
-      gsap.ticker.remove(update);
-    };
-  }, []);
-
   return (
     <ReactLenis
       ref={lenisRef}
       root
       options={{
-        // CRITICAL: Must be false when using GSAP ticker integration
-        autoRaf: false,
+        // Let Lenis use its own RAF loop (default behavior)
+        // scrollerProxy handles ScrollTrigger integration
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         // syncTouch: false is recommended unless you need infinite scrolling on mobile

@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import PinnedImageReveal from "@/app/components/PinnedImageReveal";
 
 export default function About() {
+
   return (
     <main className="bg-secondary text-primary">
       <section className="relative h-svh w-full overflow-hidden">
@@ -34,17 +38,12 @@ export default function About() {
           </p>
         </div>
       </section>
-      <section className="relative h-svh w-full overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{ clipPath: "circle(10% at 50% 50%)" }}
-        >
-          <Image
-            src="/images/hero-2.jpg"
-            alt="Hero background"
-            fill
-            className="object-cover"
-          />
+      <PinnedImageReveal imageSrc="/images/hero-2.jpg" imageAlt="Eden Garden" />
+      <section className="container mx-auto px-4 py-32">
+        <div className="flex min-h-screen flex-col items-center justify-center text-center">
+          <h2 className="font-ivy-headline text-primary max-w-4xl text-6xl leading-tight md:text-8xl">
+            A place where nature meets celebration
+          </h2>
         </div>
       </section>
     </main>
