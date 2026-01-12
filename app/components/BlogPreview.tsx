@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
@@ -48,7 +48,10 @@ export default function BlogPreview({ post }: BlogPreviewProps) {
 
   return (
     <li className="mb-10 w-full flex-1 md:mb-0 md:w-1/3">
-      <Link href={`/blog/${post.slug.current}`} className="group block h-full">
+      <Link
+        href={`/events/${post.slug.current}`}
+        className="group block h-full"
+      >
         <div className="flex h-full flex-col items-stretch overflow-hidden">
           <div className="bg-secondary relative flex h-48 w-full items-center justify-center overflow-hidden md:h-56">
             <Image

@@ -2,6 +2,7 @@ import client from "@/app/sanityClient";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { Link } from "next-view-transitions";
 import { urlFor } from "@/app/lib/sanityImage";
 import type { PortableTextBlock } from "@portabletext/types";
 
@@ -31,6 +32,31 @@ export async function generateStaticParams() {
 
 export default async function EventPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
+  
+  // Fetch all events ordered by publishedAt
+  const allEvents = await client.fetch<
+    Array<{ slug: { current: string }; title: string }>
+  >(
+    `*[_type == "post"] | order(publishedAt desc) {
+      slug,
+      title
+    }`,
+  );
+
+  // Find current event index
+  const currentIndex = allEvents.findIndex(
+    (e) => e.slug.current === params.slug,
+  );
+
+  if (currentIndex === -1) return notFound();
+
+  // Get previous and next events
+  const previousEvent =
+    currentIndex < allEvents.length - 1
+      ? allEvents[currentIndex + 1]
+      : null;
+  const nextEvent = currentIndex > 0 ? allEvents[currentIndex - 1] : null;
+
   const event = await client.fetch<Event>(
     `*[_type == "post" && slug.current == $slug][0]{
       title,
@@ -90,6 +116,53 @@ export default async function EventPage(props: { params: Promise<{ slug: string 
           {event.body && <PortableText value={event.body} />}
         </div>
       </div>
+
+      {/* Navigation Section */}
+      <section className="bg-secondary text-primary border-t border-primary/20 mt-16 py-16">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 px-4 md:flex-row md:justify-between md:px-8">
+          {/* Previous Event */}
+          {previousEvent ? (
+            <Link
+              href={`/events/${previousEvent.slug.current}`}
+              className="group flex flex-col items-start"
+            >
+              <span className="font-neue-haas text-primary/60 mb-2 text-xs uppercase tracking-wider">
+                Previous Event
+              </span>
+              <span className="font-ivy-headline text-primary group-hover:underline text-xl leading-tight">
+                {previousEvent.title}
+              </span>
+            </Link>
+          ) : (
+            <div></div>
+          )}
+
+          {/* Return to Events */}
+          <Link
+            href="/events"
+            className="font-neue-haas text-primary text-sm uppercase tracking-wider underline transition-opacity hover:opacity-70"
+          >
+            ← Back to Events
+          </Link>
+
+          {/* Next Event */}
+          {nextEvent ? (
+            <Link
+              href={`/events/${nextEvent.slug.current}`}
+              className="group flex flex-col items-end text-right"
+            >
+              <span className="font-neue-haas text-primary/60 mb-2 text-xs uppercase tracking-wider">
+                Next Event
+              </span>
+              <span className="font-ivy-headline text-primary group-hover:underline text-xl leading-tight">
+                {nextEvent.title}
+              </span>
+            </Link>
+          ) : (
+            <div></div>
+          )}
+        </div>
+      </section>
     </main>
   );
 }
