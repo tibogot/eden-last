@@ -66,21 +66,23 @@ export default function Footer() {
         </div>
 
         {/* Footer Bottom */}
-        <div className="mt-auto flex w-full flex-col pb-8">
-          <div className="flex justify-center pb-6">
-            <div className="relative h-24 w-48">
+        <div className="mt-auto flex w-full flex-col">
+          <div className="flex justify-center">
+            <div className="relative h-[30vh] w-[600px]">
               <Image
                 src="/navlogo.svg"
                 alt="Eden Garden Logo"
                 fill
-                className="object-contain"
+                className="object-contain object-bottom"
                 priority={false}
               />
             </div>
           </div>
-          <div className="flex w-full">
-            <p className="text-sm text-white/80">© 2026 All rights reserved.</p>
-          </div>
+        </div>
+        
+        {/* Copyright */}
+        <div className="absolute bottom-4 left-4 md:bottom-4 md:left-8">
+          <p className="text-sm text-white/80">© 2026 All rights reserved.</p>
         </div>
       </div>
     </footer>

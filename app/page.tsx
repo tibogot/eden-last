@@ -159,6 +159,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      <TestimonialsTicker />
 
       {blogPosts.length > 0 && (
         <section className="bg-secondary text-primary py-32">
@@ -177,8 +178,6 @@ export default async function Home() {
           </ul>
         </section>
       )}
-
-      <TestimonialsTicker />
     </main>
   );
 }
