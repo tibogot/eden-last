@@ -37,3 +37,44 @@ body {
   position: relative;
   will-change: transform;
 }
+
+/* View Transitions - Slide Up Animation (matching PushOverNav style) */
+/* Old page slides up and fades out (matching PushOverNav behavior) */
+::view-transition-old(root) {
+  animation: slideUpAndFadeOut 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+/* New page slides up from bottom */
+::view-transition-new(root) {
+  animation: slideUpFromBottom 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes slideUpAndFadeOut {
+  to {
+    transform: translateY(-30%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideUpFromBottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Set animation duration and timing */
+::view-transition-group(root) {
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Respect user preferences for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

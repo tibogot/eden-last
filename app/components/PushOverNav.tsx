@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import { Link as TransitionLink } from "next-view-transitions";
 import Image from "next/image";
 import { useLenis } from "lenis/react";
 import { useRouter, usePathname } from "next/navigation";
@@ -1002,25 +1003,51 @@ export default function PushOverNav() {
         {/* Menu Bar */}
         <div className="text-primary pointer-events-auto fixed inset-x-0 top-0 z-[50] flex w-full items-center justify-between px-4 py-8 md:px-8">
           <div className="relative h-10 w-20 md:h-12 md:w-24">
-            <Link href="/" className="relative block h-full w-full">
-              <div
-                ref={logoRef}
-                className="relative h-full w-full will-change-[filter]"
-                style={{
-                  filter:
-                    "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)",
-                }}
+            {isMenuOpen ? (
+              <Link
+                href="/"
+                onClick={(e) => handleLinkClick(e, "/")}
+                className="relative block h-full w-full"
               >
-                <Image
-                  src="/navlogo.svg"
-                  alt="Logo"
-                  fill
-                  className="object-contain"
-                  priority
-                  sizes="(max-width: 768px) 80px, 96px"
-                />
-              </div>
-            </Link>
+                <div
+                  ref={logoRef}
+                  className="relative h-full w-full will-change-[filter]"
+                  style={{
+                    filter:
+                      "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)",
+                  }}
+                >
+                  <Image
+                    src="/navlogo.svg"
+                    alt="Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                    sizes="(max-width: 768px) 80px, 96px"
+                  />
+                </div>
+              </Link>
+            ) : (
+              <TransitionLink href="/" className="relative block h-full w-full">
+                <div
+                  ref={logoRef}
+                  className="relative h-full w-full will-change-[filter]"
+                  style={{
+                    filter:
+                      "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)",
+                  }}
+                >
+                  <Image
+                    src="/navlogo.svg"
+                    alt="Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                    sizes="(max-width: 768px) 80px, 96px"
+                  />
+                </div>
+              </TransitionLink>
+            )}
           </div>
           <button
             ref={menuToggleBtnRef}

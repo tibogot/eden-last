@@ -5,6 +5,8 @@ import LenisProvider from "./components/LenisProvider";
 import PushOverNav from "./components/PushOverNav";
 import Footer from "./components/Footer";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { ViewTransitions } from "next-view-transitions";
+import ViewTransitionHandler from "./components/ViewTransitionHandler";
 
 const ivyPrestoHeadline = localFont({
   src: "./fonts/ivy-presto-headline-light.otf",
@@ -31,20 +33,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${ivyPrestoHeadline.variable} ${neueHaasDisplay.variable}`}
-    >
-      <body className="antialiased">
-        <LenisProvider>
-          <PushOverNav />
-          <div className="content-container bg-background text-foreground relative translate-y-0 transform">
-            <ScrollToTop />
-            {children}
-            <Footer />
-          </div>
-        </LenisProvider>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html
+        lang="en"
+        className={`${ivyPrestoHeadline.variable} ${neueHaasDisplay.variable}`}
+      >
+        <body className="antialiased">
+          <ViewTransitionHandler />
+          <LenisProvider>
+            <PushOverNav />
+            <div className="content-container bg-background text-foreground relative translate-y-0 transform">
+              <ScrollToTop />
+              {children}
+              <Footer />
+            </div>
+          </LenisProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
