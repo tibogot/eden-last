@@ -17,7 +17,7 @@ export default function About() {
         <div className="relative z-10 flex h-full flex-col items-center justify-center">
           <div className="w-full px-4 md:px-8">
             <div className="flex flex-col items-start">
-              <h1 className="font-ivy-headline mb-4 text-7xl leading-tight text-white md:text-7xl">
+              <h1 className="font-ivy-headline mb-4 text-5xl leading-tight text-white md:text-7xl">
                 Drawing people together.
               </h1>
               <p className="mt-16 max-w-lg text-lg text-white">

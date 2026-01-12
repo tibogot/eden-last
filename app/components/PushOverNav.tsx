@@ -1000,8 +1000,8 @@ export default function PushOverNav() {
       `}</style>
       <nav className="pointer-events-none fixed inset-0 z-[50] overflow-hidden">
         {/* Menu Bar */}
-        <div className="text-primary pointer-events-auto fixed inset-x-0 top-0 z-[50] flex w-full items-center justify-between px-8 py-8">
-          <div className="relative h-12 w-24">
+        <div className="text-primary pointer-events-auto fixed inset-x-0 top-0 z-[50] flex w-full items-center justify-between px-4 py-8 md:px-8">
+          <div className="relative h-10 w-20 md:h-12 md:w-24">
             <Link href="/" className="relative block h-full w-full">
               <div
                 ref={logoRef}
@@ -1017,7 +1017,7 @@ export default function PushOverNav() {
                   fill
                   className="object-contain"
                   priority
-                  sizes="96px"
+                  sizes="(max-width: 768px) 80px, 96px"
                 />
               </div>
             </Link>

@@ -17,7 +17,7 @@ export default function Home() {
           {/* Title - Centered */}
           <div className="absolute inset-0 flex items-center justify-center text-center">
             <div className="container mx-auto px-4">
-              <h1 className="font-ivy-headline mb-4 text-5xl text-white md:text-8xl">
+              <h1 className="font-ivy-headline mb-4 text-5xl leading-tight text-white md:text-8xl">
                 Experience paradise in every sip and bite
               </h1>
             </div>
@@ -55,30 +55,30 @@ export default function Home() {
             <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
               PHILOSOPHY
             </span>
-            <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl md:text-5xl">
+            <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl leading-tight md:text-5xl">
               The shimmering tower offers a rarefied collection of breathtaking
               full-floor residences.
             </h2>
           </div>
         </div>
       </section>
-      <section className="bg-secondary text-primary pb-32">
+      <section className="bg-secondary text-primary pt-20 pb-32">
         <div className="container px-4 md:px-8">
           {/* Second Section - Paragraphs and link, aligned to the right */}
           <div className="flex flex-col gap-8 md:ml-auto md:w-1/2">
-            <p className="font-neue-haas text-primary text-base leading-relaxed">
+            <p className="font-neue-haas text-primary text-lg">
               Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
               blend of entertainment and relaxation. From live music and dance
               shows to thrilling football matches, there&apos;s something for
               everyone. Indulge in traditional cuisine while enjoying the I
             </p>
-            <p className="font-neue-haas text-primary text-base leading-relaxed">
+            <p className="font-neue-haas text-primary text-lg">
               Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
               blend of entertainment and relaxation. From live music and dance
               shows to thrilling football matches, there&apos;s something for
               everyone. Indulge in traditional cuisine while enjoying the I
             </p>
-            <p className="font-neue-haas text-primary text-base leading-relaxed">
+            <p className="font-neue-haas text-primary text-lg">
               Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
               blend of entertainment and relaxation. From live music and dance
               shows to thrilling football matches, there&apos;s something for
