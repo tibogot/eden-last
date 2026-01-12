@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import PinnedImageReveal from "@/app/components/PinnedImageReveal";
+import TextReveal from "@/app/components/TextReveal";
 
 export default function About() {
   return (
@@ -63,12 +64,17 @@ export default function About() {
           }
         />
       </div>
-      <section className="container mx-auto px-4 py-32">
-        <div className="flex flex-col items-center justify-center text-center">
-          <h2 className="font-ivy-headline text-primary max-w-4xl text-6xl leading-tight md:text-8xl">
-            A place where nature meets celebration
-          </h2>
-        </div>
+      <section className="py-32 md:py-80">
+        <TextReveal
+          className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
+          startColor="rgba(70, 86, 67, 0.2)"
+          endColor="rgb(70, 86, 67)"
+        >
+          <h4 className="font-ivy-headline text-4xl leading-tight md:text-6xl">
+            Abuja&apos;s premier destination for traditional cuisine,
+            entertainment, and unforgettable experiences.
+          </h4>
+        </TextReveal>
       </section>
     </main>
   );
