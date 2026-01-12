@@ -15,7 +15,7 @@ interface SanityImageAsset {
   _type?: string;
 }
 
-interface Event {
+interface BlogPost {
   _id: string;
   title: string;
   slug: { current: string };
@@ -24,8 +24,8 @@ interface Event {
   body?: PortableTextBlock[];
 }
 
-export default async function EventsPage() {
-  const events = await client.fetch<Event[]>(
+export default async function BlogPage() {
+  const posts = await client.fetch<BlogPost[]>(
     `*[_type == "post"] | order(publishedAt desc) {
       _id,
       title,
@@ -45,36 +45,39 @@ export default async function EventsPage() {
     <main className="bg-secondary text-primary py-32">
       <div className="mb-16 px-4 md:px-8">
         <h1 className="font-ivy-headline text-primary mb-4 text-4xl leading-tight md:text-6xl">
-          Events
+          Blog
         </h1>
       </div>
       <ul className="grid gap-10 px-4 md:grid-cols-3 md:px-8">
-        {events.map((event) => {
+        {posts.map((post) => {
           // Build image URL using Sanity image URL builder
           let imageUrl = "/logo.png";
-          if (event.mainImage) {
-            if (typeof event.mainImage === "object" && event.mainImage.asset) {
+          if (post.mainImage) {
+            if (typeof post.mainImage === "object" && post.mainImage.asset) {
               try {
-                const image = urlFor(event.mainImage).width(600).height(400).url();
+                const image = urlFor(post.mainImage)
+                  .width(600)
+                  .height(400)
+                  .url();
                 imageUrl = image;
               } catch {
-                if (event.mainImage.asset.url) {
-                  imageUrl = event.mainImage.asset.url;
+                if (post.mainImage.asset.url) {
+                  imageUrl = post.mainImage.asset.url;
                 }
               }
-            } else if (typeof event.mainImage === "string") {
-              imageUrl = event.mainImage;
+            } else if (typeof post.mainImage === "string") {
+              imageUrl = post.mainImage;
             }
           }
 
           return (
-            <li key={event._id} className="flex flex-col overflow-hidden">
-              <Link href={`/events/${event.slug.current}`} className="group block">
-                {event.mainImage && (
+            <li key={post._id} className="flex flex-col overflow-hidden">
+              <Link href={`/blog/${post.slug.current}`} className="group block">
+                {post.mainImage && (
                   <div className="bg-secondary relative h-56 w-full overflow-hidden md:h-64">
                     <Image
                       src={imageUrl}
-                      alt={event.title}
+                      alt={post.title}
                       fill
                       className="object-cover object-center"
                       loading="lazy"
@@ -83,18 +86,18 @@ export default async function EventsPage() {
                 )}
                 <div className="flex flex-1 flex-col justify-between py-6">
                   <div>
-                    {event.publishedAt && (
+                    {post.publishedAt && (
                       <p className="font-neue-haas text-primary/60 mb-2 text-xs">
-                        {new Date(event.publishedAt).toLocaleDateString()}
+                        {new Date(post.publishedAt).toLocaleDateString()}
                       </p>
                     )}
                     <h5 className="font-ivy-headline text-primary mb-2 text-2xl leading-tight md:text-3xl">
-                      {event.title}
+                      {post.title}
                     </h5>
 
                     <div className="font-neue-haas text-primary/70 mb-2 line-clamp-3 max-w-xl text-base md:text-lg">
-                      {event.body && (
-                        <PortableText value={event.body.slice(0, 1)} />
+                      {post.body && (
+                        <PortableText value={post.body.slice(0, 1)} />
                       )}
                     </div>
                   </div>
@@ -110,4 +113,3 @@ export default async function EventsPage() {
     </main>
   );
 }
-

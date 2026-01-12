@@ -2,8 +2,56 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import TextReveal from "@/app/components/TextReveal";
 import TestimonialsTicker from "@/app/components/TestimonialsTicker";
+import BlogPreview from "@/app/components/BlogPreview";
+import client from "@/app/sanityClient";
+import type { PortableTextBlock } from "@portabletext/types";
 
-export default function Home() {
+interface SanityImageAsset {
+  _ref?: string;
+  _type?: string;
+  asset?: {
+    _ref?: string;
+    _type?: string;
+    url?: string;
+  };
+  url?: string;
+}
+
+interface BlogPost {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  mainImage?: SanityImageAsset | string;
+  publishedAt?: string;
+  body?: PortableTextBlock[];
+}
+
+async function getBlogPosts(): Promise<BlogPost[]> {
+  try {
+    const posts = await client.fetch<BlogPost[]>(
+      `*[_type == "post"] | order(publishedAt desc) [0...3] {
+        _id,
+        title,
+        slug,
+        mainImage{
+          asset->{
+            _id,
+            url
+          }
+        },
+        publishedAt,
+        body
+      }`,
+    );
+    return posts || [];
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const blogPosts = await getBlogPosts();
   return (
     <main className="bg-secondary text-primary">
       <section className="relative h-svh w-full overflow-hidden">
@@ -111,6 +159,24 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {blogPosts.length > 0 && (
+        <section className="bg-secondary text-primary py-32">
+          <div className="mb-16 px-4 md:px-8">
+            <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
+              LATEST STORIES
+            </span>
+            <h2 className="font-ivy-headline text-primary text-4xl leading-tight md:text-5xl">
+              Discover our latest events
+            </h2>
+          </div>
+          <ul className="flex flex-col gap-8 px-4 md:flex-row md:px-8">
+            {blogPosts.map((post) => (
+              <BlogPreview key={post._id} post={post} />
+            ))}
+          </ul>
+        </section>
+      )}
 
       <TestimonialsTicker />
     </main>
