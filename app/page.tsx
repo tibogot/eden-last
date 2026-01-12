@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Link } from "next-view-transitions";
 import TextReveal from "@/app/components/TextReveal";
+import TestimonialsTicker from "@/app/components/TestimonialsTicker";
 
 export default function Home() {
   return (
@@ -110,6 +111,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <TestimonialsTicker />
     </main>
   );
 }
