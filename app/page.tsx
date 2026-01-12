@@ -42,8 +42,8 @@ export default function Home() {
           endColor="rgb(70, 86, 67)"
         >
           <h4 className="font-ivy-headline text-4xl leading-tight md:text-6xl">
-            Leading road construction and civil engineering solutions across
-            Nigeria and West Africa.
+            Abuja&apos;s premier destination for traditional cuisine,
+            entertainment, and unforgettable experiences.
           </h4>
         </TextReveal>
       </section>

@@ -1095,13 +1095,13 @@ export default function PushOverNav() {
               <div className="absolute top-1/2 left-4 flex w-full -translate-y-1/2 transform flex-col items-start gap-12 py-8 md:left-8 md:w-3/4 md:flex-row md:items-end md:gap-8">
                 {/* Main Menu Links */}
                 <div className="menu-col text-secondary flex flex-[3] flex-col gap-2">
-                  <div className={`menu-link ${pathname === "/" ? "menu-link-active" : ""}`}>
+                  <div className={`menu-link ${pathname === "/about" ? "menu-link-active" : ""}`}>
                     <Link
-                      href="/"
-                      onClick={(e) => handleLinkClick(e, "/")}
+                      href="/about"
+                      onClick={(e) => handleLinkClick(e, "/about")}
                       className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
-                      Home
+                      About
                     </Link>
                   </div>
                   <div className={`menu-link ${pathname === "/restaurant" ? "menu-link-active" : ""}`}>
@@ -1129,15 +1129,6 @@ export default function PushOverNav() {
                       className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Events
-                    </Link>
-                  </div>
-                  <div className={`menu-link ${pathname === "/about" ? "menu-link-active" : ""}`}>
-                    <Link
-                      href="/about"
-                      onClick={(e) => handleLinkClick(e, "/about")}
-                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
-                    >
-                      About
                     </Link>
                   </div>
                   <div className={`menu-link ${pathname === "/contact" ? "menu-link-active" : ""}`}>
