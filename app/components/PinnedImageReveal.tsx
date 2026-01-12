@@ -23,6 +23,10 @@ export default function PinnedImageReveal({
   const pathname = usePathname();
   const [isReady, setIsReady] = useState(false);
 
+  // Detect mobile viewport
+  const isMobile =
+    typeof window !== "undefined" ? window.innerWidth < 768 : false;
+
   // Wait for page transition to complete before creating ScrollTrigger
   useEffect(() => {
     let mounted = true;
@@ -88,90 +92,99 @@ export default function PinnedImageReveal({
       const wrapperWidth = wrapperRect.width;
       const wrapperHeight = wrapperRect.height;
 
-      // Initial circle size - small, close to text
-      const initialRadiusPx = 150; // pixels
+      // Responsive scroll distances - shorter on mobile for better performance
+      const scrollDistance = isMobile ? "400vh" : "800vh";
 
-      // Position circle centered horizontally, just below text
-      let initialCenterXPercent = 50; // Centered horizontally
-      let initialCenterYPercent = 55; // Default position below text area
+      // Initial circle size - smaller on mobile
+      const initialRadiusPx = isMobile ? 100 : 150;
+      const spacing = isMobile ? 60 : 100; // Gap between text bottom and circle top edge
+
+      // Get text position
+      let textBottomY = wrapperHeight * 0.5; // Default fallback
 
       if (text) {
-        // Find the actual text content element (h1, h2, p, etc.) inside the text container
         const textContent = text.querySelector("h1, h2, h3, h4, h5, h6, p");
         const textElement = textContent || text;
         const textRect = textElement.getBoundingClientRect();
-
-        // Keep circle centered horizontally
-        initialCenterXPercent = 50;
-        // Position circle just below the text with minimal spacing
-        const textBottomY = textRect.bottom - wrapperRect.top;
-        const spacing = 100; // DEBUG: Large spacing to test if positioning works
-        initialCenterYPercent =
-          ((textBottomY + initialRadiusPx + spacing) / wrapperHeight) * 100;
+        textBottomY = textRect.bottom - wrapperRect.top;
       }
+
+      // INITIAL STATE: Circle positioned with its top edge below the text
+      // Circle top edge = text bottom + spacing
+      // Circle center = circle top edge + radius
+      const initialCircleTopEdge = textBottomY + spacing;
+      const initialCenterYPx = initialCircleTopEdge + initialRadiusPx;
+      const initialCenterYPercent = (initialCenterYPx / wrapperHeight) * 100;
+      const initialCenterXPercent = 50;
 
       // Convert radius to percentage for smooth animation
       const wrapperDiagonal = Math.sqrt(wrapperWidth ** 2 + wrapperHeight ** 2);
       const initialRadiusPercent = (initialRadiusPx / wrapperDiagonal) * 100;
 
-      // Set initial clip path - small circle positioned close to text
+      // FINAL STATE: Circle fills entire screen from center
+      const finalRadiusPercent = 100;
+      const finalCenterXPercent = 50;
+      const finalCenterYPx = wrapperHeight * 0.5;
+      const finalCenterYPercent = 50;
+      const finalRadiusPx = wrapperDiagonal;
+
+      // FINAL POSITION of circle's top edge when centered
+      const finalCircleTopEdge = finalCenterYPx - finalRadiusPx;
+
+      // INITIAL POSITION of circle's top edge
+      // The distance the top edge of the circle moves
+      const circleTopEdgeMovement = initialCircleTopEdge - finalCircleTopEdge;
+
+      // Text must move by the same distance to maintain constant gap
+      const textMovement = circleTopEdgeMovement;
+
+      // Set initial clip path
       gsap.set(imageWrapper, {
         clipPath: `circle(${initialRadiusPercent}% at ${initialCenterXPercent}% ${initialCenterYPercent}%)`,
       });
 
-      // Create timeline for coordinated animation - longer scroll distance
+      // Create single timeline for all animations
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=800vh", // Longer scroll distance so circle and text move together smoothly
+          end: `+=${scrollDistance}`,
           pin: true,
-          pinReparent: true,
-          scrub: 1,
-          // markers: true,
           pinSpacing: true,
+          scrub: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          refreshPriority: -1,
+          ...(isMobile && {
+            fastScrollEnd: true,
+          }),
         },
       });
 
-      // Text animation - separate ScrollTrigger so it completes earlier
-      // Text moves at same linear rate as circle to maintain constant distance
-      // Text is pushed out of view before circle reaches full screen
+      // Animate circle from initial position/size to center/full
+      tl.to(
+        imageWrapper,
+        {
+          clipPath: `circle(${finalRadiusPercent}% at ${finalCenterXPercent}% ${finalCenterYPercent}%)`,
+          ease: "none",
+        },
+        0,
+      );
+
+      // Text moves up by the exact distance the circle's top edge moves
+      // This maintains the constant gap as the circle "pushes" the text
       if (text) {
-        const textContent = text.querySelector("h1, h2, h3, h4, h5, h6, p");
-        const textElement = textContent || text;
-        const textRect = textElement.getBoundingClientRect();
-        const textTop = textRect.top - wrapperRect.top;
-        const textHeight = textRect.height;
-
-        // Calculate distance to move text completely out of view
-        const textMoveDistance = textTop + textHeight + 200;
-
-        // Create separate ScrollTrigger for text that completes in 400vh
-        // This means text finishes moving while circle continues to 800vh
-        gsap.to(text, {
-          y: -textMoveDistance,
-          ease: "none", // Linear - same rate as circle to maintain constant distance
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "+=400vh", // Text completes in first 400vh (50% of circle's 800vh)
-            pin: false, // Don't pin again, section is already pinned
-            scrub: 1,
+        tl.to(
+          text,
+          {
+            y: -textMovement,
+            ease: "none",
           },
-        });
+          0,
+        );
       }
-
-      // Circle animation - continues to full screen after text is gone
-      const finalRadiusPercent = 100; // Full coverage - image takes full screen
-      const finalCenterXPercent = 50; // Center horizontally
-      const finalCenterYPercent = 50; // Center vertically
-
-      tl.to(imageWrapper, {
-        clipPath: `circle(${finalRadiusPercent}% at ${finalCenterXPercent}% ${finalCenterYPercent}%)`,
-        ease: "none", // Linear growth - maintains constant rate
-      });
     },
-    { scope: sectionRef, dependencies: [isReady] },
+    { scope: sectionRef, dependencies: [isReady, isMobile] },
   );
 
   return (
