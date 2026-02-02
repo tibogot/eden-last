@@ -18,7 +18,7 @@ export default function Experiences() {
       <div className="mt-40 px-4 md:px-8">
         <div className="relative h-[80vh] w-full overflow-hidden">
           <Image
-            src="/images/hero-2.jpg"
+            src="/images/annie-lang.jpg"
             alt="Eden Garden experiences"
             fill
             className="object-cover"
