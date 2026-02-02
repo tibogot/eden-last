@@ -14,11 +14,11 @@ export default function Restaurant() {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 z-[1] bg-black/20"></div>
+        <div className="absolute inset-0 z-1 bg-black/20"></div>
         <div className="relative z-10 flex h-full flex-col items-center justify-center">
           <div className="w-full px-4 md:px-8">
             <div className="flex flex-col items-center text-center">
-              <h1 className="font-ivy-headline mb-4 text-5xl leading-tight text-white md:text-7xl">
+              <h1 className="font-ivy-headline mx-auto max-w-4xl text-5xl leading-tight text-white md:text-8xl">
                 Where food brings us together.
               </h1>
             </div>
@@ -44,20 +44,20 @@ export default function Restaurant() {
           {/* Second Section - Paragraphs and link, aligned to the right */}
           <div className="flex flex-col gap-8 md:ml-auto md:w-1/2">
             <p className="font-neue-haas text-primary text-lg">
-              Eden Park & Garden Restaurant is a vibrant culinary oasis in Abuja,
-              offering a unique blend of traditional cuisine and contemporary
-              dining experiences. From authentic local dishes to innovative
-              culinary creations, there&apos;s something for everyone. Indulge in
-              traditional cuisine while enjoying the intimate ambiance of our
-              restaurant.
+              Eden Park & Garden Restaurant is a vibrant culinary oasis in
+              Abuja, offering a unique blend of traditional cuisine and
+              contemporary dining experiences. From authentic local dishes to
+              innovative culinary creations, there&apos;s something for
+              everyone. Indulge in traditional cuisine while enjoying the
+              intimate ambiance of our restaurant.
             </p>
             <p className="font-neue-haas text-primary text-lg">
               Our chefs craft each dish with passion and precision, using the
-              finest local ingredients to create unforgettable flavors. Every meal
-              tells a story of culinary excellence, blending time-honored recipes
-              with modern techniques. Experience the artistry of our kitchen as
-              we bring together the best of Nigerian cuisine and international
-              influences.
+              finest local ingredients to create unforgettable flavors. Every
+              meal tells a story of culinary excellence, blending time-honored
+              recipes with modern techniques. Experience the artistry of our
+              kitchen as we bring together the best of Nigerian cuisine and
+              international influences.
             </p>
             <p className="font-neue-haas text-primary text-lg">
               Whether you&apos;re joining us for a romantic dinner, a family

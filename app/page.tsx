@@ -56,17 +56,18 @@ export default async function Home() {
     <main className="bg-secondary text-primary">
       <section className="relative h-svh w-full overflow-hidden">
         <Image
-          src="/images/hero-2.jpg"
+          src="/images/annie-lang.jpg"
           alt="Hero image"
           fill
           priority
           className="object-cover"
         />
+        <div className="absolute inset-0 z-1 bg-black/20" aria-hidden />
         <div className="relative z-10 h-full">
           {/* Title - Centered */}
           <div className="absolute inset-0 flex items-center justify-center text-center">
             <div className="container mx-auto px-4">
-              <h1 className="font-ivy-headline mb-4 text-5xl leading-tight text-white md:text-8xl">
+              <h1 className="font-ivy-headline mx-auto max-w-4xl text-5xl leading-tight text-white md:text-8xl">
                 Experience paradise in every sip and bite
               </h1>
             </div>
