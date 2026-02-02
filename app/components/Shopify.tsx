@@ -332,7 +332,10 @@ export default function Shopify({
               value: new THREE.Vector2(window.innerWidth, window.innerHeight),
             },
             uImageResolution: {
-              value: new THREE.Vector2(texture.image.width, texture.image.height),
+              value: new THREE.Vector2(
+                (texture.image as HTMLImageElement).width,
+                (texture.image as HTMLImageElement).height,
+              ),
             },
             uDissolve: { value: 0.0 },
             uCenter: { value: new THREE.Vector2(0.5, 0.5) },
@@ -350,9 +353,9 @@ export default function Shopify({
         scene1.add(mesh1);
       },
       undefined,
-      (error: ErrorEvent) => {
+      (error: unknown) => {
         console.error("Error loading texture 1:", error);
-      }
+      },
     );
 
     // Load second texture
@@ -366,7 +369,10 @@ export default function Shopify({
               value: new THREE.Vector2(window.innerWidth, window.innerHeight),
             },
             uImageResolution: {
-              value: new THREE.Vector2(texture.image.width, texture.image.height),
+              value: new THREE.Vector2(
+                (texture.image as HTMLImageElement).width,
+                (texture.image as HTMLImageElement).height,
+              ),
             },
             uDissolve: { value: 0.0 },
             uCenter: { value: new THREE.Vector2(0.5, 0.5) },
@@ -385,9 +391,9 @@ export default function Shopify({
         scene2.add(mesh2);
       },
       undefined,
-      (error: ErrorEvent) => {
+      (error: unknown) => {
         console.error("Error loading texture 2:", error);
-      }
+      },
     );
 
     // Handle resize
@@ -398,13 +404,13 @@ export default function Shopify({
       if (material1) {
         material1.uniforms.uResolution.value.set(
           window.innerWidth,
-          window.innerHeight
+          window.innerHeight,
         );
       }
       if (material2) {
         material2.uniforms.uResolution.value.set(
           window.innerWidth,
-          window.innerHeight
+          window.innerHeight,
         );
       }
     };
@@ -491,7 +497,7 @@ export default function Shopify({
   }, [lenis, image1Src, image2Src]);
 
   return (
-    <div className={`relative w-full h-full ${className}`}>
+    <div className={`relative h-full w-full ${className}`}>
       <div ref={container1Ref} className="canvas1 absolute inset-0" />
       <div ref={container2Ref} className="canvas2 absolute inset-0" />
     </div>
