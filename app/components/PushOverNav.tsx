@@ -13,7 +13,7 @@ import { gsap, SplitText, useGSAP } from "../lib/gsapConfig";
 const customEase = "expo.out"; // Try: "expo.out", "power3.out", "power4.out", or keep original: "cubic-bezier(0.87, 0, 0.13, 1)"
 
 // Pages that have a hero image at the top (navbar should start white)
-const pagesWithHero = ["/"];
+const pagesWithHero = ["/", "/about"];
 
 export default function PushOverNav() {
   const lenis = useLenis();
@@ -21,9 +21,20 @@ export default function PushOverNav() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isInHero, setIsInHero] = useState(pagesWithHero.includes(pathname));
-  const isInHeroRef = useRef(true); // Ref to track current hero state for closures
-  const wasInHeroBeforeOpenRef = useRef(true); // Store hero state when opening menu
+  // Determine initial hero state based on pathname
+  const initialIsInHero = pagesWithHero.includes(pathname);
+  const [isInHero, setIsInHero] = useState(initialIsInHero);
+  const isInHeroRef = useRef(initialIsInHero); // Ref to track current hero state for closures
+  const wasInHeroBeforeOpenRef = useRef(initialIsInHero); // Store hero state when opening menu
+
+  // Immediately update hero state when pathname changes (for client-side navigation)
+  useEffect(() => {
+    const shouldBeInHero = pagesWithHero.includes(pathname);
+    if (!shouldBeInHero) {
+      isInHeroRef.current = false;
+      setIsInHero(false);
+    }
+  }, [pathname]);
 
   const menuToggleBtnRef = useRef<HTMLButtonElement>(null);
   const menuOverlayRef = useRef<HTMLDivElement>(null);
@@ -33,6 +44,9 @@ export default function PushOverNav() {
   const hamburgerBar1Ref = useRef<HTMLSpanElement>(null);
   const hamburgerBar2Ref = useRef<HTMLSpanElement>(null);
   const hamburgerBar3Ref = useRef<HTMLSpanElement>(null);
+  const overlayHamburgerBar1Ref = useRef<HTMLSpanElement>(null);
+  const overlayHamburgerBar2Ref = useRef<HTMLSpanElement>(null);
+  const overlayHamburgerBar3Ref = useRef<HTMLSpanElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const overlayLogoRef = useRef<HTMLDivElement>(null);
 
@@ -134,6 +148,17 @@ export default function PushOverNav() {
         gsap.set(hamburgerBar1Ref.current, { y: -6, rotation: 0 });
         gsap.set(hamburgerBar2Ref.current, { opacity: 1 });
         gsap.set(hamburgerBar3Ref.current, { y: 6, rotation: 0 });
+      }
+
+      // Set initial overlay hamburger bar positions (X shape)
+      if (
+        overlayHamburgerBar1Ref.current &&
+        overlayHamburgerBar2Ref.current &&
+        overlayHamburgerBar3Ref.current
+      ) {
+        gsap.set(overlayHamburgerBar1Ref.current, { y: 0, rotation: 45 });
+        gsap.set(overlayHamburgerBar2Ref.current, { opacity: 0 });
+        gsap.set(overlayHamburgerBar3Ref.current, { y: 0, rotation: -45 });
       }
     },
     { scope: menuOverlayContainerRef, dependencies: [] },
@@ -248,12 +273,17 @@ export default function PushOverNav() {
       : "brightness(0) saturate(100%) invert(27%) sepia(12%) saturate(600%) hue-rotate(60deg) brightness(95%) contrast(85%)";
 
     // Update burger colors
+    // Use instant set for pages without hero, animated for scroll-based changes on hero pages
     if (
       hamburgerBar1Ref.current &&
       hamburgerBar2Ref.current &&
       hamburgerBar3Ref.current
     ) {
-      gsap.to(
+      const isHeroPage = pagesWithHero.includes(pathname);
+      const gsapMethod = isHeroPage ? gsap.to : gsap.set;
+
+      gsapMethod.call(
+        gsap,
         [
           hamburgerBar1Ref.current,
           hamburgerBar2Ref.current,
@@ -261,8 +291,7 @@ export default function PushOverNav() {
         ],
         {
           backgroundColor: targetColor,
-          duration: 0.3,
-          ease: "power2.out",
+          ...(isHeroPage && { duration: 0.3, ease: "power2.out" }),
         },
       );
     }
@@ -350,6 +379,17 @@ export default function PushOverNav() {
     if (contentContainer) {
       gsap.set(contentContainer, { y: "0svh" });
     }
+
+    // Reset overlay hamburger to X shape
+    if (
+      overlayHamburgerBar1Ref.current &&
+      overlayHamburgerBar2Ref.current &&
+      overlayHamburgerBar3Ref.current
+    ) {
+      gsap.set(overlayHamburgerBar1Ref.current, { y: 0, rotation: 45 });
+      gsap.set(overlayHamburgerBar2Ref.current, { opacity: 0 });
+      gsap.set(overlayHamburgerBar3Ref.current, { y: 0, rotation: -45 });
+    }
   };
 
   // Comprehensive cleanup function to kill all animations
@@ -390,6 +430,15 @@ export default function PushOverNav() {
     }
     if (hamburgerBar3Ref.current) {
       gsap.killTweensOf(hamburgerBar3Ref.current);
+    }
+    if (overlayHamburgerBar1Ref.current) {
+      gsap.killTweensOf(overlayHamburgerBar1Ref.current);
+    }
+    if (overlayHamburgerBar2Ref.current) {
+      gsap.killTweensOf(overlayHamburgerBar2Ref.current);
+    }
+    if (overlayHamburgerBar3Ref.current) {
+      gsap.killTweensOf(overlayHamburgerBar3Ref.current);
     }
     if (logoRef.current) {
       gsap.killTweensOf(logoRef.current);
@@ -644,6 +693,17 @@ export default function PushOverNav() {
             });
           }
 
+          // Reset overlay hamburger to X shape for next open
+          if (
+            overlayHamburgerBar1Ref.current &&
+            overlayHamburgerBar2Ref.current &&
+            overlayHamburgerBar3Ref.current
+          ) {
+            gsap.set(overlayHamburgerBar1Ref.current, { y: 0, rotation: 45 });
+            gsap.set(overlayHamburgerBar2Ref.current, { opacity: 0 });
+            gsap.set(overlayHamburgerBar3Ref.current, { y: 0, rotation: -45 });
+          }
+
           setIsAnimating(false);
           // Only restart Lenis if not navigating
           // During navigation, LenisProvider handles restarting after pageTransitionComplete
@@ -757,10 +817,15 @@ export default function PushOverNav() {
           "<0.2",
         );
 
-        // Use the color that was active BEFORE opening the menu
-        const targetColor = wasInHeroBeforeOpenRef.current
-          ? "#fffdf6"
-          : "#465643";
+        // When closing due to navigation, use the NEW page's color so burger matches logo immediately.
+        // Otherwise use the color that was active before opening the menu.
+        const targetColor = isNavigatingRef.current
+          ? pagesWithHero.includes(pathname)
+            ? "#fffdf6"
+            : "#465643"
+          : wasInHeroBeforeOpenRef.current
+            ? "#fffdf6"
+            : "#465643";
 
         tl.to(
           [
@@ -775,7 +840,6 @@ export default function PushOverNav() {
           },
           "<",
         );
-
       }
 
       setIsMenuOpen(false);
@@ -951,6 +1015,25 @@ export default function PushOverNav() {
       // Now wait for hero images to be fully loaded
       await waitForHeroImages();
 
+      // Set closed nav burger to new page color so it's already correct when overlay closes
+      if (
+        hamburgerBar1Ref.current &&
+        hamburgerBar2Ref.current &&
+        hamburgerBar3Ref.current
+      ) {
+        const navColor = pagesWithHero.includes(window.location.pathname)
+          ? "#fffdf6"
+          : "#465643";
+        gsap.set(
+          [
+            hamburgerBar1Ref.current,
+            hamburgerBar2Ref.current,
+            hamburgerBar3Ref.current,
+          ],
+          { backgroundColor: navColor },
+        );
+      }
+
       // Start the slide-up animation now that content is ready
       handleMenuToggle();
 
@@ -1008,8 +1091,8 @@ export default function PushOverNav() {
           </div>
         </div>
 
-        {/* Hamburger Button - separate container with highest z-index */}
-        <div className="pointer-events-auto fixed top-0 right-0 z-52 px-4 py-8 md:px-8">
+        {/* Hamburger Button - same z-index as logo, overlay will cover it */}
+        <div className="pointer-events-auto fixed top-0 right-0 z-50 px-4 py-8 md:px-8">
           <button
             ref={menuToggleBtnRef}
             onClick={handleMenuToggle}
@@ -1023,17 +1106,26 @@ export default function PushOverNav() {
               <span
                 ref={hamburgerBar1Ref}
                 className="absolute h-[1.5px] w-full origin-center overflow-visible transition-colors duration-300 ease-in-out will-change-transform"
-                style={{ transform: "translateY(-6px)", backgroundColor: isInHero ? "#fffdf6" : "#465643" }}
+                style={{
+                  transform: "translateY(-6px)",
+                  backgroundColor: isInHero ? "#fffdf6" : "#465643",
+                }}
               ></span>
               <span
                 ref={hamburgerBar2Ref}
                 className="absolute h-[1.5px] w-full origin-center overflow-visible opacity-100 transition-colors duration-300 ease-in-out will-change-transform"
-                style={{ transform: "translateY(0)", backgroundColor: isInHero ? "#fffdf6" : "#465643" }}
+                style={{
+                  transform: "translateY(0)",
+                  backgroundColor: isInHero ? "#fffdf6" : "#465643",
+                }}
               ></span>
               <span
                 ref={hamburgerBar3Ref}
                 className="absolute h-[1.5px] w-full origin-center overflow-visible transition-colors duration-300 ease-in-out will-change-transform"
-                style={{ transform: "translateY(6px)", backgroundColor: isInHero ? "#fffdf6" : "#465643" }}
+                style={{
+                  transform: "translateY(6px)",
+                  backgroundColor: isInHero ? "#fffdf6" : "#465643",
+                }}
               ></span>
             </div>
           </button>
@@ -1075,6 +1167,33 @@ export default function PushOverNav() {
               </Link>
             </div>
           </div>
+
+          {/* Overlay Hamburger - positioned same as nav bar hamburger */}
+          <div className="pointer-events-auto fixed top-0 right-0 z-51 px-4 py-8 md:px-8">
+            <button
+              onClick={handleMenuToggle}
+              className="flex cursor-pointer items-center justify-center overflow-visible border-none bg-transparent p-2"
+              aria-label="Toggle menu"
+            >
+              <div className="menu-hamburger-icon relative flex h-8 min-h-8 w-8 min-w-8 flex-col items-center justify-center overflow-visible">
+                <span
+                  ref={overlayHamburgerBar1Ref}
+                  className="absolute h-[1.5px] w-full origin-center overflow-visible will-change-transform"
+                  style={{ backgroundColor: "#fffdf6" }}
+                ></span>
+                <span
+                  ref={overlayHamburgerBar2Ref}
+                  className="absolute h-[1.5px] w-full origin-center overflow-visible will-change-transform"
+                  style={{ backgroundColor: "#fffdf6", opacity: 0 }}
+                ></span>
+                <span
+                  ref={overlayHamburgerBar3Ref}
+                  className="absolute h-[1.5px] w-full origin-center overflow-visible will-change-transform"
+                  style={{ backgroundColor: "#fffdf6" }}
+                ></span>
+              </div>
+            </button>
+          </div>
           <div
             ref={menuOverlayContainerRef}
             className="pointer-events-auto fixed inset-0 flex h-full w-full will-change-transform"
@@ -1084,7 +1203,9 @@ export default function PushOverNav() {
               <div className="absolute top-1/2 left-4 flex w-full -translate-y-1/2 transform flex-col items-start gap-12 py-8 md:left-8 md:w-3/4 md:flex-row md:items-end md:gap-8">
                 {/* Main Menu Links */}
                 <div className="menu-col text-secondary flex flex-[3] flex-col gap-2">
-                  <div className={`menu-link ${pathname === "/about" ? "menu-link-active" : ""}`}>
+                  <div
+                    className={`menu-link ${pathname === "/about" ? "menu-link-active" : ""}`}
+                  >
                     <Link
                       href="/about"
                       onClick={(e) => handleLinkClick(e, "/about")}
@@ -1093,7 +1214,9 @@ export default function PushOverNav() {
                       About
                     </Link>
                   </div>
-                  <div className={`menu-link ${pathname === "/restaurant" ? "menu-link-active" : ""}`}>
+                  <div
+                    className={`menu-link ${pathname === "/restaurant" ? "menu-link-active" : ""}`}
+                  >
                     <Link
                       href="/restaurant"
                       onClick={(e) => handleLinkClick(e, "/restaurant")}
@@ -1102,7 +1225,9 @@ export default function PushOverNav() {
                       Restaurant
                     </Link>
                   </div>
-                  <div className={`menu-link ${pathname === "/experiences" ? "menu-link-active" : ""}`}>
+                  <div
+                    className={`menu-link ${pathname === "/experiences" ? "menu-link-active" : ""}`}
+                  >
                     <Link
                       href="/experiences"
                       onClick={(e) => handleLinkClick(e, "/experiences")}
@@ -1111,7 +1236,9 @@ export default function PushOverNav() {
                       Experiences
                     </Link>
                   </div>
-                  <div className={`menu-link ${pathname === "/events" ? "menu-link-active" : ""}`}>
+                  <div
+                    className={`menu-link ${pathname === "/events" ? "menu-link-active" : ""}`}
+                  >
                     <Link
                       href="/events"
                       onClick={(e) => handleLinkClick(e, "/events")}
@@ -1120,7 +1247,9 @@ export default function PushOverNav() {
                       Events
                     </Link>
                   </div>
-                  <div className={`menu-link ${pathname === "/contact" ? "menu-link-active" : ""}`}>
+                  <div
+                    className={`menu-link ${pathname === "/contact" ? "menu-link-active" : ""}`}
+                  >
                     <Link
                       href="/contact"
                       onClick={(e) => handleLinkClick(e, "/contact")}
@@ -1133,7 +1262,7 @@ export default function PushOverNav() {
               </div>
 
               {/* Footer */}
-              <div className="mt-auto flex w-full flex-col items-start gap-8 py-8 pl-4 md:pl-8 md:w-3/4 md:flex-row">
+              <div className="mt-auto flex w-full flex-col items-start gap-8 py-8 pl-4 md:w-3/4 md:flex-row md:pl-8">
                 <div className="menu-col flex flex-col gap-2">
                   <p className="text-secondary text-sm font-medium">
                     Eden Garden
@@ -1153,7 +1282,7 @@ export default function PushOverNav() {
             {/* Media Wrapper - Now on the right */}
             <div
               ref={menuMediaWrapperRef}
-              className="hidden flex-[2] pr-4 opacity-0 will-change-[clip-path] md:pr-8 md:flex md:items-center md:justify-end"
+              className="hidden flex-[2] pr-4 opacity-0 will-change-[clip-path] md:flex md:items-center md:justify-end md:pr-8"
               style={{
                 clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
               }}
@@ -1165,6 +1294,7 @@ export default function PushOverNav() {
                   fill
                   className="object-cover"
                   priority
+                  sizes="(min-width: 768px) 448px, 100vw"
                 />
               </div>
             </div>

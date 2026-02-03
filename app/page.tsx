@@ -3,6 +3,7 @@ import { Link } from "next-view-transitions";
 import TextReveal from "@/app/components/TextReveal";
 import TestimonialsTicker from "@/app/components/TestimonialsTicker";
 import BlogPreview from "@/app/components/BlogPreview";
+import ServicesGrid from "@/app/components/ServicesGrid";
 import client from "@/app/sanityClient";
 import type { PortableTextBlock } from "@portabletext/types";
 
@@ -143,6 +144,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      <ServicesGrid />
       <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center justify-center text-center">

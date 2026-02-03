@@ -3,15 +3,15 @@ import { Link } from "next-view-transitions";
 
 export default function Footer() {
   return (
-    <footer className="relative mt-auto h-[80vh] w-full overflow-hidden">
+    <footer className="bg-primary relative mt-auto h-[80vh] w-full overflow-hidden">
       {/* Background Image */}
-      <Image
+      {/* <Image
         src="/images/colin.jpg"
         alt="Eden Garden"
         fill
         className="object-cover"
         priority={false}
-      />
+      /> */}
 
       {/* Content Overlay */}
       <div className="relative z-10 flex h-full w-full flex-col px-4 pt-8 md:px-8">
@@ -70,16 +70,20 @@ export default function Footer() {
           <div className="flex justify-center">
             <div className="relative h-[30vh] w-[600px]">
               <Image
-                src="/navlogo.svg"
+                src="/images/newlogo.svg"
                 alt="Eden Garden Logo"
                 fill
                 className="object-contain object-bottom"
                 priority={false}
+                style={{
+                  filter:
+                    "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)",
+                }}
               />
             </div>
           </div>
         </div>
-        
+
         {/* Copyright */}
         <div className="absolute bottom-4 left-4 md:bottom-4 md:left-8">
           <p className="text-sm text-white/80">© 2026 All rights reserved.</p>

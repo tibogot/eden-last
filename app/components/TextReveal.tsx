@@ -70,7 +70,7 @@ export default function TextReveal({
       ease: "linear",
       scrollTrigger: {
         trigger: textElement,
-        scrub: 3,
+        scrub: 1,
         start: "top bottom-=20%",
         end: "center center",
         // markers: true,
