@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Link } from "next-view-transitions";
 import TextReveal from "@/app/components/TextReveal";
+import ScrollColorSwap from "@/app/components/ScrollColorSwap";
 
 export default function Experiences() {
   return (
@@ -12,7 +13,8 @@ export default function Experiences() {
             alt="Eden Garden"
             width={933}
             height={311}
-            className="h-auto w-full max-w-2xl object-contain"
+            className="h-auto object-contain"
+            style={{ width: "clamp(160px, 50vw, 672px)" }}
             priority
           />
         </div>
@@ -103,13 +105,144 @@ export default function Experiences() {
           </div>
         </div>
       </section>
-      <section className="container mx-auto px-4 py-16">
-        <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
-          <h2 className="font-ivy-headline mb-4 text-3xl">What We Offer</h2>
-          <p className="max-w-2xl text-lg">
-            From guided tours to immersive activities, we create unforgettable
-            moments.
-          </p>
+      <ScrollColorSwap className="py-32">
+        <div className="container mx-auto px-4 md:px-8">
+          {/* First block - intro */}
+          <div className="mb-40">
+            <span className="font-neue-haas text-xs tracking-wider uppercase">
+              WHAT WE OFFER
+            </span>
+            <h2 className="font-ivy-headline mt-6 max-w-2xl text-4xl leading-tight md:text-5xl">
+              From guided tours to immersive activities, we create unforgettable
+              moments.
+            </h2>
+          </div>
+
+          {/* Second block - 2 col images */}
+          <div className="mb-40 grid gap-16 md:grid-cols-2">
+            <div>
+              <Image
+                src="/images/annie-lang.jpg"
+                alt="Live music"
+                width={600}
+                height={400}
+                className="mb-6 h-auto w-full object-cover"
+              />
+              <h3 className="font-ivy-headline mb-2 text-2xl">Live Music</h3>
+              <p className="text-base">
+                Sunset sessions with curated sound experiences.
+              </p>
+            </div>
+            <div>
+              <Image
+                src="/images/colin.jpg"
+                alt="Garden dining"
+                width={600}
+                height={400}
+                className="mb-6 h-auto w-full object-cover"
+              />
+              <h3 className="font-ivy-headline mb-2 text-2xl">Garden Dining</h3>
+              <p className="text-base">
+                Seasonal plates served in the open air.
+              </p>
+            </div>
+          </div>
+
+          {/* Third block - full width image */}
+          <div className="relative mb-40 h-[70vh] w-full overflow-hidden">
+            <Image
+              src="/images/annie-lang.jpg"
+              alt="Eden Garden atmosphere"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
+
+          {/* Fourth block - quote */}
+          <div className="mb-40">
+            <p className="font-ivy-headline max-w-3xl text-2xl leading-relaxed md:text-3xl">
+              Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
+              blend of entertainment and relaxation. From live music to
+              traditional cuisine, there&apos;s something for everyone.
+            </p>
+          </div>
+
+          {/* Fifth block - 3 col features */}
+          <div className="mb-40 grid gap-16 md:grid-cols-3">
+            <div>
+              <h4 className="mb-2 text-xs tracking-wider uppercase">Events</h4>
+              <p className="text-base">Weekends with a slow glow.</p>
+            </div>
+            <div>
+              <h4 className="mb-2 text-xs tracking-wider uppercase">
+                Terrace Bar
+              </h4>
+              <p className="text-base">Drinks under the stars.</p>
+            </div>
+            <div>
+              <h4 className="mb-2 text-xs tracking-wider uppercase">
+                Open-Air Stage
+              </h4>
+              <p className="text-base">Performances in nature.</p>
+            </div>
+          </div>
+
+          {/* Sixth block - another image row */}
+          <div className="mb-40 grid gap-8 md:grid-cols-2">
+            <div className="relative h-[50vh] overflow-hidden">
+              <Image
+                src="/images/colin.jpg"
+                alt="Garden details"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 50vw, 100vw"
+              />
+            </div>
+            <div className="relative h-[50vh] overflow-hidden">
+              <Image
+                src="/images/annie-lang.jpg"
+                alt="Garden moments"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 50vw, 100vw"
+              />
+            </div>
+          </div>
+
+          {/* Final block - closing text */}
+          <div className="pb-20">
+            <h3 className="font-ivy-headline mb-6 text-3xl md:text-4xl">
+              A place to return to
+            </h3>
+            <p className="max-w-2xl text-lg">
+              Whether you&apos;re here for the music, the food, or simply the
+              atmosphere, Eden Garden leaves a lasting impression.
+            </p>
+          </div>
+        </div>
+      </ScrollColorSwap>
+
+      {/* Section after color swap to show blend */}
+      <section className="bg-secondary text-primary py-32">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col items-center text-center">
+            <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
+              VISIT US
+            </span>
+            <h2 className="font-ivy-headline mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
+              Come experience the magic of Eden Garden for yourself
+            </h2>
+            <p className="mb-10 max-w-xl text-lg">
+              Open daily from 10am to midnight. Located in the heart of Abuja.
+            </p>
+            <Link
+              href="/contact"
+              className="font-neue-haas text-xs tracking-wider uppercase underline transition-opacity hover:opacity-70"
+            >
+              GET DIRECTIONS
+            </Link>
+          </div>
         </div>
       </section>
     </main>

@@ -4,6 +4,10 @@ import TextReveal from "@/app/components/TextReveal";
 import TestimonialsTicker from "@/app/components/TestimonialsTicker";
 import BlogPreview from "@/app/components/BlogPreview";
 import ServicesGrid from "@/app/components/ServicesGrid";
+import ExpandingImageReveal from "@/app/components/ExpandingImageReveal";
+import PinnedImageTextReveal from "@/app/components/PinnedImageTextReveal";
+import StickyImageTextReveal from "@/app/components/StickyImageTextReveal";
+import StickyClipReveal from "@/app/components/StickyClipReveal";
 import client from "@/app/sanityClient";
 import type { PortableTextBlock } from "@portabletext/types";
 
@@ -162,6 +166,15 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      {/* <ExpandingImageReveal
+        imageSrc="/images/hero-2.jpg"
+        imageAlt="Eden Garden experience"
+        title="Where every moment becomes a memory"
+        description="Step into a world where nature meets celebration, and every visit tells a new story."
+      /> */}
+      {/* <PinnedImageTextReveal /> */}
+      {/* <StickyImageTextReveal /> */}
+      <StickyClipReveal />
       <TestimonialsTicker />
 
       {blogPosts.length > 0 && (

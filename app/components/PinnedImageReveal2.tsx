@@ -152,7 +152,7 @@ export default function PinnedImageReveal({
           pin: true,
           pinSpacing: true,
           scrub: true,
-          // anticipatePin: 1,
+          anticipatePin: 1,
           invalidateOnRefresh: true,
           refreshPriority: -1,
           ...(isMobile && {
