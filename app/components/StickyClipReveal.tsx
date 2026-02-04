@@ -15,53 +15,46 @@ export default function StickyClipReveal() {
   const isMobile =
     typeof window !== "undefined" ? window.innerWidth < 768 : false;
 
+  // Wait for page transition to finish before creating ScrollTrigger (GSAP recommendation).
+  // If we init too early, view transition styles/layout interfere and the animation appears finished.
   useEffect(() => {
     let mounted = true;
-    let timeoutId: NodeJS.Timeout;
+    let readyTimeoutId: ReturnType<typeof setTimeout>;
 
-    const handleTransitionComplete = () => {
+    const setReady = () => {
       if (!mounted) return;
-      timeoutId = setTimeout(() => {
-        if (mounted) {
-          setIsReady(true);
-        }
-      }, 100);
+      clearTimeout(fallbackId);
+      readyTimeoutId = setTimeout(() => {
+        if (mounted) setIsReady(true);
+      }, 150); // After Lenis scroll + ScrollTrigger.refresh (100ms) so layout is stable
     };
 
-    const checkAndInit = () => {
-      if (!mounted) return;
-
-      const contentContainer = document.querySelector(
-        ".content-container",
-      ) as HTMLElement;
-      if (contentContainer) {
-        const transform = window.getComputedStyle(contentContainer).transform;
-        if (transform && transform !== "none") {
-          window.addEventListener(
-            "pageTransitionComplete",
-            handleTransitionComplete,
-            { once: true },
-          );
-        } else {
-          timeoutId = setTimeout(() => {
-            if (mounted) setIsReady(true);
-          }, 50);
-        }
-      } else {
-        timeoutId = setTimeout(() => {
-          if (mounted) setIsReady(true);
-        }, 200);
-      }
+    const onTransitionComplete = () => {
+      setReady();
     };
 
-    requestAnimationFrame(checkAndInit);
+    window.addEventListener("pageTransitionComplete", onTransitionComplete, {
+      once: true,
+    });
+
+    // Fallback: first load or when event never fires (no transition)
+    const fallbackId = setTimeout(() => {
+      if (!mounted) return;
+      window.removeEventListener(
+        "pageTransitionComplete",
+        onTransitionComplete,
+      );
+      setIsReady(true);
+    }, 800);
 
     return () => {
       mounted = false;
-      clearTimeout(timeoutId);
+      clearTimeout(readyTimeoutId);
+      clearTimeout(fallbackId);
+      setIsReady(false);
       window.removeEventListener(
         "pageTransitionComplete",
-        handleTransitionComplete,
+        onTransitionComplete,
       );
     };
   }, [pathname]);
@@ -89,7 +82,7 @@ export default function StickyClipReveal() {
         });
       }
 
-      ScrollTrigger.create({
+      const trigger = ScrollTrigger.create({
         trigger: section,
         start: "top top",
         end: "bottom bottom",
@@ -126,6 +119,13 @@ export default function StickyClipReveal() {
           }
         },
       });
+
+      // Cleanup: kill ScrollTrigger and revert gsap.set() so nothing persists on navigate
+      return () => {
+        trigger.kill();
+        gsap.set(imageWrapper, { clearProps: "clipPath" });
+        if (text) gsap.set(text, { clearProps: "y" });
+      };
     },
     { scope: sectionRef, dependencies: [isReady, isMobile] },
   );
