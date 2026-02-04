@@ -2,34 +2,35 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import TextReveal from "@/app/components/TextReveal";
 import ScrollColorSwap from "@/app/components/ScrollColorSwap";
+import ParallaxImage from "@/app/components/ParallaxImage";
 
 export default function Experiences() {
   return (
     <main className="bg-secondary text-primary">
-      <section className="flex min-h-[60vh] w-full items-center justify-center px-4 pt-24 md:px-8 md:pt-32">
-        <div className="relative -ml-8 flex w-full max-w-4xl items-center justify-center md:-ml-16">
+      <section className="flex w-full items-center justify-center px-4 pt-24 md:px-8 md:pt-32">
+        <div className="relative flex w-full max-w-4xl items-center justify-center">
           <Image
             src="/images/newlogo.svg"
             alt="Eden Garden"
             width={933}
             height={311}
-            className="h-auto object-contain"
+            className="object-contain"
             style={{ width: "clamp(160px, 50vw, 672px)" }}
             priority
           />
         </div>
       </section>
-      <div className="mt-40 px-4 md:px-8">
-        <div className="relative h-[80vh] w-full overflow-hidden">
+      <section className="flex w-full flex-col items-center justify-center px-4 pt-40 md:px-8">
+        <ParallaxImage speed={0.5} className="h-[400px] w-full md:h-[600px]">
           <Image
             src="/images/annie-lang.jpg"
             alt="Eden Garden experiences"
             fill
-            className="object-cover"
-            sizes="100vw"
+            className="rounded-sm object-cover"
+            sizes="(max-width: 768px) 100vw, 400px"
           />
-        </div>
-      </div>
+        </ParallaxImage>
+      </section>
       <section className="py-32 md:py-40">
         <TextReveal
           className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"

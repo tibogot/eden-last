@@ -144,7 +144,7 @@ export default function StickyClipReveal() {
         {/* Image with clip-path */}
         <div ref={imageWrapperRef} className="absolute inset-0">
           <Image
-            src="/images/ovinuchi-ejiohuo.jpg"
+            src="/images/shourav-sheikh.jpg"
             alt="Eden Garden atmosphere"
             fill
             className="object-cover"
