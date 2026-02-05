@@ -82,6 +82,10 @@ export default function StickyClipReveal() {
         });
       }
 
+      // Circle position: start at center-bottom (70%), end at center (50%) during phase 1
+      const initialY = 70;
+      const endY = 50;
+
       const trigger = ScrollTrigger.create({
         trigger: section,
         start: "top top",
@@ -97,8 +101,10 @@ export default function StickyClipReveal() {
             // Clip-path animation: 0 to 0.4 progress maps to initialRadius to 100%
             const clipProgress = progress / 0.4;
             const radius = initialRadius + (100 - initialRadius) * clipProgress;
+            // Interpolate circle position from (50%, 70%) to (50%, 50%) so no jump on first frame
+            const y = initialY + (endY - initialY) * clipProgress;
             gsap.set(imageWrapper, {
-              clipPath: `circle(${radius}% at 50% 50%)`,
+              clipPath: `circle(${radius}% at 50% ${y}%)`,
             });
           } else {
             // Ensure clip-path is fully open

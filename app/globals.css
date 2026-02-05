@@ -78,3 +78,9 @@ body {
     animation: none;
   }
 }
+
+/* AnimatedTextChars – prevent FOUC (flash of title on refresh) */
+.animated-text-chars-wrapper.fouc-prevent {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}

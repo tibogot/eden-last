@@ -1,5 +1,6 @@
 import { Link } from "next-view-transitions";
 import HeroParallax from "@/app/components/HeroParallax";
+import RestaurantHeroTitle from "@/app/components/RestaurantHeroTitle";
 
 export default function Restaurant() {
   return (
@@ -8,15 +9,7 @@ export default function Restaurant() {
         imageSrc="/images/daniel-park.jpg"
         imageAlt="Restaurant image"
       >
-        <div className="flex h-full flex-col items-center justify-center">
-          <div className="w-full px-4 md:px-8">
-            <div className="flex flex-col items-center text-center">
-              <h1 className="font-ivy-headline mx-auto max-w-4xl text-5xl leading-tight text-white md:text-8xl">
-                Where food brings us together.
-              </h1>
-            </div>
-          </div>
-        </div>
+        <RestaurantHeroTitle />
       </HeroParallax>
       <section className="bg-secondary text-primary pt-32">
         <div className="container px-4 md:px-8">

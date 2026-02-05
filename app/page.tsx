@@ -7,6 +7,8 @@ import ExpandingImageReveal from "@/app/components/ExpandingImageReveal";
 import PinnedImageTextReveal from "@/app/components/PinnedImageTextReveal";
 import StickyImageTextReveal from "@/app/components/StickyImageTextReveal";
 import StickyClipReveal from "@/app/components/StickyClipReveal";
+import AnimatedTextWords from "@/app/components/AnimatedTextWords";
+import AnimatedTextChars from "@/app/components/AnimatedTextChars";
 import HeroParallax from "@/app/components/HeroParallax";
 import client from "@/app/sanityClient";
 import type { PortableTextBlock } from "@portabletext/types";
@@ -88,9 +90,9 @@ export default async function Home() {
         <div className="absolute right-0 bottom-0 left-0 flex items-center justify-center pb-8 text-center">
           <div className="container mx-auto px-4">
             <p className="mx-auto max-w-lg text-base text-white">
-              Eden Park & Garden is a vibrant oasis in Abuja, offering a
-              unique blend of entertainment and relaxation. From live music
-              and dance shows to thrilling football matches, there.
+              Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
+              blend of entertainment and relaxation. From live music and dance
+              shows to thrilling football matches, there.
             </p>
           </div>
         </div>
@@ -200,6 +202,73 @@ export default async function Home() {
           </ul>
         </section>
       )}
+
+      {/* AnimatedTextWords showcase */}
+      <section className="bg-secondary text-primary border-t border-primary/10 py-32">
+        <div className="container mx-auto px-4 md:px-8">
+          <span className="font-neue-haas text-primary mb-8 block text-xs tracking-wider uppercase">
+            Text animations (words & letters)
+          </span>
+          <div className="flex flex-col gap-24">
+            <div className="max-w-4xl">
+              <p className="font-neue-haas mb-3 text-xs uppercase tracking-wider text-primary/70">
+                Hero (plays on load) — lift
+              </p>
+              <AnimatedTextWords
+                isHero
+                stagger={0.05}
+                duration={0.5}
+                variant="lift"
+                className="font-ivy-headline text-primary text-4xl leading-tight md:text-6xl"
+              >
+                <h2>Every word reveals itself in sequence.</h2>
+              </AnimatedTextWords>
+            </div>
+            <div className="max-w-4xl">
+              <p className="font-neue-haas mb-3 text-xs uppercase tracking-wider text-primary/70">
+                Scroll-triggered — scale
+              </p>
+              <AnimatedTextWords
+                start="top 85%"
+                stagger={0.06}
+                variant="scale"
+                className="font-ivy-headline text-primary text-3xl leading-tight md:text-5xl"
+              >
+                <p>Scroll here to see words pop in one by one.</p>
+              </AnimatedTextWords>
+            </div>
+            <div className="max-w-2xl">
+              <p className="font-neue-haas mb-3 text-xs uppercase tracking-wider text-primary/70">
+                Scroll-triggered — fade
+              </p>
+              <AnimatedTextWords
+                start="top 85%"
+                stagger={0.04}
+                variant="fade"
+                className="font-neue-haas text-primary text-lg leading-relaxed"
+              >
+                <p>
+                  A subtle fade-in per word works well for longer body copy and
+                  paragraphs.
+                </p>
+              </AnimatedTextWords>
+            </div>
+            <div className="max-w-4xl">
+              <p className="font-neue-haas mb-3 text-xs uppercase tracking-wider text-primary/70">
+                Letter-by-letter (slide up, same as line reveal)
+              </p>
+              <AnimatedTextChars
+                start="top 85%"
+                stagger={0.02}
+                duration={0.5}
+                className="font-ivy-headline text-primary text-3xl leading-tight md:text-5xl"
+              >
+                <p>Each letter comes up from below in sequence.</p>
+              </AnimatedTextChars>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
