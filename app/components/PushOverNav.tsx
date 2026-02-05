@@ -13,7 +13,7 @@ import { gsap, SplitText, useGSAP } from "../lib/gsapConfig";
 const customEase = "expo.out"; // Try: "expo.out", "power3.out", "power4.out", or keep original: "cubic-bezier(0.87, 0, 0.13, 1)"
 
 // Pages that have a hero image at the top (navbar should start white)
-const pagesWithHero = ["/", "/about"];
+const pagesWithHero = ["/", "/about", "/restaurant"];
 
 export default function PushOverNav() {
   const lenis = useLenis();
@@ -1067,7 +1067,7 @@ export default function PushOverNav() {
       <nav className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
         {/* Nav Bar Logo */}
         <div className="text-primary pointer-events-auto fixed top-0 left-0 z-50 px-4 py-8 md:px-8">
-          <div className="relative h-10 w-20 md:h-12 md:w-24">
+          <div className="relative h-10 w-10 md:h-12 md:w-12">
             <TransitionLink href="/" className="relative block h-full w-full">
               <div
                 ref={logoRef}
@@ -1079,12 +1079,12 @@ export default function PushOverNav() {
                 }}
               >
                 <Image
-                  src="/navlogo.svg"
+                  src="/navlogo2.svg"
                   alt="Logo"
                   fill
                   className="object-contain"
                   priority
-                  sizes="(max-width: 768px) 80px, 96px"
+                  sizes="(max-width: 768px) 40px, 48px"
                 />
               </div>
             </TransitionLink>
@@ -1141,7 +1141,7 @@ export default function PushOverNav() {
         >
           {/* Overlay Logo - positioned same as nav bar logo */}
           <div className="pointer-events-auto fixed top-0 left-0 z-51 px-4 py-8 md:px-8">
-            <div className="relative h-10 w-20 md:h-12 md:w-24">
+            <div className="relative h-10 w-10 md:h-12 md:w-12">
               <Link
                 href="/"
                 onClick={(e) => handleLinkClick(e, "/")}
@@ -1156,12 +1156,12 @@ export default function PushOverNav() {
                   }}
                 >
                   <Image
-                    src="/navlogo.svg"
+                    src="/navlogo2.svg"
                     alt="Logo"
                     fill
                     className="object-contain"
                     priority
-                    sizes="(max-width: 768px) 80px, 96px"
+                    sizes="(max-width: 768px) 40px, 48px"
                   />
                 </div>
               </Link>
