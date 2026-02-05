@@ -10,6 +10,7 @@ import StickyClipReveal from "@/app/components/StickyClipReveal";
 import AnimatedTextWords from "@/app/components/AnimatedTextWords";
 import AnimatedTextChars from "@/app/components/AnimatedTextChars";
 import HeroParallax from "@/app/components/HeroParallax";
+import RestaurantHeroTitle from "@/app/components/RestaurantHeroTitle";
 import client from "@/app/sanityClient";
 import type { PortableTextBlock } from "@portabletext/types";
 
@@ -62,11 +63,11 @@ export default async function Home() {
   return (
     <main className="bg-secondary text-primary">
       <HeroParallax
-        imageSrc="/images/obinna-okerekeocha.jpg"
+        imageSrc="/images/mche-lee-Bribs3.jpg"
         imageAlt="Hero image"
       >
         {/* Hero logo - same positioning as experiences (centered, slight offset) */}
-        <div className="absolute inset-0 flex items-center justify-center px-4">
+        {/* <div className="absolute inset-0 flex items-center justify-center px-4">
           <div
             className="relative -ml-8 flex w-full max-w-4xl items-center justify-center md:-ml-16"
             style={{
@@ -78,14 +79,15 @@ export default async function Home() {
               WebkitMaskRepeat: "no-repeat",
               maskPosition: "center",
               WebkitMaskPosition: "center",
-              width: "clamp(160px, 50vw, 672px)",
+              width: "clamp(240px, 65vw, 672px)",
               aspectRatio: "933 / 311",
               backgroundColor: "var(--color-secondary)",
             }}
             role="img"
             aria-label="Eden Garden"
           />
-        </div>
+        </div> */}
+        <RestaurantHeroTitle title="Experience paradise in every sip and bite" />
         {/* Paragraph - Bottom Center */}
         <div className="absolute right-0 bottom-0 left-0 flex items-center justify-center pb-8 text-center">
           <div className="container mx-auto px-4">
@@ -204,14 +206,14 @@ export default async function Home() {
       )}
 
       {/* AnimatedTextWords showcase */}
-      <section className="bg-secondary text-primary border-t border-primary/10 py-32">
+      <section className="bg-secondary text-primary border-primary/10 border-t py-32">
         <div className="container mx-auto px-4 md:px-8">
           <span className="font-neue-haas text-primary mb-8 block text-xs tracking-wider uppercase">
             Text animations (words & letters)
           </span>
           <div className="flex flex-col gap-24">
             <div className="max-w-4xl">
-              <p className="font-neue-haas mb-3 text-xs uppercase tracking-wider text-primary/70">
+              <p className="font-neue-haas text-primary/70 mb-3 text-xs tracking-wider uppercase">
                 Hero (plays on load) — lift
               </p>
               <AnimatedTextWords
@@ -225,7 +227,7 @@ export default async function Home() {
               </AnimatedTextWords>
             </div>
             <div className="max-w-4xl">
-              <p className="font-neue-haas mb-3 text-xs uppercase tracking-wider text-primary/70">
+              <p className="font-neue-haas text-primary/70 mb-3 text-xs tracking-wider uppercase">
                 Scroll-triggered — scale
               </p>
               <AnimatedTextWords
@@ -238,7 +240,7 @@ export default async function Home() {
               </AnimatedTextWords>
             </div>
             <div className="max-w-2xl">
-              <p className="font-neue-haas mb-3 text-xs uppercase tracking-wider text-primary/70">
+              <p className="font-neue-haas text-primary/70 mb-3 text-xs tracking-wider uppercase">
                 Scroll-triggered — fade
               </p>
               <AnimatedTextWords
@@ -254,7 +256,7 @@ export default async function Home() {
               </AnimatedTextWords>
             </div>
             <div className="max-w-4xl">
-              <p className="font-neue-haas mb-3 text-xs uppercase tracking-wider text-primary/70">
+              <p className="font-neue-haas text-primary/70 mb-3 text-xs tracking-wider uppercase">
                 Letter-by-letter (slide up, same as line reveal)
               </p>
               <AnimatedTextChars

@@ -3,9 +3,13 @@
 import { useEffect, useState } from "react";
 import AnimatedTextChars from "@/app/components/AnimatedTextChars";
 
-const TITLE = "Where food brings us together.";
+const DEFAULT_TITLE = "Where food brings us together.";
 
-export default function RestaurantHeroTitle() {
+interface RestaurantHeroTitleProps {
+  title?: string;
+}
+
+export default function RestaurantHeroTitle({ title = DEFAULT_TITLE }: RestaurantHeroTitleProps) {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -62,7 +66,7 @@ export default function RestaurantHeroTitle() {
           <div className="flex flex-col items-center text-center">
             <h1 className={titleClasses}>
               <span className="invisible" style={{ display: "block" }}>
-                {TITLE}
+                {title}
               </span>
             </h1>
           </div>
@@ -77,7 +81,7 @@ export default function RestaurantHeroTitle() {
         <div className="flex flex-col items-center text-center">
           <h1>
             <AnimatedTextChars isHero className={titleClasses}>
-              <span>{TITLE}</span>
+              <span>{title}</span>
             </AnimatedTextChars>
           </h1>
         </div>
