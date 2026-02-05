@@ -76,6 +76,20 @@ export default function About() {
           </h4>
         </TextReveal>
       </section>
+      <section className="py-32 md:py-80">
+        <TextReveal
+          className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
+          startColor="rgba(70, 86, 67, 0.2)"
+          endColor="rgb(70, 86, 67)"
+        >
+          <h4 className="font-ivy-headline text-4xl leading-tight md:text-6xl">
+            Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
+            blend of entertainment and relaxation. From live music and dance
+            shows to thrilling football matches, we create unforgettable
+            experiences that bring people together.
+          </h4>
+        </TextReveal>
+      </section>
     </main>
   );
 }

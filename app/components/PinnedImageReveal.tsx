@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import { useGSAP, gsap } from "../lib/gsapConfig";
+import { useGSAP, gsap, ScrollTrigger } from "../lib/gsapConfig";
 import { usePathname } from "next/navigation";
 
 interface PinnedImageRevealProps {
@@ -151,10 +151,10 @@ export default function PinnedImageReveal({
           end: `+=${scrollDistance}`,
           pin: true,
           pinSpacing: true,
+          pinType: "transform",
           scrub: true,
-          // anticipatePin: 1,
           invalidateOnRefresh: true,
-          refreshPriority: -1,
+          refreshPriority: 1,
           ...(isMobile && {
             fastScrollEnd: true,
           }),
@@ -183,6 +183,12 @@ export default function PinnedImageReveal({
           0,
         );
       }
+
+      // Refresh so content below (e.g. TextReveal) gets correct positions.
+      // Pin has refreshPriority: 1 so it refreshes first, then others see final layout.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
     },
     { scope: sectionRef, dependencies: [isReady, isMobile] },
   );
