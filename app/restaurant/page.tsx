@@ -1,21 +1,14 @@
-"use client";
-
-import Image from "next/image";
 import { Link } from "next-view-transitions";
+import HeroParallax from "@/app/components/HeroParallax";
 
 export default function Restaurant() {
   return (
     <main className="bg-secondary text-primary">
-      <section className="relative h-svh w-full overflow-hidden">
-        <Image
-          src="/images/daniel-park.jpg"
-          alt="Restaurant image"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 z-1 bg-black/20"></div>
-        <div className="relative z-10 flex h-full flex-col items-center justify-center">
+      <HeroParallax
+        imageSrc="/images/daniel-park.jpg"
+        imageAlt="Restaurant image"
+      >
+        <div className="flex h-full flex-col items-center justify-center">
           <div className="w-full px-4 md:px-8">
             <div className="flex flex-col items-center text-center">
               <h1 className="font-ivy-headline mx-auto max-w-4xl text-5xl leading-tight text-white md:text-8xl">
@@ -24,7 +17,7 @@ export default function Restaurant() {
             </div>
           </div>
         </div>
-      </section>
+      </HeroParallax>
       <section className="bg-secondary text-primary pt-32">
         <div className="container px-4 md:px-8">
           {/* First Section - PHILOSOPHY label and title */}

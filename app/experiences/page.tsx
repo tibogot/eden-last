@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import TextReveal from "@/app/components/TextReveal";
 import ScrollColorSwap from "@/app/components/ScrollColorSwap";
-import ParallaxImage from "@/app/components/ParallaxImage";
+import HeroParallax from "@/app/components/HeroParallax";
 
 export default function Experiences() {
   return (
@@ -20,17 +20,15 @@ export default function Experiences() {
           />
         </div>
       </section>
-      <section className="flex w-full flex-col items-center justify-center px-4 pt-40 md:px-8">
-        <ParallaxImage speed={0.5} className="h-[400px] w-full md:h-[600px]">
-          <Image
-            src="/images/annie-lang.jpg"
-            alt="Eden Garden experiences"
-            fill
-            className="rounded-sm object-cover"
-            sizes="(max-width: 768px) 100vw, 400px"
-          />
-        </ParallaxImage>
-      </section>
+
+      <HeroParallax
+        imageSrc="/images/obinna-okerekeocha.jpg"
+        imageAlt="Experiences hero"
+        className="mt-40"
+      >
+        <div />
+      </HeroParallax>
+
       <section className="py-32 md:py-40">
         <TextReveal
           className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
