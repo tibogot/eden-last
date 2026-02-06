@@ -3,6 +3,7 @@ import { Link } from "next-view-transitions";
 import TextReveal from "@/app/components/TextReveal";
 import ScrollColorSwap from "@/app/components/ScrollColorSwap";
 import HeroParallax from "@/app/components/HeroParallax";
+import StickyClipRevealText from "@/app/components/StickyClipRevealText";
 
 export default function Experiences() {
   return (
@@ -223,7 +224,7 @@ export default function Experiences() {
       </ScrollColorSwap>
 
       {/* Section after color swap to show blend */}
-      <section className="bg-secondary text-primary py-32">
+      <section className="bg-secondary text-primary py-8">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center text-center">
             <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
@@ -244,6 +245,36 @@ export default function Experiences() {
           </div>
         </div>
       </section>
+
+      <StickyClipRevealText
+        imageSrc="/images/shourav-sheikh.jpg"
+        imageAlt="Eden Garden atmosphere"
+        textContent={
+          <>
+            <span className="font-neue-haas mb-6 block text-xs tracking-wider uppercase">
+              DISCOVER
+            </span>
+            <h2 className="font-ivy-headline mb-6 max-w-3xl text-5xl leading-tight md:text-6xl">
+              Where every moment becomes an unforgettable experience
+            </h2>
+            <p className="text-primary/70 mx-auto max-w-xl text-base md:text-lg">
+              From live music under the stars to the warmth of traditional
+              cuisine, Eden Garden is where memories are made.
+            </p>
+          </>
+        }
+        overlayContent={
+          <>
+            <h2 className="font-ivy-headline mb-6 text-4xl leading-tight md:text-6xl">
+              A place where stories unfold
+            </h2>
+            <p className="text-lg opacity-90 md:text-xl">
+              Every corner holds a new adventure, every moment a chance to
+              connect.
+            </p>
+          </>
+        }
+      />
     </main>
   );
 }

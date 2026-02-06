@@ -1067,7 +1067,7 @@ export default function PushOverNav() {
       <nav className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
         {/* Nav Bar Logo */}
         <div className="text-primary pointer-events-auto fixed top-0 left-0 z-50 px-4 py-8 md:px-8">
-          <div className="relative h-10 w-10 md:h-12 md:w-12">
+          <div className="relative h-11 w-32 md:h-12 md:w-36">
             <TransitionLink href="/" className="relative block h-full w-full">
               <div
                 ref={logoRef}
@@ -1079,12 +1079,12 @@ export default function PushOverNav() {
                 }}
               >
                 <Image
-                  src="/navlogo2.svg"
+                  src="/images/logo3.svg"
                   alt="Logo"
                   fill
                   className="object-contain"
                   priority
-                  sizes="(max-width: 768px) 40px, 48px"
+                  sizes="(max-width: 768px) 128px, 144px"
                 />
               </div>
             </TransitionLink>
@@ -1141,7 +1141,7 @@ export default function PushOverNav() {
         >
           {/* Overlay Logo - positioned same as nav bar logo */}
           <div className="pointer-events-auto fixed top-0 left-0 z-51 px-4 py-8 md:px-8">
-            <div className="relative h-10 w-10 md:h-12 md:w-12">
+            <div className="relative h-11 w-32 md:h-12 md:w-36">
               <Link
                 href="/"
                 onClick={(e) => handleLinkClick(e, "/")}
@@ -1156,12 +1156,12 @@ export default function PushOverNav() {
                   }}
                 >
                   <Image
-                    src="/navlogo2.svg"
+                    src="/images/logo3.svg"
                     alt="Logo"
                     fill
                     className="object-contain"
                     priority
-                    sizes="(max-width: 768px) 40px, 48px"
+                    sizes="(max-width: 768px) 128px, 144px"
                   />
                 </div>
               </Link>

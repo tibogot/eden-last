@@ -100,7 +100,7 @@ export default async function Home() {
         </div>
       </HeroParallax>
 
-      <section className="py-32 md:py-80">
+      <section className="py-32 md:py-64">
         <TextReveal
           className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
           startColor="rgba(70, 86, 67, 0.2)"
@@ -113,7 +113,7 @@ export default async function Home() {
         </TextReveal>
       </section>
 
-      <section className="bg-secondary text-primary pt-32">
+      <section className="bg-secondary text-primary pt-8">
         <div className="container px-4 md:px-8">
           {/* First Section - PHILOSOPHY label and title */}
           <div className="flex flex-col">
