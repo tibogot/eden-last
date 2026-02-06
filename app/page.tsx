@@ -13,6 +13,8 @@ import HeroParallax from "@/app/components/HeroParallax";
 import RestaurantHeroTitle from "@/app/components/RestaurantHeroTitle";
 import client from "@/app/sanityClient";
 import type { PortableTextBlock } from "@portabletext/types";
+import StickyClipRevealText from "./components/StickyClipRevealText";
+import HubsSection from "./components/HubsSection";
 
 interface SanityImageAsset {
   _ref?: string;
@@ -99,8 +101,24 @@ export default async function Home() {
           </div>
         </div>
       </HeroParallax>
-
-      <section className="py-32 md:py-64">
+      {/* <section className="bg-secondary text-primary py-40">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col items-center justify-center text-center">
+            <TextReveal
+              className="max-w-3xl"
+              startColor="rgba(70, 86, 67, 0.2)"
+              endColor="rgb(70, 86, 67)"
+            >
+              <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl">
+                Of all the vibrant spaces, it is the only one that becomes even
+                more captivating as you explore, ending not with a grand finale
+                but by seamlessly blending into the natural landscape.
+              </p>
+            </TextReveal>
+          </div>
+        </div>
+      </section> */}
+      {/* <section className="py-32 md:py-32">
         <TextReveal
           className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
           startColor="rgba(70, 86, 67, 0.2)"
@@ -111,9 +129,8 @@ export default async function Home() {
             entertainment, and unforgettable experiences.
           </h4>
         </TextReveal>
-      </section>
-
-      <section className="bg-secondary text-primary pt-8">
+      </section> */}
+      <section className="bg-secondary text-primary pt-16">
         <div className="container px-4 md:px-8">
           {/* First Section - PHILOSOPHY label and title */}
           <div className="flex flex-col">
@@ -121,33 +138,33 @@ export default async function Home() {
               PHILOSOPHY
             </span>
             <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl leading-tight md:text-5xl">
-              The shimmering tower offers a rarefied collection of breathtaking
-              full-floor residences.
+              Where nature meets celebration, and every gathering becomes a
+              memory.
             </h2>
           </div>
         </div>
       </section>
       <section className="bg-secondary text-primary pt-20 pb-32">
-        <div className="container px-4 md:px-8">
+        <div className="px-4 md:px-8">
           {/* Second Section - Paragraphs and link, aligned to the right */}
           <div className="flex flex-col gap-8 md:ml-auto md:w-1/2">
-            <p className="font-neue-haas text-primary text-lg">
-              Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
-              blend of entertainment and relaxation. From live music and dance
-              shows to thrilling football matches, there&apos;s something for
-              everyone. Indulge in traditional cuisine while enjoying the I
+            <p className="font-neue-haas text-primary max-w-xl text-lg">
+              At Eden Park & Garden, we believe in drawing people together—in a
+              space where lush greenery meets the warmth of shared moments. Our
+              philosophy is simple: create an oasis in the heart of Abuja where
+              entertainment, relaxation, and connection thrive.
             </p>
-            <p className="font-neue-haas text-primary text-lg">
-              Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
-              blend of entertainment and relaxation. From live music and dance
-              shows to thrilling football matches, there&apos;s something for
-              everyone. Indulge in traditional cuisine while enjoying the I
+            <p className="font-neue-haas text-primary max-w-xl text-lg">
+              Whether you&apos;re here for live music under the stars, a dance
+              performance, or a thrilling football match, every visit is designed
+              to leave a lasting impression. We pair authentic traditional
+              cuisine with an atmosphere that invites you to linger, celebrate,
+              and unwind.
             </p>
-            <p className="font-neue-haas text-primary text-lg">
-              Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
-              blend of entertainment and relaxation. From live music and dance
-              shows to thrilling football matches, there&apos;s something for
-              everyone. Indulge in traditional cuisine while enjoying the I
+            <p className="font-neue-haas text-primary max-w-xl text-lg">
+              Eden Park & Garden is more than a venue—it&apos;s a place where
+              memories are made and stories unfold. We invite you to experience
+              paradise in every sip and bite.
             </p>
             <Link
               href="/experiences"
@@ -159,6 +176,7 @@ export default async function Home() {
         </div>
       </section>
       <ServicesGrid />
+      <HubsSection />
       <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center justify-center text-center">
@@ -184,9 +202,37 @@ export default async function Home() {
       /> */}
       {/* <PinnedImageTextReveal /> */}
       {/* <StickyImageTextReveal /> */}
-      <StickyClipReveal />
+      {/* <StickyClipReveal /> */}
+      <StickyClipRevealText
+        imageSrc="/images/colin.jpg"
+        imageAlt="Eden Garden atmosphere"
+        textContent={
+          <>
+            <span className="font-neue-haas mb-6 block text-xs tracking-wider uppercase">
+              DISCOVER
+            </span>
+            <h2 className="font-ivy-headline mb-6 max-w-3xl text-5xl leading-tight md:text-6xl">
+              Where every moment becomes an unforgettable experience
+            </h2>
+            <p className="text-primary/70 mx-auto max-w-xl text-base md:text-lg">
+              From live music under the stars to the warmth of traditional
+              cuisine, Eden Garden is where memories are made.
+            </p>
+          </>
+        }
+        overlayContent={
+          <>
+            <h2 className="font-ivy-headline mb-6 text-4xl leading-tight md:text-7xl">
+              A place where stories unfold
+            </h2>
+            <p className="text-lg opacity-90 md:text-xl">
+              Every corner holds a new adventure, every moment a chance to
+              connect.
+            </p>
+          </>
+        }
+      />
       <TestimonialsTicker />
-
       {blogPosts.length > 0 && (
         <section className="bg-secondary text-primary py-32">
           <div className="mb-16 px-4 md:px-8">
@@ -204,73 +250,6 @@ export default async function Home() {
           </ul>
         </section>
       )}
-
-      {/* AnimatedTextWords showcase */}
-      <section className="bg-secondary text-primary border-primary/10 border-t py-32">
-        <div className="container mx-auto px-4 md:px-8">
-          <span className="font-neue-haas text-primary mb-8 block text-xs tracking-wider uppercase">
-            Text animations (words & letters)
-          </span>
-          <div className="flex flex-col gap-24">
-            <div className="max-w-4xl">
-              <p className="font-neue-haas text-primary/70 mb-3 text-xs tracking-wider uppercase">
-                Hero (plays on load) — lift
-              </p>
-              <AnimatedTextWords
-                isHero
-                stagger={0.05}
-                duration={0.5}
-                variant="lift"
-                className="font-ivy-headline text-primary text-4xl leading-tight md:text-6xl"
-              >
-                <h2>Every word reveals itself in sequence.</h2>
-              </AnimatedTextWords>
-            </div>
-            <div className="max-w-4xl">
-              <p className="font-neue-haas text-primary/70 mb-3 text-xs tracking-wider uppercase">
-                Scroll-triggered — scale
-              </p>
-              <AnimatedTextWords
-                start="top 85%"
-                stagger={0.06}
-                variant="scale"
-                className="font-ivy-headline text-primary text-3xl leading-tight md:text-5xl"
-              >
-                <p>Scroll here to see words pop in one by one.</p>
-              </AnimatedTextWords>
-            </div>
-            <div className="max-w-2xl">
-              <p className="font-neue-haas text-primary/70 mb-3 text-xs tracking-wider uppercase">
-                Scroll-triggered — fade
-              </p>
-              <AnimatedTextWords
-                start="top 85%"
-                stagger={0.04}
-                variant="fade"
-                className="font-neue-haas text-primary text-lg leading-relaxed"
-              >
-                <p>
-                  A subtle fade-in per word works well for longer body copy and
-                  paragraphs.
-                </p>
-              </AnimatedTextWords>
-            </div>
-            <div className="max-w-4xl">
-              <p className="font-neue-haas text-primary/70 mb-3 text-xs tracking-wider uppercase">
-                Letter-by-letter (slide up, same as line reveal)
-              </p>
-              <AnimatedTextChars
-                start="top 85%"
-                stagger={0.02}
-                duration={0.5}
-                className="font-ivy-headline text-primary text-3xl leading-tight md:text-5xl"
-              >
-                <p>Each letter comes up from below in sequence.</p>
-              </AnimatedTextChars>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

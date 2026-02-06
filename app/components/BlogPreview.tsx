@@ -53,7 +53,7 @@ export default function BlogPreview({ post }: BlogPreviewProps) {
         className="group block h-full"
       >
         <div className="flex h-full flex-col items-stretch overflow-hidden">
-          <div className="bg-secondary relative flex h-48 w-full items-center justify-center overflow-hidden md:h-56">
+          <div className="bg-secondary relative flex h-64 w-full items-center justify-center overflow-hidden md:h-80">
             <Image
               src={imageUrl}
               alt={post.title}
