@@ -5,13 +5,13 @@ export default function Footer() {
   return (
     <footer className="bg-primary relative mt-auto h-[80vh] w-full overflow-hidden">
       {/* Background Image */}
-      {/* <Image
+      <Image
         src="/images/colin.jpg"
         alt="Eden Garden"
         fill
         className="object-cover"
         priority={false}
-      /> */}
+      />
 
       {/* Content Overlay */}
       <div className="relative z-10 flex h-full w-full flex-col px-4 pt-8 md:px-8">
