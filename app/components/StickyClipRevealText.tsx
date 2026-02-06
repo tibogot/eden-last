@@ -112,7 +112,7 @@ export default function StickyClipRevealText({
       const overlayPhaseStart = 0.4;
 
       // Text moves faster than the circle's top edge for a stronger "push" feel
-      const textSpeedMultiplier = isMobile ? 1.6 : 1.4;
+      const textSpeedMultiplier = isMobile ? 1.6 : 1.8;
 
       const trigger = ScrollTrigger.create({
         trigger: section,
@@ -198,7 +198,7 @@ export default function StickyClipRevealText({
         {textContent && (
           <div
             ref={textRef}
-            className="absolute inset-x-0 z-20 flex items-end justify-center px-8 md:px-16"
+            className="absolute inset-x-0 z-20 flex items-end justify-center px-4 md:px-8"
             style={{
               top: 0,
               bottom: `${100 - initialTopEdge + textGap}%`,

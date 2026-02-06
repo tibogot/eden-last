@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import TextReveal from "@/app/components/TextReveal";
 import ScrollColorSwap from "@/app/components/ScrollColorSwap";
-import HeroParallax from "@/app/components/HeroParallax";
+import ParallaxHeroImage from "@/app/components/ParallaxHeroImage";
 import StickyClipRevealText from "@/app/components/StickyClipRevealText";
 
 export default function Experiences() {
@@ -22,21 +22,19 @@ export default function Experiences() {
         </div>
       </section>
 
-      <HeroParallax
-        imageSrc="/images/obinna-okerekeocha.jpg"
-        imageAlt="Experiences hero"
+      <ParallaxHeroImage
+        src="/images/obinna-okerekeocha.jpg"
+        alt="Experiences hero"
         className="mt-40"
-      >
-        <div />
-      </HeroParallax>
+      />
 
-      <section className="py-32 md:py-40">
+      <section className="py-24 md:py-40">
         <TextReveal
           className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
           startColor="rgba(70, 86, 67, 0.2)"
           endColor="rgb(70, 86, 67)"
         >
-          <h4 className="font-ivy-headline text-4xl leading-tight md:text-6xl">
+          <h4 className="font-ivy-headline text-3xl leading-tight md:text-6xl">
             Abuja&apos;s premier destination for traditional cuisine,
             entertainment, and unforgettable experiences.
           </h4>
@@ -254,7 +252,7 @@ export default function Experiences() {
             <span className="font-neue-haas mb-6 block text-xs tracking-wider uppercase">
               DISCOVER
             </span>
-            <h2 className="font-ivy-headline mb-6 max-w-3xl text-5xl leading-tight md:text-6xl">
+            <h2 className="font-ivy-headline mb-6 max-w-3xl text-3xl md:text-6xl">
               Where every moment becomes an unforgettable experience
             </h2>
             <p className="text-primary/70 mx-auto max-w-xl text-base md:text-lg">
