@@ -943,6 +943,14 @@ export default function PushOverNav() {
     });
   };
 
+  const handleScrollToTop = () => {
+    if (lenis) {
+      lenis.scrollTo(0, { force: true });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  };
+
   const handleLinkClick = async (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string,
@@ -1065,29 +1073,57 @@ export default function PushOverNav() {
         }
       `}</style>
       <nav className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
-        {/* Nav Bar Logo */}
+        {/* Nav Bar Logo - on home: scroll to top; elsewhere: link to home */}
         <div className="text-primary pointer-events-auto fixed top-0 left-0 z-50 px-4 py-8 md:px-8">
           <div className="relative h-11 w-32 md:h-12 md:w-36">
-            <TransitionLink href="/" className="relative block h-full w-full">
-              <div
-                ref={logoRef}
-                className="relative h-full w-full will-change-[filter]"
-                style={{
-                  filter: isInHero
-                    ? "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)"
-                    : "brightness(0) saturate(100%) invert(27%) sepia(12%) saturate(600%) hue-rotate(60deg) brightness(95%) contrast(85%)",
-                }}
+            {pathname === "/" ? (
+              <button
+                type="button"
+                onClick={handleScrollToTop}
+                className="relative block h-full w-full cursor-pointer border-none bg-transparent p-0"
+                aria-label="Scroll to top"
               >
-                <Image
-                  src="/images/logo3.svg"
-                  alt="Logo"
-                  fill
-                  className="object-contain"
-                  priority
-                  sizes="(max-width: 768px) 128px, 144px"
-                />
-              </div>
-            </TransitionLink>
+                <div
+                  ref={logoRef}
+                  className="relative h-full w-full will-change-[filter]"
+                  style={{
+                    filter: isInHero
+                      ? "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)"
+                      : "brightness(0) saturate(100%) invert(27%) sepia(12%) saturate(600%) hue-rotate(60deg) brightness(95%) contrast(85%)",
+                  }}
+                >
+                  <Image
+                    src="/images/logo3.svg"
+                    alt="Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                    sizes="(max-width: 768px) 128px, 144px"
+                  />
+                </div>
+              </button>
+            ) : (
+              <TransitionLink href="/" className="relative block h-full w-full">
+                <div
+                  ref={logoRef}
+                  className="relative h-full w-full will-change-[filter]"
+                  style={{
+                    filter: isInHero
+                      ? "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)"
+                      : "brightness(0) saturate(100%) invert(27%) sepia(12%) saturate(600%) hue-rotate(60deg) brightness(95%) contrast(85%)",
+                  }}
+                >
+                  <Image
+                    src="/images/logo3.svg"
+                    alt="Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                    sizes="(max-width: 768px) 128px, 144px"
+                  />
+                </div>
+              </TransitionLink>
+            )}
           </div>
         </div>
 
@@ -1139,32 +1175,62 @@ export default function PushOverNav() {
             clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
           }}
         >
-          {/* Overlay Logo - positioned same as nav bar logo */}
+          {/* Overlay Logo - on home: scroll to top and close menu; elsewhere: link to home */}
           <div className="pointer-events-auto fixed top-0 left-0 z-51 px-4 py-8 md:px-8">
             <div className="relative h-11 w-32 md:h-12 md:w-36">
-              <Link
-                href="/"
-                onClick={(e) => handleLinkClick(e, "/")}
-                className="relative block h-full w-full"
-              >
-                <div
-                  ref={overlayLogoRef}
-                  className="relative h-full w-full"
-                  style={{
-                    filter:
-                      "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)",
+              {pathname === "/" ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleScrollToTop();
+                    if (isMenuOpen) handleMenuToggle();
                   }}
+                  className="relative block h-full w-full cursor-pointer border-none bg-transparent p-0"
+                  aria-label="Scroll to top"
                 >
-                  <Image
-                    src="/images/logo3.svg"
-                    alt="Logo"
-                    fill
-                    className="object-contain"
-                    priority
-                    sizes="(max-width: 768px) 128px, 144px"
-                  />
-                </div>
-              </Link>
+                  <div
+                    ref={overlayLogoRef}
+                    className="relative h-full w-full"
+                    style={{
+                      filter:
+                        "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)",
+                    }}
+                  >
+                    <Image
+                      src="/images/logo3.svg"
+                      alt="Logo"
+                      fill
+                      className="object-contain"
+                      priority
+                      sizes="(max-width: 768px) 128px, 144px"
+                    />
+                  </div>
+                </button>
+              ) : (
+                <Link
+                  href="/"
+                  onClick={(e) => handleLinkClick(e, "/")}
+                  className="relative block h-full w-full"
+                >
+                  <div
+                    ref={overlayLogoRef}
+                    className="relative h-full w-full"
+                    style={{
+                      filter:
+                        "brightness(0) invert(1) sepia(5%) saturate(100%) hue-rotate(0deg) brightness(99.8%) contrast(99%)",
+                    }}
+                  >
+                    <Image
+                      src="/images/logo3.svg"
+                      alt="Logo"
+                      fill
+                      className="object-contain"
+                      priority
+                      sizes="(max-width: 768px) 128px, 144px"
+                    />
+                  </div>
+                </Link>
+              )}
             </div>
           </div>
 
