@@ -580,7 +580,7 @@ export default function HubsSection() {
               >
                 <div className="absolute inset-0 overflow-hidden">
                   <div
-                    className="hub-card-parallax absolute inset-0 w-[120%] -left-[10%]"
+                    className="hub-card-parallax absolute inset-0 w-[160%] -left-[30%]"
                     style={{ willChange: "transform" }}
                   >
                     <Image
