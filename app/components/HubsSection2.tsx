@@ -91,6 +91,7 @@ function horizontalLoop(
   const startX = items[0].offsetLeft;
   const times: number[] = [];
   const widths: number[] = [];
+  const spaceBefore: number[] = [];
   const xPercents: number[] = [];
   let curIndex = 0;
   let indexIsDirty = false;
@@ -113,12 +114,15 @@ function horizontalLoop(
       items[length - 1].offsetLeft +
       (xPercents[length - 1] / 100) * widths[length - 1] -
       startX +
+      spaceBefore[0] +
       items[length - 1].offsetWidth *
         (typeof scaleX === "number" ? scaleX : 1) +
       (parseFloat(config.paddingRight?.toString() || "0") || 0)
     );
   };
   const populateWidths = () => {
+    let b1 = (container as HTMLElement).getBoundingClientRect();
+    let b2: DOMRect;
     items.forEach((el, i) => {
       widths[i] = parseFloat(gsap.getProperty(el, "width", "px") as string);
       xPercents[i] = snap(
@@ -126,6 +130,9 @@ function horizontalLoop(
           100 +
           (gsap.getProperty(el, "xPercent") as number),
       );
+      b2 = el.getBoundingClientRect();
+      spaceBefore[i] = b2.left - (i ? b1.right : b1.left);
+      b1 = b2;
     });
     gsap.set(items, {
       xPercent: (i: number) => xPercents[i],
@@ -179,7 +186,7 @@ function horizontalLoop(
     for (i = 0; i < length; i++) {
       item = items[i];
       curX = (xPercents[i] / 100) * widths[i];
-      distanceToStart = item.offsetLeft + curX - startX;
+      distanceToStart = item.offsetLeft + curX - startX + spaceBefore[0];
       const scaleX = gsap.getProperty(item, "scaleX") as number;
       distanceToLoop =
         distanceToStart + widths[i] * (typeof scaleX === "number" ? scaleX : 1);
@@ -415,113 +422,88 @@ export default function HubsSection() {
     ) as HTMLElement[];
     if (items.length === 0) return;
 
-    // Defer so layout (including negative margin) is complete before measuring
-    let innerCleanup: (() => void) | null = null;
-    const rafId = requestAnimationFrame(() => {
-      const loop = horizontalLoop(items, {
-        repeat: -1,
-        paused: true,
-        draggable: true,
-        center: false,
-        paddingRight: 24,
-        minimumMovement: TAP_THRESHOLD,
-        onPressInit() {
-          dragStateRef.current.isDragging = false;
-          dragStateRef.current.pointerMoved = false;
-        },
-        onPress(event?: MouseEvent | TouchEvent) {
-          dragStateRef.current.pointerMoved = false;
-          if (event) {
-            if ("touches" in event && event.touches.length > 0) {
-              dragStateRef.current.startPointerX = event.touches[0].clientX;
-              dragStateRef.current.startPointerY = event.touches[0].clientY;
-            } else if ("clientX" in event) {
-              dragStateRef.current.startPointerX = event.clientX;
-              dragStateRef.current.startPointerY = event.clientY;
-            }
-          }
-        },
-        onDragStart() {
-          dragStateRef.current.isDragging = true;
-          dragStateRef.current.pointerMoved = true;
-        },
-        onDragEnd() {
-          setTimeout(() => {
-            dragStateRef.current.isDragging = false;
-          }, 50);
-        },
-        onClick() {
-          // Allow default link behavior on tap (no drag) - Link handles navigation
-        },
-      });
-      loopRef.current = loop;
-
-      // X-axis parallax on card images: image moves slightly by card position vs viewport center
-      const PARALLAX_STRENGTH = 0.12;
-      const updateParallax = () => {
-        const viewportCenter = window.innerWidth / 2;
-        items.forEach((card) => {
-          const parallaxEl = card.querySelector<HTMLElement>(".hub-card-parallax");
-          if (!parallaxEl) return;
-          const rect = card.getBoundingClientRect();
-          const cardCenterX = rect.left + rect.width / 2;
-          const offset = (viewportCenter - cardCenterX) * PARALLAX_STRENGTH;
-          gsap.set(parallaxEl, { x: offset });
-        });
-      };
-      updateParallax();
-      loop.eventCallback("onUpdate", updateParallax);
-
-      const handlePointerDown = (e: PointerEvent) => {
+    const loop = horizontalLoop(items, {
+      repeat: -1,
+      paused: true,
+      draggable: true,
+      center: false,
+      paddingRight: 24,
+      minimumMovement: TAP_THRESHOLD,
+      onPressInit() {
+        dragStateRef.current.isDragging = false;
         dragStateRef.current.pointerMoved = false;
-        dragStateRef.current.startPointerX = e.clientX;
-        dragStateRef.current.startPointerY = e.clientY;
-      };
-
-      const handlePointerMove = (e: PointerEvent) => {
-        const deltaX = Math.abs(e.clientX - dragStateRef.current.startPointerX);
-        const deltaY = Math.abs(e.clientY - dragStateRef.current.startPointerY);
-        if (deltaX > TAP_THRESHOLD || deltaY > TAP_THRESHOLD) {
-          dragStateRef.current.pointerMoved = true;
+      },
+      onPress(event?: MouseEvent | TouchEvent) {
+        dragStateRef.current.pointerMoved = false;
+        if (event) {
+          if ("touches" in event && event.touches.length > 0) {
+            dragStateRef.current.startPointerX = event.touches[0].clientX;
+            dragStateRef.current.startPointerY = event.touches[0].clientY;
+          } else if ("clientX" in event) {
+            dragStateRef.current.startPointerX = event.clientX;
+            dragStateRef.current.startPointerY = event.clientY;
+          }
         }
-      };
+      },
+      onDragStart() {
+        dragStateRef.current.isDragging = true;
+        dragStateRef.current.pointerMoved = true;
+      },
+      onDragEnd() {
+        setTimeout(() => {
+          dragStateRef.current.isDragging = false;
+        }, 50);
+      },
+      onClick() {
+        // Allow default link behavior on tap (no drag) - Link handles navigation
+      },
+    });
+    loopRef.current = loop;
 
-      const handleLinkClick = (e: Event) => {
-        if (
-          dragStateRef.current.isDragging ||
-          dragStateRef.current.pointerMoved
-        ) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      };
+    const handlePointerDown = (e: PointerEvent) => {
+      dragStateRef.current.pointerMoved = false;
+      dragStateRef.current.startPointerX = e.clientX;
+      dragStateRef.current.startPointerY = e.clientY;
+    };
 
-      container.addEventListener("pointerdown", handlePointerDown, {
-        passive: true,
-      });
-      container.addEventListener("pointermove", handlePointerMove, {
-        passive: true,
-      });
+    const handlePointerMove = (e: PointerEvent) => {
+      const deltaX = Math.abs(e.clientX - dragStateRef.current.startPointerX);
+      const deltaY = Math.abs(e.clientY - dragStateRef.current.startPointerY);
+      if (deltaX > TAP_THRESHOLD || deltaY > TAP_THRESHOLD) {
+        dragStateRef.current.pointerMoved = true;
+      }
+    };
 
-      const links = container.querySelectorAll("a.hub-card-link");
-      links.forEach((link) => {
-        link.addEventListener("click", handleLinkClick, { capture: true });
-      });
+    const handleLinkClick = (e: Event) => {
+      if (
+        dragStateRef.current.isDragging ||
+        dragStateRef.current.pointerMoved
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
 
-      innerCleanup = () => {
-        container.removeEventListener("pointerdown", handlePointerDown);
-        container.removeEventListener("pointermove", handlePointerMove);
-        links.forEach((link) => {
-          link.removeEventListener("click", handleLinkClick, { capture: true });
-        });
-        loop.kill();
-        loopRef.current = null;
-      };
+    container.addEventListener("pointerdown", handlePointerDown, {
+      passive: true,
+    });
+    container.addEventListener("pointermove", handlePointerMove, {
+      passive: true,
+    });
+
+    const links = container.querySelectorAll("a.hub-card-link");
+    links.forEach((link) => {
+      link.addEventListener("click", handleLinkClick, { capture: true });
     });
 
     return () => {
-      cancelAnimationFrame(rafId);
-      innerCleanup?.();
+      container.removeEventListener("pointerdown", handlePointerDown);
+      container.removeEventListener("pointermove", handlePointerMove);
+      links.forEach((link) => {
+        link.removeEventListener("click", handleLinkClick, { capture: true });
+      });
+      loop.kill();
+      loopRef.current = null;
     };
   }, []);
 
@@ -546,54 +528,53 @@ export default function HubsSection() {
         </div>
       </div>
 
-      <div className="mt-12 lg:mt-40">
-        <div className="mb-4 flex justify-end gap-3 px-4 pl-4 md:px-8 md:pl-8">
-          <button
-            type="button"
-            onClick={() => go(-1)}
-            className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center bg-white/10 text-white transition-opacity hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
-            aria-label="Previous hub"
-          >
-            <ChevronLeft className="h-5 w-5" strokeWidth={2} />
-          </button>
-          <button
-            type="button"
-            onClick={() => go(1)}
-            className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center bg-white/10 text-white transition-opacity hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
-            aria-label="Next hub"
-          >
-            <ChevronRight className="h-5 w-5" strokeWidth={2} />
-          </button>
+      <div className="mt-12 flex flex-col gap-10 pl-4 md:pl-8 lg:mt-40 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+        <div className="flex flex-col gap-8 lg:max-w-md">
+          <p className="font-neue-haas text-base leading-relaxed text-white md:text-lg">
+            Culinary excellence, live entertainment, and unforgettable events —
+            all in one vibrant oasis.
+          </p>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center bg-white/10 text-white transition-opacity hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+              aria-label="Previous hub"
+            >
+              <ChevronLeft className="h-5 w-5" strokeWidth={2} />
+            </button>
+            <button
+              type="button"
+              onClick={() => go(1)}
+              className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center bg-white/10 text-white transition-opacity hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+              aria-label="Next hub"
+            >
+              <ChevronRight className="h-5 w-5" strokeWidth={2} />
+            </button>
+          </div>
         </div>
-        <div className="relative w-full min-w-0 overflow-hidden">
+        <div className="relative min-w-0 flex-1 overflow-hidden lg:max-w-3xl xl:max-w-4xl">
           <div
             ref={containerRef}
-            className="flex w-max cursor-grab gap-6 select-none active:cursor-grabbing"
+            className="flex w-max cursor-grab gap-6 pl-0 select-none active:cursor-grabbing"
             style={{ touchAction: "pan-y" }}
           >
-            {[...HUB_CARDS, ...HUB_CARDS].map((card, index) => (
+            {HUB_CARDS.map((card) => (
               <Link
-                key={index}
+                key={card.id}
                 href={card.href}
                 className="hub-card hub-card-link relative block aspect-3/4 w-[320px] shrink-0 overflow-hidden md:aspect-4/5 md:w-[400px] lg:aspect-4/5 lg:w-[480px]"
                 draggable={false}
               >
-                <div className="absolute inset-0 overflow-hidden">
-                  <div
-                    className="hub-card-parallax absolute inset-0 w-[120%] -left-[10%]"
-                    style={{ willChange: "transform" }}
-                  >
-                    <Image
-                      src={card.src}
-                      alt={card.alt}
-                      fill
-                      className="object-cover"
-                      sizes="(min-width: 1024px) 480px, (min-width: 768px) 400px, 320px"
-                      draggable={false}
-                    />
-                  </div>
-                </div>
-                <div className="absolute bottom-0 left-0 z-10 p-4 md:p-5">
+                <Image
+                  src={card.src}
+                  alt={card.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 480px, (min-width: 768px) 400px, 320px"
+                  draggable={false}
+                />
+                <div className="absolute bottom-0 left-0 p-4 md:p-5">
                   <p className="font-neue-haas max-w-xs text-base font-normal text-white md:text-2xl lg:text-2xl">
                     {card.title}
                   </p>

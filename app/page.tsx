@@ -118,7 +118,7 @@ export default async function Home() {
           </div>
         </div>
       </section> */}
-      {/* <section className="py-32 md:py-32">
+      <section className="py-32 md:py-32">
         <TextReveal
           className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
           startColor="rgba(70, 86, 67, 0.2)"
@@ -129,7 +129,7 @@ export default async function Home() {
             entertainment, and unforgettable experiences.
           </h4>
         </TextReveal>
-      </section> */}
+      </section>
       <section className="bg-secondary text-primary pt-16">
         <div className="container px-4 md:px-8">
           {/* First Section - PHILOSOPHY label and title */}
@@ -144,7 +144,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-secondary text-primary pt-20 pb-32">
+      <section className="bg-secondary text-primary py-20">
         <div className="px-4 md:px-8">
           {/* Second Section - Paragraphs and link, aligned to the right */}
           <div className="flex flex-col gap-8 md:ml-auto md:w-1/2">
@@ -154,18 +154,18 @@ export default async function Home() {
               philosophy is simple: create an oasis in the heart of Abuja where
               entertainment, relaxation, and connection thrive.
             </p>
-            <p className="font-neue-haas text-primary max-w-xl text-lg">
+            {/* <p className="font-neue-haas text-primary max-w-xl text-lg">
               Whether you&apos;re here for live music under the stars, a dance
-              performance, or a thrilling football match, every visit is designed
-              to leave a lasting impression. We pair authentic traditional
-              cuisine with an atmosphere that invites you to linger, celebrate,
-              and unwind.
-            </p>
-            <p className="font-neue-haas text-primary max-w-xl text-lg">
+              performance, or a thrilling football match, every visit is
+              designed to leave a lasting impression. We pair authentic
+              traditional cuisine with an atmosphere that invites you to linger,
+              celebrate, and unwind.
+            </p> */}
+            {/* <p className="font-neue-haas text-primary max-w-xl text-lg">
               Eden Park & Garden is more than a venue—it&apos;s a place where
               memories are made and stories unfold. We invite you to experience
               paradise in every sip and bite.
-            </p>
+            </p> */}
             <Link
               href="/experiences"
               className="font-neue-haas text-primary mt-4 text-xs tracking-wider uppercase underline transition-opacity hover:opacity-70"
@@ -177,7 +177,7 @@ export default async function Home() {
       </section>
       <ServicesGrid />
       <HubsSection />
-      <section className="bg-secondary text-primary py-32">
+      {/* <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center justify-center text-center">
             <TextReveal
@@ -193,7 +193,7 @@ export default async function Home() {
             </TextReveal>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* <ExpandingImageReveal
         imageSrc="/images/hero-2.jpg"
         imageAlt="Eden Garden experience"
