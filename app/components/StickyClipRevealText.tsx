@@ -193,7 +193,7 @@ export default function StickyClipRevealText({
       style={{ height: sectionHeight }}
     >
       {/* Sticky container */}
-      <div className="sticky top-0 h-dvh w-full overflow-hidden">
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Text content - positioned above the circle, pushed up on scroll */}
         {textContent && (
           <div
