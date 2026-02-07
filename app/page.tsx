@@ -211,7 +211,7 @@ export default async function Home() {
             <span className="font-neue-haas mb-6 block text-xs tracking-wider uppercase">
               DISCOVER
             </span>
-            <h2 className="font-ivy-headline mb-6 max-w-3xl text-5xl leading-tight md:text-6xl">
+            <h2 className="font-ivy-headline mb-6 max-w-3xl text-4xl leading-tight md:text-6xl">
               Where every moment becomes an unforgettable experience
             </h2>
             <p className="text-primary/70 mx-auto max-w-xl text-base md:text-lg">
