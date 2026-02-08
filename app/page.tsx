@@ -15,6 +15,7 @@ import client from "@/app/sanityClient";
 import type { PortableTextBlock } from "@portabletext/types";
 import StickyClipRevealText from "./components/StickyClipRevealText";
 import HubsSection from "./components/HubsSection";
+import WhyUsSection from "./components/WhyUs";
 
 interface SanityImageAsset {
   _ref?: string;
@@ -250,6 +251,7 @@ export default async function Home() {
           </ul>
         </section>
       )}
+      <WhyUsSection />
     </main>
   );
 }

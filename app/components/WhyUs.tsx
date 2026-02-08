@@ -1,0 +1,95 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+
+interface WhyUsSectionProps {
+  pinnedImageSrc?: string;
+  pinnedImageAlt?: string;
+}
+
+export default function WhyUsSection({
+  pinnedImageSrc = "/images/hero-2.jpg",
+  pinnedImageAlt = "Eden Garden",
+}: WhyUsSectionProps) {
+  return (
+    <section className="bg-secondary relative w-full px-4 py-8 md:px-8 md:py-20">
+      <div className="w-full">
+        {/* Two column layout - items-stretch so left column is tall; sticky needs a tall containing block */}
+        <div className="mt-20 flex flex-col md:mt-24 md:flex-row md:items-stretch md:gap-16 lg:gap-24">
+          {/* Left: CSS sticky title + image (pin together) */}
+          <div className="shrink-0 pb-12 md:w-1/2 md:pb-0 lg:w-2/5">
+            <div className="flex flex-col gap-6 md:sticky md:top-30">
+              <h2 className="font-ivy-headline text-primary max-w-xl text-left text-4xl leading-tight font-normal md:text-5xl lg:text-6xl">
+                A place where nature meets the table.
+              </h2>
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg md:aspect-[3/2]">
+                <Image
+                  src={pinnedImageSrc}
+                  alt={pinnedImageAlt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Right: 4 cards + Explore link - horizontal scroll on mobile, stacked on desktop */}
+          <div className="md:w-1/2 lg:w-3/5">
+            <div className="-mx-4 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] md:mx-0 md:snap-none md:flex-col md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
+              <div className="border-primary/15 bg-primary/5 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+                <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
+                  (01)
+                </h3>
+                <p className="font-neue-haas text-primary/90 max-w-lg text-base leading-relaxed md:text-lg">
+                  From our garden to your plate — we grow and source with care,
+                  so every dish tells a story of quality and sustainability.
+                </p>
+              </div>
+
+              <div className="border-primary/15 bg-primary/5 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+                <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
+                  (02)
+                </h3>
+                <p className="font-neue-haas text-primary/90 max-w-lg text-base leading-relaxed md:text-lg">
+                  Years of passion for food and hospitality mean every detail —
+                  from the setting to the service — is crafted for you.
+                </p>
+              </div>
+
+              <div className="border-primary/15 bg-primary/5 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+                <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
+                  (03)
+                </h3>
+                <p className="font-neue-haas text-primary/90 max-w-lg text-base leading-relaxed md:text-lg">
+                  We bring together seasonal ingredients, a unique atmosphere,
+                  and a team that loves what they do — so your experience is
+                  memorable.
+                </p>
+              </div>
+
+              <div className="border-primary/15 bg-primary/5 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+                <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
+                  (04)
+                </h3>
+                <p className="font-neue-haas text-primary/90 max-w-lg text-base leading-relaxed md:text-lg">
+                  Whether it&apos;s a quiet dinner or a special celebration, we
+                  create moments that matter — with warmth and attention to
+                  every guest.
+                </p>
+              </div>
+            </div>
+
+            <Link
+              href="/experiences"
+              className="font-neue-haas text-primary mt-6 inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-80 md:text-base"
+            >
+              Explore experiences <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
