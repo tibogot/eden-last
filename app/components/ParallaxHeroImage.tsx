@@ -40,7 +40,7 @@ export default function ParallaxHeroImage({
   return (
     <div
       ref={containerRef}
-      className={`relative h-[70vh] w-full overflow-hidden ${className}`}
+      className={`relative h-[90vh] w-full overflow-hidden ${className}`}
     >
       <div
         ref={innerRef}

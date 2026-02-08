@@ -4,6 +4,7 @@ import TextReveal from "@/app/components/TextReveal";
 import ScrollColorSwap from "@/app/components/ScrollColorSwap";
 import ParallaxHeroImage from "@/app/components/ParallaxHeroImage";
 import StickyClipRevealText from "@/app/components/StickyClipRevealText";
+import WhyUsSection from "../components/WhyUs";
 
 export default function Experiences() {
   return (
@@ -273,6 +274,7 @@ export default function Experiences() {
           </>
         }
       />
+      <WhyUsSection />
     </main>
   );
 }

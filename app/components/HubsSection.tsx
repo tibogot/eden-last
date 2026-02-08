@@ -526,20 +526,20 @@ export default function HubsSection() {
   }, []);
 
   return (
-    <section className="bg-primary relative w-full py-16 md:py-24">
+    <section className="bg-secondary relative w-full py-16 md:py-24">
       <div className="px-4 md:px-8">
-        <span className="font-neue-haas mb-6 block text-xs tracking-wider text-white uppercase">
+        <span className="font-neue-haas mb-6 block text-xs tracking-wider text-primary uppercase">
           Experiences
         </span>
         <div className="mt-20 flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-8">
           <AnimatedText>
-            <h2 className="font-ivy-headline max-w-3xl text-4xl leading-tight font-normal text-white md:text-5xl lg:text-6xl">
+            <h2 className="font-ivy-headline max-w-3xl text-4xl leading-tight font-normal text-primary md:text-5xl lg:text-6xl">
               Discover the best of Eden Park & Garden
             </h2>
           </AnimatedText>
           <Link
             href="/experiences"
-            className="font-neue-haas shrink-0 text-xs tracking-wider text-white uppercase underline transition-opacity hover:opacity-70"
+            className="font-neue-haas shrink-0 text-xs tracking-wider text-primary uppercase underline transition-opacity hover:opacity-70"
           >
             View all experiences
           </Link>
@@ -551,7 +551,7 @@ export default function HubsSection() {
           <button
             type="button"
             onClick={() => go(-1)}
-            className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center bg-white/10 text-white transition-opacity hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+            className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center bg-primary/10 text-primary transition-opacity hover:bg-primary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
             aria-label="Previous hub"
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={2} />
@@ -559,7 +559,7 @@ export default function HubsSection() {
           <button
             type="button"
             onClick={() => go(1)}
-            className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center bg-white/10 text-white transition-opacity hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+            className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center bg-primary/10 text-primary transition-opacity hover:bg-primary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
             aria-label="Next hub"
           >
             <ChevronRight className="h-5 w-5" strokeWidth={2} />
@@ -594,7 +594,7 @@ export default function HubsSection() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 z-10 p-4 md:p-5">
-                  <p className="font-neue-haas max-w-xs text-base font-normal text-white md:text-2xl lg:text-2xl">
+                  <p className="font-neue-haas max-w-xs text-base font-normal text-secondary md:text-2xl lg:text-2xl">
                     {card.title}
                   </p>
                 </div>

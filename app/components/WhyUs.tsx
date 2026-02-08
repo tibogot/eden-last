@@ -18,7 +18,7 @@ export default function WhyUsSection({
         {/* Two column layout - items-stretch so left column is tall; sticky needs a tall containing block */}
         <div className="mt-20 flex flex-col md:mt-24 md:flex-row md:items-stretch md:gap-16 lg:gap-24">
           {/* Left: CSS sticky title + image (pin together) */}
-          <div className="shrink-0 pb-12 md:w-1/2 md:pb-0 lg:w-2/5">
+          <div className="-mt-6 shrink-0 pb-12 md:w-1/2 md:pb-0 lg:w-2/5">
             <div className="flex flex-col gap-6 md:sticky md:top-30">
               <h2 className="font-ivy-headline text-primary max-w-xl text-left text-4xl leading-tight font-normal md:text-5xl lg:text-6xl">
                 A place where nature meets the table.
@@ -38,7 +38,7 @@ export default function WhyUsSection({
           {/* Right: 4 cards + Explore link - horizontal scroll on mobile, stacked on desktop */}
           <div className="md:w-1/2 lg:w-3/5">
             <div className="-mx-4 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] md:mx-0 md:snap-none md:flex-col md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
-              <div className="border-primary/15 bg-primary/5 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
                 <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
                   (01)
                 </h3>
@@ -48,7 +48,7 @@ export default function WhyUsSection({
                 </p>
               </div>
 
-              <div className="border-primary/15 bg-primary/5 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
                 <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
                   (02)
                 </h3>
@@ -58,7 +58,7 @@ export default function WhyUsSection({
                 </p>
               </div>
 
-              <div className="border-primary/15 bg-primary/5 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
                 <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
                   (03)
                 </h3>
@@ -69,7 +69,7 @@ export default function WhyUsSection({
                 </p>
               </div>
 
-              <div className="border-primary/15 bg-primary/5 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
                 <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
                   (04)
                 </h3>
@@ -80,13 +80,6 @@ export default function WhyUsSection({
                 </p>
               </div>
             </div>
-
-            <Link
-              href="/experiences"
-              className="font-neue-haas text-primary mt-6 inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-80 md:text-base"
-            >
-              Explore experiences <span aria-hidden>→</span>
-            </Link>
           </div>
         </div>
       </div>

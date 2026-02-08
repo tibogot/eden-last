@@ -251,7 +251,6 @@ export default async function Home() {
           </ul>
         </section>
       )}
-      <WhyUsSection />
     </main>
   );
 }
