@@ -546,7 +546,7 @@ export default function HubsSection() {
         </div>
       </div>
 
-      <div className="mt-12 lg:mt-40">
+      <div className="mt-12 lg:mt-30">
         <div className="mb-4 flex justify-end gap-3 px-4 pl-4 md:px-8 md:pl-8">
           <button
             type="button"

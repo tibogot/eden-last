@@ -9,7 +9,9 @@ interface RestaurantHeroTitleProps {
   title?: string;
 }
 
-export default function RestaurantHeroTitle({ title = DEFAULT_TITLE }: RestaurantHeroTitleProps) {
+export default function RestaurantHeroTitle({
+  title = DEFAULT_TITLE,
+}: RestaurantHeroTitleProps) {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {

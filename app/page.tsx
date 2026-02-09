@@ -119,7 +119,7 @@ export default async function Home() {
           </div>
         </div>
       </section> */}
-      <section className="py-32 md:py-32">
+      <section className="py-20 md:py-32">
         <TextReveal
           className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
           startColor="rgba(70, 86, 67, 0.2)"
@@ -235,7 +235,7 @@ export default async function Home() {
       />
       <TestimonialsTicker />
       {blogPosts.length > 0 && (
-        <section className="bg-secondary text-primary py-32">
+        <section className="bg-secondary text-primary py-16">
           <div className="mb-16 px-4 md:px-8">
             <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
               LATEST STORIES
