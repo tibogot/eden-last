@@ -23,7 +23,7 @@ export default function WhyUsSection({
               <h2 className="font-ivy-headline text-primary max-w-xl text-left text-4xl leading-tight font-normal md:text-5xl lg:text-6xl">
                 A place where nature meets the table.
               </h2>
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg md:aspect-[3/2]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[3/2]">
                 <Image
                   src={pinnedImageSrc}
                   alt={pinnedImageAlt}
@@ -38,7 +38,7 @@ export default function WhyUsSection({
           {/* Right: 4 cards + Explore link - horizontal scroll on mobile, stacked on desktop */}
           <div className="md:w-1/2 lg:w-3/5">
             <div className="-mx-4 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] md:mx-0 md:snap-none md:flex-col md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
-              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
                 <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
                   (01)
                 </h3>
@@ -48,7 +48,7 @@ export default function WhyUsSection({
                 </p>
               </div>
 
-              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
                 <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
                   (02)
                 </h3>
@@ -58,7 +58,7 @@ export default function WhyUsSection({
                 </p>
               </div>
 
-              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
                 <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
                   (03)
                 </h3>
@@ -69,7 +69,7 @@ export default function WhyUsSection({
                 </p>
               </div>
 
-              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center rounded-xl border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
+              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10 lg:p-12">
                 <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
                   (04)
                 </h3>

@@ -233,6 +233,7 @@ export default async function Home() {
           </>
         }
       />
+      <WhyUsSection />
       <TestimonialsTicker />
       {blogPosts.length > 0 && (
         <section className="bg-secondary text-primary py-16">
