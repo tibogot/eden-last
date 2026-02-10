@@ -704,6 +704,12 @@ export default function PushOverNav() {
             gsap.set(overlayHamburgerBar3Ref.current, { y: 0, rotation: -45 });
           }
 
+          // Clear inline transform so content-container doesn't create a
+          // containing block that breaks position:fixed (e.g. ScrollTrigger pins)
+          if (contentContainer) {
+            gsap.set(contentContainer, { clearProps: "transform" });
+          }
+
           setIsAnimating(false);
           // Only restart Lenis if not navigating
           // During navigation, LenisProvider handles restarting after pageTransitionComplete

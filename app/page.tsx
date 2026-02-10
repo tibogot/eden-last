@@ -186,82 +186,84 @@ export default async function Home() {
           />
         </div>
       </section>
-      <div className="relative z-10 bg-secondary">
+      <div className="bg-secondary relative z-10">
         <HubsSection />
-      {/* <section className="bg-secondary text-primary py-32">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col items-center justify-center text-center">
-            <TextReveal
-              className="max-w-4xl"
-              startColor="rgba(70, 86, 67, 0.2)"
-              endColor="rgb(70, 86, 67)"
-            >
-              <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl">
-                Of all the vibrant spaces, it is the only one that becomes even
-                more captivating as you explore, ending not with a grand finale
-                but by seamlessly blending into the natural landscape.
-              </p>
-            </TextReveal>
-          </div>
-        </div>
-      </section> */}
-      {/* <ExpandingImageReveal
+
+        {/* <ExpandingImageReveal
         imageSrc="/images/hero-2.jpg"
         imageAlt="Eden Garden experience"
         title="Where every moment becomes a memory"
         description="Step into a world where nature meets celebration, and every visit tells a new story."
       /> */}
-      {/* <PinnedImageTextReveal /> */}
-      {/* <StickyImageTextReveal /> */}
-      {/* <StickyClipReveal /> */}
-      <StickyClipRevealText
-        imageSrc="/images/colin.jpg"
-        imageAlt="Eden Garden atmosphere"
-        textContent={
-          <>
-            <span className="font-neue-haas mb-6 block text-xs tracking-wider uppercase">
-              DISCOVER
-            </span>
-            <h2 className="font-ivy-headline mb-6 max-w-3xl text-4xl leading-tight md:text-6xl">
-              Where every moment becomes an unforgettable experience
-            </h2>
-            <p className="text-primary/70 mx-auto max-w-xl text-base md:text-lg">
-              From live music under the stars to the warmth of traditional
-              cuisine, Eden Garden is where memories are made.
-            </p>
-          </>
-        }
-        overlayContent={
-          <>
-            <h2 className="font-ivy-headline mb-6 text-4xl leading-tight md:text-7xl">
-              A place where stories unfold
-            </h2>
-            <p className="text-lg opacity-90 md:text-xl">
-              Every corner holds a new adventure, every moment a chance to
-              connect.
-            </p>
-          </>
-        }
-      />
-      <WhyUsSection />
-      <TestimonialsTicker />
-      {blogPosts.length > 0 && (
-        <section className="bg-secondary text-primary py-16">
-          <div className="mb-16 px-4 md:px-8">
-            <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
-              LATEST STORIES
-            </span>
-            <h2 className="font-ivy-headline text-primary text-4xl leading-tight md:text-5xl">
-              Discover our latest events
-            </h2>
+        {/* <PinnedImageTextReveal /> */}
+        {/* <StickyImageTextReveal /> */}
+        {/* <StickyClipReveal /> */}
+        <StickyClipRevealText
+          imageSrc="/images/colin.jpg"
+          imageAlt="Eden Garden atmosphere"
+          textContent={
+            <>
+              <span className="font-neue-haas mb-6 block text-xs tracking-wider uppercase">
+                DISCOVER
+              </span>
+              <h2 className="font-ivy-headline mb-6 max-w-3xl text-4xl leading-tight md:text-6xl">
+                Where every moment becomes an unforgettable experience
+              </h2>
+              <p className="text-primary/70 mx-auto max-w-xl text-base md:text-lg">
+                From live music under the stars to the warmth of traditional
+                cuisine, Eden Garden is where memories are made.
+              </p>
+            </>
+          }
+          overlayContent={
+            <>
+              <h2 className="font-ivy-headline mb-6 text-4xl leading-tight md:text-7xl">
+                A place where stories unfold
+              </h2>
+              <p className="text-lg opacity-90 md:text-xl">
+                Every corner holds a new adventure, every moment a chance to
+                connect.
+              </p>
+            </>
+          }
+        />
+        <WhyUsSection />
+
+        <TestimonialsTicker />
+        <section className="bg-secondary text-primary py-32">
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="flex flex-col items-center justify-center text-center">
+              <TextReveal
+                className="max-w-4xl"
+                startColor="rgba(70, 86, 67, 0.2)"
+                endColor="rgb(70, 86, 67)"
+              >
+                <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl">
+                  Of all the vibrant spaces, it is the only one that becomes
+                  even more captivating as you explore, ending not with a grand
+                  finale but by seamlessly blending into the natural landscape.
+                </p>
+              </TextReveal>
+            </div>
           </div>
-          <ul className="flex flex-col gap-8 px-4 md:flex-row md:px-8">
-            {blogPosts.map((post) => (
-              <BlogPreview key={post._id} post={post} />
-            ))}
-          </ul>
         </section>
-      )}
+        {blogPosts.length > 0 && (
+          <section className="bg-secondary text-primary py-16">
+            <div className="mb-16 px-4 md:px-8">
+              <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
+                LATEST STORIES
+              </span>
+              <h2 className="font-ivy-headline text-primary text-4xl leading-tight md:text-5xl">
+                Discover our latest events
+              </h2>
+            </div>
+            <ul className="flex flex-col gap-8 px-4 md:flex-row md:px-8">
+              {blogPosts.map((post) => (
+                <BlogPreview key={post._id} post={post} />
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </main>
   );

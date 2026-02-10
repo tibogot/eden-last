@@ -29,9 +29,6 @@ body {
 }
 
 /* Push Over Nav Styles */
-.content-container {
-  will-change: transform;
-}
 
 .line {
   position: relative;

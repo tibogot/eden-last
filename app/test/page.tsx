@@ -3,6 +3,7 @@ import HeroParallax from "@/app/components/HeroParallax";
 import RestaurantHeroTitle from "@/app/components/RestaurantHeroTitle";
 import AnimatedTextWords from "@/app/components/AnimatedTextWords";
 import AnimatedTextChars from "@/app/components/AnimatedTextChars";
+import HorizontalScrollSection from "../components/HorizontalScrollSection";
 
 export default function TestPage() {
   return (
@@ -127,6 +128,7 @@ export default function TestPage() {
           </div>
         </div>
       </section>
+      <HorizontalScrollSection />
     </main>
   );
 }

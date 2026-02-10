@@ -1,28 +1,66 @@
+"use client";
+
 import Link from "next/link";
 import { Link as TransitionLink } from "next-view-transitions";
+import { usePathname } from "next/navigation";
+import { useLenis } from "lenis/react";
 
 export default function Footer() {
+  const pathname = usePathname();
+  const lenis = useLenis();
+
+  const handleScrollToTop = () => {
+    if (lenis) {
+      lenis.scrollTo(0, { force: true });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <footer className="bg-primary relative flex min-h-[50vh] w-full flex-col px-4 pt-8 md:min-h-[55vh] md:px-8">
       {/* Top row: Logo + slogan left, Address | Contact | Links right */}
       <div className="flex flex-1 flex-col gap-10 md:flex-row md:items-start md:justify-between">
-        {/* Logo + description */}
+        {/* Logo + description - on home: scroll to top; elsewhere: link to home */}
         <div className="flex flex-col gap-6">
-          <Link href="/" className="inline-block" aria-label="Eden Park & Garden - Home">
-            <div
-              className="relative h-12 w-36 bg-secondary md:h-14 md:w-40"
-              style={{
-                maskImage: "url('/images/logo3.svg')",
-                maskSize: "contain",
-                maskRepeat: "no-repeat",
-                maskPosition: "left",
-                WebkitMaskImage: "url('/images/logo3.svg')",
-                WebkitMaskSize: "contain",
-                WebkitMaskRepeat: "no-repeat",
-                WebkitMaskPosition: "left",
-              }}
-            />
-          </Link>
+          {pathname === "/" ? (
+            <button
+              type="button"
+              onClick={handleScrollToTop}
+              className="inline-block cursor-pointer border-none bg-transparent p-0 text-left"
+              aria-label="Scroll to top"
+            >
+              <div
+                className="relative h-12 w-36 bg-secondary md:h-14 md:w-40"
+                style={{
+                  maskImage: "url('/images/logo3.svg')",
+                  maskSize: "contain",
+                  maskRepeat: "no-repeat",
+                  maskPosition: "left",
+                  WebkitMaskImage: "url('/images/logo3.svg')",
+                  WebkitMaskSize: "contain",
+                  WebkitMaskRepeat: "no-repeat",
+                  WebkitMaskPosition: "left",
+                }}
+              />
+            </button>
+          ) : (
+            <TransitionLink href="/" className="inline-block" aria-label="Eden Park & Garden - Home">
+              <div
+                className="relative h-12 w-36 bg-secondary md:h-14 md:w-40"
+                style={{
+                  maskImage: "url('/images/logo3.svg')",
+                  maskSize: "contain",
+                  maskRepeat: "no-repeat",
+                  maskPosition: "left",
+                  WebkitMaskImage: "url('/images/logo3.svg')",
+                  WebkitMaskSize: "contain",
+                  WebkitMaskRepeat: "no-repeat",
+                  WebkitMaskPosition: "left",
+                }}
+              />
+            </TransitionLink>
+          )}
           <p className="text-secondary max-w-xs text-base leading-relaxed">
             A construction company, offering integrated solution and related
             services.

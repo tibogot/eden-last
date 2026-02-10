@@ -42,7 +42,7 @@ export default function RootLayout({
           <ViewTransitionHandler />
           <LenisProvider>
             <PushOverNav />
-            <div className="content-container bg-background text-foreground relative translate-y-0 transform">
+            <div className="content-container bg-background text-foreground relative">
               <ScrollToTop />
               {children}
               <Footer />
