@@ -1,4 +1,5 @@
 import { Link } from "next-view-transitions";
+import Image from "next/image";
 import TextReveal from "@/app/components/TextReveal";
 import TestimonialsTicker from "@/app/components/TestimonialsTicker";
 import BlogPreview from "@/app/components/BlogPreview";
@@ -174,7 +175,19 @@ export default async function Home() {
         </div>
       </section>
       <ServicesGrid />
-      <HubsSection />
+      <section className="sticky top-0 z-0 h-screen w-full overflow-hidden">
+        <div className="relative h-full w-full">
+          <Image
+            src="/images/iris-lavoie.jpg"
+            alt=""
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+      </section>
+      <div className="relative z-10 bg-secondary">
+        <HubsSection />
       {/* <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center justify-center text-center">
@@ -249,6 +262,7 @@ export default async function Home() {
           </ul>
         </section>
       )}
+      </div>
     </main>
   );
 }

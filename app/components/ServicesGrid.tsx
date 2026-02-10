@@ -1,4 +1,12 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
+// Card speed factors for scroll parallax (each card moves at a different rate)
+const CARD_SPEEDS = [0.15, 0.28, 0.1, 0.22];
+// Image inner parallax: how much the image moves inside its container (percentage)
+const IMAGE_PARALLAX_RANGE = 12;
 
 const SERVICES = [
   {
@@ -34,23 +42,82 @@ const SERVICES = [
 
 export default function ServicesGrid() {
   const [barLounge, poolGame, tableTennis, traditionalFood] = SERVICES;
+  const sectionRef = useRef<HTMLElement>(null);
+  const [parallax, setParallax] = useState<{
+    cardY: number[];
+    imageY: number[];
+  }>({
+    cardY: [0, 0, 0, 0],
+    imageY: [0, 0, 0, 0],
+  });
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let rafId: number;
+
+    const update = () => {
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const sectionHeight = rect.height;
+      const isVisible =
+        rect.bottom >= 0 && rect.top <= viewportHeight + sectionHeight;
+
+      if (!isVisible) {
+        rafId = requestAnimationFrame(update);
+        return;
+      }
+
+      // Scroll progress: 0 when section top at bottom of viewport, 1 when section bottom at top
+      const scrollProgress =
+        (viewportHeight - rect.top) / (viewportHeight + sectionHeight);
+      const normalized = Math.max(0, Math.min(1, scrollProgress));
+      const centered = (normalized - 0.5) * 2; // -1 to 1 as section crosses viewport
+
+      const CARD_STRENGTH = 70;
+      const cardY = CARD_SPEEDS.map(
+        (speed) => centered * CARD_STRENGTH * speed
+      );
+      const imageY = CARD_SPEEDS.map(
+        (speed) => centered * IMAGE_PARALLAX_RANGE * speed * 2
+      );
+
+      setParallax({ cardY, imageY });
+      rafId = requestAnimationFrame(update);
+    };
+
+    rafId = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
 
   return (
     <section
-      className="bg-secondary text-primary w-full px-4 py-12 md:px-8 md:py-16"
+      ref={sectionRef}
+      className="bg-secondary text-primary w-full px-4 py-12 md:px-8 md:py-20"
       aria-label="Our services"
     >
       {/* First two images in grid */}
       <div className="grid h-auto grid-cols-1 grid-rows-2 gap-4 md:h-[680px] md:grid-cols-8 md:grid-rows-5">
-        <div className="col-span-1 row-span-1 flex flex-col md:col-span-3 md:row-span-4">
+        <div
+          className="col-span-1 row-span-1 flex flex-col will-change-transform md:col-span-3 md:row-span-4"
+          style={{ transform: `translateY(${parallax.cardY[0]}px)` }}
+        >
           <div className="relative min-h-[280px] w-full flex-1 overflow-hidden md:min-h-0">
-            <Image
-              src={barLounge.image}
-              alt={barLounge.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 38vw"
-            />
+            <div
+              className="absolute inset-0 h-[130%] w-full -top-[15%] will-change-transform"
+              style={{
+                transform: `translateY(${parallax.imageY[0]}%)`,
+              }}
+            >
+              <Image
+                src={barLounge.image}
+                alt={barLounge.title}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 38vw"
+              />
+            </div>
           </div>
           <div className={`w-full text-left ${barLounge.textMaxWidth}`}>
             <h3 className="font-ivy-headline text-primary mt-3 text-lg font-normal md:text-2xl">
@@ -61,15 +128,25 @@ export default function ServicesGrid() {
             </p>
           </div>
         </div>
-        <div className="col-span-1 row-span-1 row-start-2 flex flex-col md:col-span-2 md:col-start-6 md:row-span-4 md:row-start-2 md:items-end">
+        <div
+          className="col-span-1 row-span-1 row-start-2 flex flex-col will-change-transform md:col-span-2 md:col-start-6 md:row-span-4 md:row-start-2 md:items-end"
+          style={{ transform: `translateY(${parallax.cardY[1]}px)` }}
+        >
           <div className="relative min-h-[280px] w-full flex-1 overflow-hidden md:min-h-0">
-            <Image
-              src={poolGame.image}
-              alt={poolGame.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 25vw"
-            />
+            <div
+              className="absolute inset-0 h-[130%] w-full -top-[15%] will-change-transform"
+              style={{
+                transform: `translateY(${parallax.imageY[1]}%)`,
+              }}
+            >
+              <Image
+                src={poolGame.image}
+                alt={poolGame.title}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 25vw"
+              />
+            </div>
           </div>
           <div className={`w-full text-left ${poolGame.textMaxWidth}`}>
             <h3 className="font-ivy-headline text-primary mt-3 text-lg font-normal md:text-2xl">
@@ -84,15 +161,25 @@ export default function ServicesGrid() {
 
       {/* Table tennis and Traditional food in grid */}
       <div className="mt-8 grid h-auto grid-cols-1 grid-rows-2 gap-4 md:mt-12 md:h-[680px] md:grid-cols-8 md:grid-rows-5">
-        <div className="col-span-1 row-span-1 flex flex-col md:col-span-2 md:col-start-2 md:row-span-4">
+        <div
+          className="col-span-1 row-span-1 flex flex-col will-change-transform md:col-span-2 md:col-start-2 md:row-span-4"
+          style={{ transform: `translateY(${parallax.cardY[2]}px)` }}
+        >
           <div className="relative min-h-[280px] w-full flex-1 overflow-hidden md:min-h-0">
-            <Image
-              src={tableTennis.image}
-              alt={tableTennis.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 25vw"
-            />
+            <div
+              className="absolute inset-0 h-[130%] w-full -top-[15%] will-change-transform"
+              style={{
+                transform: `translateY(${parallax.imageY[2]}%)`,
+              }}
+            >
+              <Image
+                src={tableTennis.image}
+                alt={tableTennis.title}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 25vw"
+              />
+            </div>
           </div>
           <div className={`w-full text-left ${tableTennis.textMaxWidth}`}>
             <h3 className="font-ivy-headline text-primary mt-3 text-lg font-normal md:text-2xl">
@@ -103,15 +190,25 @@ export default function ServicesGrid() {
             </p>
           </div>
         </div>
-        <div className="col-span-1 row-span-1 row-start-2 flex flex-col md:col-span-3 md:col-start-6 md:row-span-4 md:row-start-2">
+        <div
+          className="col-span-1 row-span-1 row-start-2 flex flex-col will-change-transform md:col-span-3 md:col-start-6 md:row-span-4 md:row-start-2"
+          style={{ transform: `translateY(${parallax.cardY[3]}px)` }}
+        >
           <div className="relative min-h-[280px] w-full flex-1 overflow-hidden md:min-h-0">
-            <Image
-              src={traditionalFood.image}
-              alt={traditionalFood.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 38vw"
-            />
+            <div
+              className="absolute inset-0 h-[130%] w-full -top-[15%] will-change-transform"
+              style={{
+                transform: `translateY(${parallax.imageY[3]}%)`,
+              }}
+            >
+              <Image
+                src={traditionalFood.image}
+                alt={traditionalFood.title}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 38vw"
+              />
+            </div>
           </div>
           <div className={`w-full text-left ${traditionalFood.textMaxWidth}`}>
             <h3 className="font-ivy-headline text-primary mt-3 text-lg font-normal md:text-2xl">

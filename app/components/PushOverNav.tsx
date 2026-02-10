@@ -1097,7 +1097,6 @@ export default function PushOverNav() {
                     alt="Logo"
                     fill
                     className="object-contain"
-                    priority
                     sizes="(max-width: 768px) 128px, 144px"
                   />
                 </div>
@@ -1118,7 +1117,6 @@ export default function PushOverNav() {
                     alt="Logo"
                     fill
                     className="object-contain"
-                    priority
                     sizes="(max-width: 768px) 128px, 144px"
                   />
                 </div>
@@ -1201,7 +1199,6 @@ export default function PushOverNav() {
                       alt="Logo"
                       fill
                       className="object-contain"
-                      priority
                       sizes="(max-width: 768px) 128px, 144px"
                     />
                   </div>
@@ -1225,7 +1222,6 @@ export default function PushOverNav() {
                       alt="Logo"
                       fill
                       className="object-contain"
-                      priority
                       sizes="(max-width: 768px) 128px, 144px"
                     />
                   </div>
