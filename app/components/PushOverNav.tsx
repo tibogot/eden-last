@@ -1355,14 +1355,14 @@ export default function PushOverNav() {
                 clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
               }}
             >
-              <div className="relative h-[60vh] w-full max-w-md">
+              <div className="relative h-[80vh] w-full max-w-xl">
                 <Image
                   src="/images/jordan.jpg"
                   alt="Menu background"
                   fill
                   className="object-cover"
                   priority
-                  sizes="(min-width: 768px) 448px, 100vw"
+                  sizes="(min-width: 768px) 576px, 100vw"
                 />
               </div>
             </div>

@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { gsap, Draggable } from "../lib/gsapConfig";
+import AnimatedText from "./AnimatedText3";
 
 // Define TypeScript interfaces
 interface Testimonial {
@@ -405,9 +406,11 @@ const TestimonialsTicker = () => {
   return (
     <section className="bg-secondary relative w-full overflow-hidden py-20 md:py-32">
       <div className="container px-4 md:px-8">
-        <h2 className="font-ivy-headline text-primary text-5xl md:text-7xl">
-          What guests say about us
-        </h2>
+        <AnimatedText>
+          <h2 className="font-ivy-headline text-primary text-5xl md:text-7xl">
+            What guests say about us
+          </h2>
+        </AnimatedText>
       </div>
 
       <div

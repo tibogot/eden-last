@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import AnimatedText from "./AnimatedText3";
 
 interface WhyUsSectionProps {
   pinnedImageSrc?: string;
@@ -14,9 +15,14 @@ export default function WhyUsSection({
 }: WhyUsSectionProps) {
   return (
     <section className="bg-secondary relative w-full px-4 py-8 md:px-8 md:py-20">
-      <h2 className="font-ivy-headline text-primary max-w-xl text-left text-4xl leading-tight font-normal md:text-5xl">
-        A place where nature meets the table.
-      </h2>
+      <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
+        WHY CHOOSE US
+      </span>
+      <AnimatedText>
+        <h2 className="font-ivy-headline text-primary mt-20 max-w-xl text-left text-4xl leading-tight md:text-5xl">
+          A place where nature meets the table.
+        </h2>
+      </AnimatedText>
       <div className="w-full">
         {/* Two column layout - items-stretch so left column is tall; sticky needs a tall containing block */}
         <div className="mt-20 flex flex-col md:mt-24 md:flex-row md:items-stretch md:gap-16">

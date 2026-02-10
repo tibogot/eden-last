@@ -70,7 +70,7 @@ export default function Footer() {
         {/* Links | Address | Contact - 2 cols on mobile, row on md+ */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:flex md:flex-row md:gap-14 lg:gap-20">
           <div className="flex flex-col items-start gap-0.5">
-            <p className="text-secondary text-base font-medium tracking-wider uppercase">
+            <p className="text-secondary mb-4 text-base font-medium tracking-wider uppercase">
               LINKS
             </p>
             <TransitionLink
@@ -105,7 +105,7 @@ export default function Footer() {
             </TransitionLink>
           </div>
           <div>
-            <p className="text-secondary text-base font-medium tracking-wider uppercase">
+            <p className="text-secondary mb-4 text-base font-medium tracking-wider uppercase">
               Address
             </p>
             <address className="text-secondary text-base leading-relaxed not-italic">
@@ -119,7 +119,7 @@ export default function Footer() {
             </address>
           </div>
           <div>
-            <p className="text-secondary text-base font-medium tracking-wider uppercase">
+            <p className="text-secondary mb-4 text-base font-medium tracking-wider uppercase">
               Contact
             </p>
             <p className="text-secondary text-base leading-relaxed">

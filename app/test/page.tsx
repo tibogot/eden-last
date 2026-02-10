@@ -7,6 +7,7 @@ import HorizontalScrollSection from "../components/HorizontalScrollSection";
 import StackingCardsPin3D from "../components/StackingCardsPin3D";
 import StickyStackScroll4 from "../components/StickyStackScroll4";
 import StickyStackScroll5 from "../components/StickyStackScroll5";
+import StickyScaleCardsScroll from "../components/StickyScaleCardsScroll";
 
 export default function TestPage() {
   return (
@@ -135,6 +136,7 @@ export default function TestPage() {
       <StackingCardsPin3D />
       <StickyStackScroll4 />
       <StickyStackScroll5 />
+      <StickyScaleCardsScroll />
     </main>
   );
 }

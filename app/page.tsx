@@ -17,6 +17,7 @@ import type { PortableTextBlock } from "@portabletext/types";
 import StickyClipRevealText from "./components/StickyClipRevealText";
 import HubsSection from "./components/HubsSection";
 import WhyUsSection from "./components/WhyUs";
+import AnimatedText from "./components/AnimatedText3";
 
 interface SanityImageAsset {
   _ref?: string;
@@ -153,10 +154,12 @@ export default async function Home() {
             <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
               EXPERIENCES
             </span>
-            <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl leading-tight md:text-5xl">
-              Where nature meets celebration, and every gathering becomes a
-              memory.
-            </h2>
+            <AnimatedText>
+              <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl leading-tight md:text-5xl">
+                Where nature meets celebration, and every gathering becomes a
+                memory.
+              </h2>
+            </AnimatedText>
           </div>
         </div>
       </section>
@@ -271,9 +274,11 @@ export default async function Home() {
                 <span className="font-neue-haas text-primary mb-4 block text-xs tracking-wider uppercase md:mb-6">
                   LATEST STORIES
                 </span>
-                <h2 className="font-ivy-headline text-primary text-3xl leading-tight md:text-5xl">
-                  Discover our latest events
-                </h2>
+                <AnimatedText>
+                  <h2 className="font-ivy-headline text-primary text-3xl leading-tight md:text-5xl">
+                    Discover our latest events
+                  </h2>
+                </AnimatedText>
               </div>
               <Link
                 href="/events"

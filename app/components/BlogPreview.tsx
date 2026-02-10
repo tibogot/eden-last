@@ -47,7 +47,7 @@ export default function BlogPreview({ post }: BlogPreviewProps) {
   }
 
   return (
-    <li className="w-[85vw] min-w-[280px] shrink-0 snap-center transition-opacity duration-200 md:w-full md:min-w-0 group-hover:opacity-70 hover:!opacity-100">
+    <li className="w-[85vw] min-w-[280px] shrink-0 snap-center md:w-full md:min-w-0">
       <Link
         href={`/events/${post.slug.current}`}
         className="group block h-full"
