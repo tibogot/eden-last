@@ -45,7 +45,7 @@ export default function StickyScaleCardsScroll({
         ".sticky-scale-card img"
       );
 
-      if (!stickySection || cardEls.length === 0 || imageEls.length === 0)
+      if (!stickySection || !cardEls?.length || !imageEls?.length)
         return;
 
       const totalCards = cardEls.length;
