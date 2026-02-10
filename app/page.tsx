@@ -41,7 +41,7 @@ interface BlogPost {
 async function getBlogPosts(): Promise<BlogPost[]> {
   try {
     const posts = await client.fetch<BlogPost[]>(
-      `*[_type == "post"] | order(publishedAt desc) [0...3] {
+      `*[_type == "post"] | order(publishedAt desc) [0...4] {
         _id,
         title,
         slug,
@@ -131,10 +131,10 @@ export default async function Home() {
       </section>
       <section className="bg-secondary text-primary pt-16">
         <div className="container px-4 md:px-8">
-          {/* First Section - PHILOSOPHY label and title */}
+          {/* First Section - EXPERIENCES label and title */}
           <div className="flex flex-col">
             <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
-              PHILOSOPHY
+              EXPERIENCES
             </span>
             <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl leading-tight md:text-5xl">
               Where nature meets celebration, and every gathering becomes a
@@ -249,15 +249,23 @@ export default async function Home() {
         </section>
         {blogPosts.length > 0 && (
           <section className="bg-secondary text-primary py-16">
-            <div className="mb-16 px-4 md:px-8">
-              <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
-                LATEST STORIES
-              </span>
-              <h2 className="font-ivy-headline text-primary text-4xl leading-tight md:text-5xl">
-                Discover our latest events
-              </h2>
+            <div className="mb-16 flex flex-col justify-between gap-4 px-4 md:flex-row md:items-end md:px-8">
+              <div>
+                <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
+                  LATEST STORIES
+                </span>
+                <h2 className="font-ivy-headline text-primary text-4xl leading-tight md:text-5xl">
+                  Discover our latest events
+                </h2>
+              </div>
+              <Link
+                href="/events"
+                className="font-neue-haas text-primary shrink-0 text-xs tracking-wider uppercase underline transition-opacity hover:opacity-70"
+              >
+                SEE ALL EVENTS
+              </Link>
             </div>
-            <ul className="flex flex-col gap-8 px-4 md:flex-row md:px-8">
+            <ul className="group grid grid-cols-1 gap-8 px-4 md:grid-cols-4 md:px-8">
               {blogPosts.map((post) => (
                 <BlogPreview key={post._id} post={post} />
               ))}

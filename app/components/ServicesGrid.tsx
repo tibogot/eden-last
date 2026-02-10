@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 // Card speed factors for scroll parallax (each card moves at a different rate)
-const CARD_SPEEDS = [0.15, 0.28, 0.1, 0.22];
+const CARD_SPEEDS = [0.17, 0.3, 0.12, 0.25];
 // Image inner parallax: how much the image moves inside its container (percentage)
-const IMAGE_PARALLAX_RANGE = 12;
+const IMAGE_PARALLAX_RANGE = 18;
 
 const SERVICES = [
   {
@@ -75,12 +75,12 @@ export default function ServicesGrid() {
       const normalized = Math.max(0, Math.min(1, scrollProgress));
       const centered = (normalized - 0.5) * 2; // -1 to 1 as section crosses viewport
 
-      const CARD_STRENGTH = 70;
+      const CARD_STRENGTH = 110;
       const cardY = CARD_SPEEDS.map(
-        (speed) => centered * CARD_STRENGTH * speed
+        (speed) => -centered * CARD_STRENGTH * speed
       );
       const imageY = CARD_SPEEDS.map(
-        (speed) => centered * IMAGE_PARALLAX_RANGE * speed * 2
+        (speed) => -centered * IMAGE_PARALLAX_RANGE * speed * 2
       );
 
       setParallax({ cardY, imageY });

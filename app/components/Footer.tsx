@@ -74,12 +74,6 @@ export default function Footer() {
               LINKS
             </p>
             <TransitionLink
-              href="/"
-              className="text-secondary text-base transition-colors hover:opacity-80"
-            >
-              Home
-            </TransitionLink>
-            <TransitionLink
               href="/about"
               className="text-secondary text-base transition-colors hover:opacity-80"
             >

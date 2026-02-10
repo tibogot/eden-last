@@ -38,7 +38,7 @@ export default function WhyUsSection({
             </div>
           </div>
 
-          {/* Right: 4 cards + Explore link - horizontal scroll on mobile, stacked on desktop */}
+          {/* Right: 5 cards - horizontal scroll on mobile, stacked on desktop */}
           <div className="md:w-1/2">
             <div className="-mx-4 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] md:mx-0 md:snap-none md:flex-col md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
               <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10">
@@ -80,6 +80,16 @@ export default function WhyUsSection({
                   Whether it&apos;s a quiet dinner or a special celebration, we
                   create moments that matter — with warmth and attention to
                   every guest.
+                </p>
+              </div>
+
+              <div className="border-primary/15 w-[260px] min-w-[260px] shrink-0 snap-center border p-5 md:min-h-[280px] md:w-auto md:min-w-0 md:p-10">
+                <h3 className="font-ivy-headline text-primary mb-8 text-xl leading-tight md:mb-10 md:text-2xl">
+                  (05)
+                </h3>
+                <p className="font-neue-haas text-primary/90 max-w-lg text-base leading-relaxed md:text-lg">
+                  Live music, dance, and sport come together in one place — an
+                  oasis where entertainment and relaxation meet under the stars.
                 </p>
               </div>
             </div>

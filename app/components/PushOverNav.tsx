@@ -1081,7 +1081,7 @@ export default function PushOverNav() {
       <nav className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
         {/* Nav Bar Logo - on home: scroll to top; elsewhere: link to home */}
         <div className="text-primary pointer-events-auto fixed top-0 left-0 z-50 px-4 py-8 md:px-8">
-          <div className="relative h-11 w-32 md:h-12 md:w-36">
+          <div className="relative h-11 w-11 md:h-12 md:w-12">
             {pathname === "/" ? (
               <button
                 type="button"
@@ -1099,11 +1099,11 @@ export default function PushOverNav() {
                   }}
                 >
                   <Image
-                    src="/images/logo3.svg"
+                    src="/navlogo2.svg"
                     alt="Logo"
                     fill
                     className="object-contain"
-                    sizes="(max-width: 768px) 128px, 144px"
+                    sizes="(max-width: 768px) 44px, 48px"
                   />
                 </div>
               </button>
@@ -1119,11 +1119,11 @@ export default function PushOverNav() {
                   }}
                 >
                   <Image
-                    src="/images/logo3.svg"
+                    src="/navlogo2.svg"
                     alt="Logo"
                     fill
                     className="object-contain"
-                    sizes="(max-width: 768px) 128px, 144px"
+                    sizes="(max-width: 768px) 44px, 48px"
                   />
                 </div>
               </TransitionLink>
@@ -1181,7 +1181,7 @@ export default function PushOverNav() {
         >
           {/* Overlay Logo - on home: scroll to top and close menu; elsewhere: link to home */}
           <div className="pointer-events-auto fixed top-0 left-0 z-51 px-4 py-8 md:px-8">
-            <div className="relative h-11 w-32 md:h-12 md:w-36">
+            <div className="relative h-11 w-11 md:h-12 md:w-12">
               {pathname === "/" ? (
                 <button
                   type="button"
@@ -1201,11 +1201,11 @@ export default function PushOverNav() {
                     }}
                   >
                     <Image
-                      src="/images/logo3.svg"
+                      src="/navlogo2.svg"
                       alt="Logo"
                       fill
                       className="object-contain"
-                      sizes="(max-width: 768px) 128px, 144px"
+                      sizes="(max-width: 768px) 44px, 48px"
                     />
                   </div>
                 </button>
@@ -1224,11 +1224,11 @@ export default function PushOverNav() {
                     }}
                   >
                     <Image
-                      src="/images/logo3.svg"
+                      src="/navlogo2.svg"
                       alt="Logo"
                       fill
                       className="object-contain"
-                      sizes="(max-width: 768px) 128px, 144px"
+                      sizes="(max-width: 768px) 44px, 48px"
                     />
                   </div>
                 </Link>

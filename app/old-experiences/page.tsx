@@ -10,10 +10,16 @@ export default function Experiences() {
   return (
     <main className="bg-secondary text-primary">
       <section className="flex w-full items-center justify-center px-4 pt-24 md:px-8 md:pt-32">
-        <div className="w-full max-w-4xl text-center">
-          <h1 className="font-ivy-headline mx-auto w-full text-5xl leading-tight md:text-8xl">
-            Where Moments Become Memories
-          </h1>
+        <div className="relative flex w-full max-w-4xl items-center justify-center">
+          <Image
+            src="/images/newlogo.svg"
+            alt="Eden Garden"
+            width={933}
+            height={311}
+            className="object-contain"
+            style={{ width: "clamp(160px, 50vw, 672px)" }}
+            priority
+          />
         </div>
       </section>
 

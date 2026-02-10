@@ -47,18 +47,18 @@ export default function BlogPreview({ post }: BlogPreviewProps) {
   }
 
   return (
-    <li className="mb-10 w-full flex-1 md:mb-0 md:w-1/3">
+    <li className="mb-10 w-full transition-opacity duration-200 md:mb-0 group-hover:opacity-70 hover:!opacity-100">
       <Link
         href={`/events/${post.slug.current}`}
         className="group block h-full"
       >
         <div className="flex h-full flex-col items-stretch overflow-hidden">
-          <div className="bg-secondary relative flex h-64 w-full items-center justify-center overflow-hidden md:h-80">
+          <div className="bg-secondary relative flex h-72 w-full items-center justify-center overflow-hidden md:h-96">
             <Image
               src={imageUrl}
               alt={post.title}
               fill
-              sizes="(max-width: 768px) 100vw, 33vw"
+              sizes="(max-width: 768px) 100vw, 25vw"
               className="object-cover object-center"
               loading="lazy"
             />
@@ -78,9 +78,6 @@ export default function BlogPreview({ post }: BlogPreviewProps) {
                 {post.body && <PortableText value={post.body.slice(0, 1)} />}
               </div>
             </div>
-            <span className="font-neue-haas text-primary mt-4 inline-block text-base">
-              Read more →
-            </span>
           </div>
         </div>
       </Link>

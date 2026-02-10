@@ -4,6 +4,9 @@ import RestaurantHeroTitle from "@/app/components/RestaurantHeroTitle";
 import AnimatedTextWords from "@/app/components/AnimatedTextWords";
 import AnimatedTextChars from "@/app/components/AnimatedTextChars";
 import HorizontalScrollSection from "../components/HorizontalScrollSection";
+import StackingCardsPin3D from "../components/StackingCardsPin3D";
+import StickyStackScroll4 from "../components/StickyStackScroll4";
+import StickyStackScroll5 from "../components/StickyStackScroll5";
 
 export default function TestPage() {
   return (
@@ -129,6 +132,9 @@ export default function TestPage() {
         </div>
       </section>
       <HorizontalScrollSection />
+      <StackingCardsPin3D />
+      <StickyStackScroll4 />
+      <StickyStackScroll5 />
     </main>
   );
 }
