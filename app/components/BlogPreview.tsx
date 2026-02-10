@@ -47,23 +47,23 @@ export default function BlogPreview({ post }: BlogPreviewProps) {
   }
 
   return (
-    <li className="mb-10 w-full transition-opacity duration-200 md:mb-0 group-hover:opacity-70 hover:!opacity-100">
+    <li className="w-[85vw] min-w-[280px] shrink-0 snap-center transition-opacity duration-200 md:w-full md:min-w-0 group-hover:opacity-70 hover:!opacity-100">
       <Link
         href={`/events/${post.slug.current}`}
         className="group block h-full"
       >
         <div className="flex h-full flex-col items-stretch overflow-hidden">
-          <div className="bg-secondary relative flex h-72 w-full items-center justify-center overflow-hidden md:h-96">
+          <div className="bg-secondary relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden md:aspect-auto md:h-96">
             <Image
               src={imageUrl}
               alt={post.title}
               fill
-              sizes="(max-width: 768px) 100vw, 25vw"
+              sizes="(max-width: 768px) 85vw, 25vw"
               className="object-cover object-center"
               loading="lazy"
             />
           </div>
-          <div className="flex flex-1 flex-col justify-between py-6">
+          <div className="flex flex-1 flex-col justify-between py-4 md:py-6">
             <div>
               {post.publishedAt && (
                 <p className="font-neue-haas text-primary/60 mb-2 text-xs">

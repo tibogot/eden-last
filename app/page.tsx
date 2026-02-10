@@ -117,7 +117,24 @@ export default async function Home() {
           </div>
         </div>
       </section> */}
-      <section className="py-20 md:py-32">
+      <section className="bg-secondary text-primary py-16 md:py-32">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col items-center justify-center text-center">
+            <TextReveal
+              className="max-w-4xl"
+              startColor="rgba(70, 86, 67, 0.2)"
+              endColor="rgb(70, 86, 67)"
+            >
+              <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl">
+                Of all the vibrant spaces, it is the only one that becomes even
+                more captivating as you explore, ending not with a grand finale
+                but by seamlessly blending into the natural landscape.
+              </p>
+            </TextReveal>
+          </div>
+        </div>
+      </section>
+      {/* <section className="py-20 md:py-32">
         <TextReveal
           className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
           startColor="rgba(70, 86, 67, 0.2)"
@@ -128,8 +145,8 @@ export default async function Home() {
             entertainment, and unforgettable experiences.
           </h4>
         </TextReveal>
-      </section>
-      <section className="bg-secondary text-primary pt-16">
+      </section> */}
+      <section className="bg-secondary text-primary pt-8 md:pt-16">
         <div className="container px-4 md:px-8">
           {/* First Section - EXPERIENCES label and title */}
           <div className="flex flex-col">
@@ -248,13 +265,13 @@ export default async function Home() {
           </div>
         </section>
         {blogPosts.length > 0 && (
-          <section className="bg-secondary text-primary py-16">
-            <div className="mb-16 flex flex-col justify-between gap-4 px-4 md:flex-row md:items-end md:px-8">
+          <section className="bg-secondary text-primary py-12 md:py-16">
+            <div className="mb-8 flex flex-col justify-between gap-4 px-4 md:mb-16 md:flex-row md:items-end md:px-8">
               <div>
-                <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
+                <span className="font-neue-haas text-primary mb-4 block text-xs tracking-wider uppercase md:mb-6">
                   LATEST STORIES
                 </span>
-                <h2 className="font-ivy-headline text-primary text-4xl leading-tight md:text-5xl">
+                <h2 className="font-ivy-headline text-primary text-3xl leading-tight md:text-5xl">
                   Discover our latest events
                 </h2>
               </div>
@@ -265,7 +282,7 @@ export default async function Home() {
                 SEE ALL EVENTS
               </Link>
             </div>
-            <ul className="group grid grid-cols-1 gap-8 px-4 md:grid-cols-4 md:px-8">
+            <ul className="group flex flex-nowrap gap-6 overflow-x-auto scroll-smooth px-4 pb-2 snap-x snap-mandatory [scrollbar-width:none] md:grid md:grid-cols-4 md:gap-8 md:snap-none md:overflow-visible md:px-8 md:pb-0 [&::-webkit-scrollbar]:hidden">
               {blogPosts.map((post) => (
                 <BlogPreview key={post._id} post={post} />
               ))}

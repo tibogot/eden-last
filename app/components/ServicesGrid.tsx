@@ -98,7 +98,7 @@ export default function ServicesGrid() {
       aria-label="Our services"
     >
       {/* First two images in grid */}
-      <div className="grid h-auto grid-cols-1 grid-rows-2 gap-4 md:h-[680px] md:grid-cols-8 md:grid-rows-5">
+      <div className="grid h-auto grid-cols-1 grid-rows-2 gap-8 md:gap-4 md:h-[680px] md:grid-cols-8 md:grid-rows-5">
         <div
           className="col-span-1 row-span-1 flex flex-col will-change-transform md:col-span-3 md:row-span-4"
           style={{ transform: `translateY(${parallax.cardY[0]}px)` }}
@@ -120,10 +120,10 @@ export default function ServicesGrid() {
             </div>
           </div>
           <div className={`w-full text-left ${barLounge.textMaxWidth}`}>
-            <h3 className="font-ivy-headline text-primary mt-3 text-lg font-normal md:text-2xl">
+            <h3 className="font-ivy-headline text-primary mt-3 text-2xl font-normal md:text-2xl">
               {barLounge.title}
             </h3>
-            <p className="font-neue-haas text-primary/80 mt-2 max-w-[240px] text-sm md:text-base">
+            <p className="font-neue-haas text-primary/80 mt-2 max-w-full text-lg md:max-w-[240px] md:text-base">
               {barLounge.description}
             </p>
           </div>
@@ -149,10 +149,10 @@ export default function ServicesGrid() {
             </div>
           </div>
           <div className={`w-full text-left ${poolGame.textMaxWidth}`}>
-            <h3 className="font-ivy-headline text-primary mt-3 text-lg font-normal md:text-2xl">
+            <h3 className="font-ivy-headline text-primary mt-3 text-2xl font-normal md:text-2xl">
               {poolGame.title}
             </h3>
-            <p className="font-neue-haas text-primary/80 mt-2 max-w-[240px] text-sm md:text-base">
+            <p className="font-neue-haas text-primary/80 mt-2 max-w-full text-lg md:max-w-[240px] md:text-base">
               {poolGame.description}
             </p>
           </div>
@@ -160,7 +160,7 @@ export default function ServicesGrid() {
       </div>
 
       {/* Table tennis and Traditional food in grid */}
-      <div className="mt-8 grid h-auto grid-cols-1 grid-rows-2 gap-4 md:mt-12 md:h-[680px] md:grid-cols-8 md:grid-rows-5">
+      <div className="mt-12 grid h-auto grid-cols-1 grid-rows-2 gap-8 md:mt-12 md:gap-4 md:h-[680px] md:grid-cols-8 md:grid-rows-5">
         <div
           className="col-span-1 row-span-1 flex flex-col will-change-transform md:col-span-2 md:col-start-2 md:row-span-4"
           style={{ transform: `translateY(${parallax.cardY[2]}px)` }}
@@ -182,10 +182,10 @@ export default function ServicesGrid() {
             </div>
           </div>
           <div className={`w-full text-left ${tableTennis.textMaxWidth}`}>
-            <h3 className="font-ivy-headline text-primary mt-3 text-lg font-normal md:text-2xl">
+            <h3 className="font-ivy-headline text-primary mt-3 text-2xl font-normal md:text-2xl">
               {tableTennis.title}
             </h3>
-            <p className="font-neue-haas text-primary/80 mt-2 max-w-[240px] text-sm md:text-base">
+            <p className="font-neue-haas text-primary/80 mt-2 max-w-full text-lg md:max-w-[240px] md:text-base">
               {tableTennis.description}
             </p>
           </div>
@@ -211,10 +211,10 @@ export default function ServicesGrid() {
             </div>
           </div>
           <div className={`w-full text-left ${traditionalFood.textMaxWidth}`}>
-            <h3 className="font-ivy-headline text-primary mt-3 text-lg font-normal md:text-2xl">
+            <h3 className="font-ivy-headline text-primary mt-3 text-2xl font-normal md:text-2xl">
               {traditionalFood.title}
             </h3>
-            <p className="font-neue-haas text-primary/80 mt-2 max-w-[240px] text-sm md:text-base">
+            <p className="font-neue-haas text-primary/80 mt-2 max-w-full text-lg md:max-w-[240px] md:text-base">
               {traditionalFood.description}
             </p>
           </div>
