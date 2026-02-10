@@ -216,7 +216,7 @@ export default async function Home() {
         {/* <StickyImageTextReveal /> */}
         {/* <StickyClipReveal /> */}
         <StickyClipRevealText
-          imageSrc="/images/colin.jpg"
+          imageSrc="/images/roberto-nickson.jpg"
           imageAlt="Eden Garden atmosphere"
           textContent={
             <>
@@ -282,7 +282,7 @@ export default async function Home() {
                 SEE ALL EVENTS
               </Link>
             </div>
-            <ul className="group flex flex-nowrap gap-6 overflow-x-auto scroll-smooth px-4 pb-2 snap-x snap-mandatory [scrollbar-width:none] md:grid md:grid-cols-4 md:gap-8 md:snap-none md:overflow-visible md:px-8 md:pb-0 [&::-webkit-scrollbar]:hidden">
+            <ul className="group flex snap-x snap-mandatory flex-nowrap gap-6 overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] md:grid md:snap-none md:grid-cols-4 md:gap-8 md:overflow-visible md:px-8 md:pb-0 [&::-webkit-scrollbar]:hidden">
               {blogPosts.map((post) => (
                 <BlogPreview key={post._id} post={post} />
               ))}
