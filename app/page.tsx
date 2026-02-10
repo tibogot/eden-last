@@ -65,12 +65,9 @@ export default async function Home() {
   const blogPosts = await getBlogPosts();
   return (
     <main className="bg-secondary text-primary">
-      <HeroParallax
-        imageSrc="/images/mche-lee-Bribs3.jpg"
-        imageAlt="Hero image"
-      >
+      <HeroParallax imageSrc="/images/sasuke.jpg" imageAlt="Hero image">
         {/* Hero logo - same positioning as experiences (centered, slight offset) */}
-        {/* <div className="absolute inset-0 flex items-center justify-center px-4">
+        <div className="absolute inset-0 flex items-center justify-center px-4">
           <div
             className="relative -ml-8 flex w-full max-w-4xl items-center justify-center md:-ml-16"
             style={{
@@ -89,8 +86,8 @@ export default async function Home() {
             role="img"
             aria-label="Eden Garden"
           />
-        </div> */}
-        <RestaurantHeroTitle title="Experience paradise in every sip and bite" />
+        </div>
+        {/* <RestaurantHeroTitle title="Experience paradise in every sip and bite" /> */}
         {/* Paragraph - Bottom Center */}
         <div className="absolute right-0 bottom-0 left-0 flex items-center justify-center pb-8 text-center">
           <div className="container mx-auto px-4">

@@ -29,8 +29,8 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Links | Address | Contact - same row as logo, aligned to top */}
-        <div className="flex flex-col gap-10 md:flex-row md:gap-14 lg:gap-20">
+        {/* Links | Address | Contact - 2 cols on mobile, row on md+ */}
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:flex md:flex-row md:gap-14 lg:gap-20">
           <div className="flex flex-col items-start gap-0.5">
             <p className="text-secondary text-base font-medium tracking-wider uppercase">
               LINKS

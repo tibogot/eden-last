@@ -14,15 +14,18 @@ export default function WhyUsSection({
 }: WhyUsSectionProps) {
   return (
     <section className="bg-secondary relative w-full px-4 py-8 md:px-8 md:py-20">
+      <h2 className="font-ivy-headline text-primary max-w-xl text-left text-4xl leading-tight font-normal md:text-5xl lg:text-6xl">
+        A place where nature meets the table.
+      </h2>
       <div className="w-full">
         {/* Two column layout - items-stretch so left column is tall; sticky needs a tall containing block */}
         <div className="mt-20 flex flex-col md:mt-24 md:flex-row md:items-stretch md:gap-16 lg:gap-24">
           {/* Left: CSS sticky title + image (pin together) */}
-          <div className="-mt-6 shrink-0 pb-12 md:w-1/2 md:pb-0 lg:w-2/5">
+          <div className="shrink-0 pb-12 md:w-1/2 md:pb-0 lg:w-2/5">
             <div className="flex flex-col gap-6 md:sticky md:top-30">
-              <h2 className="font-ivy-headline text-primary max-w-xl text-left text-4xl leading-tight font-normal md:text-5xl lg:text-6xl">
+              {/* <h2 className="font-ivy-headline text-primary max-w-xl text-left text-4xl leading-tight font-normal md:text-5xl lg:text-6xl">
                 A place where nature meets the table.
-              </h2>
+              </h2> */}
               <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[3/2]">
                 <Image
                   src={pinnedImageSrc}
