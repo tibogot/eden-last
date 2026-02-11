@@ -29,7 +29,6 @@ export default function TextReveal({
 
     let splitText: InstanceType<typeof SplitText> | null = null;
     let stableTimeoutId: ReturnType<typeof setTimeout>;
-    let maxWaitId: ReturnType<typeof setTimeout>;
     let lastHeight = 0;
     let mounted = true;
     let didSetup = false;
@@ -38,7 +37,9 @@ export default function TextReveal({
       if (!mounted || !textRef.current || didSetup) return;
       didSetup = true;
 
-      const elements = textElement.querySelectorAll("p, h1, h2, h3, h4, h5, h6");
+      const elements = textElement.querySelectorAll(
+        "p, h1, h2, h3, h4, h5, h6",
+      );
       const elementsToSplit = elements.length > 0 ? elements : [textElement];
 
       splitText = SplitText.create(elementsToSplit, {
@@ -84,6 +85,7 @@ export default function TextReveal({
           start: "top bottom-=20%",
           end: "center center",
           invalidateOnRefresh: true,
+          markers: true,
         },
       });
 
@@ -103,7 +105,7 @@ export default function TextReveal({
 
     // Start checking after a short delay so pin has time to add spacer
     stableTimeoutId = setTimeout(checkStable, 400);
-    maxWaitId = setTimeout(() => {
+    const maxWaitId = setTimeout(() => {
       if (!splitText && mounted) setup();
     }, MAX_WAIT_MS);
 

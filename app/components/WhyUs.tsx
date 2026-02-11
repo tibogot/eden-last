@@ -32,7 +32,7 @@ export default function WhyUsSection({
               {/* <h2 className="font-ivy-headline text-primary max-w-xl text-left text-4xl leading-tight font-normal md:text-5xl">
                 A place where nature meets the table.
               </h2> */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[5/6] md:max-w-[75%]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[6/5] md:max-w-[75%]">
                 <Image
                   src={pinnedImageSrc}
                   alt={pinnedImageAlt}

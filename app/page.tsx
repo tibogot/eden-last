@@ -250,7 +250,7 @@ export default async function Home() {
         <WhyUsSection />
 
         <TestimonialsTicker />
-        <section className="bg-secondary text-primary py-32">
+        {/* <section className="bg-secondary text-primary py-32">
           <div className="container mx-auto px-4 md:px-8">
             <div className="flex flex-col items-center justify-center text-center">
               <TextReveal
@@ -266,7 +266,7 @@ export default async function Home() {
               </TextReveal>
             </div>
           </div>
-        </section>
+        </section> */}
         {blogPosts.length > 0 && (
           <section className="bg-secondary text-primary py-12 md:py-16">
             <div className="mb-8 flex flex-col justify-between gap-4 px-4 md:mb-16 md:flex-row md:items-end md:px-8">
