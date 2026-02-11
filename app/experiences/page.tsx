@@ -5,6 +5,7 @@ import ScrollColorSwap from "@/app/components/ScrollColorSwap";
 import ParallaxHeroImage from "@/app/components/ParallaxHeroImage";
 import StickyClipRevealText from "@/app/components/StickyClipRevealText";
 import WhyUsSection from "../components/WhyUs";
+import StickyStackScroll5 from "../components/StickyStackScroll5";
 
 export default function Experiences() {
   return (
@@ -98,6 +99,8 @@ export default function Experiences() {
           </div>
         </div>
       </section>
+      <StickyStackScroll5 />
+
       <ScrollColorSwap className="py-32">
         <div className="container mx-auto px-4 md:px-8">
           {/* First block - intro */}
