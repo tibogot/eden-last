@@ -70,11 +70,11 @@ export default function BlogPreview({ post }: BlogPreviewProps) {
                   {new Date(post.publishedAt).toLocaleDateString()}
                 </p>
               )}
-              <h5 className="font-ivy-headline text-primary mb-2 text-2xl leading-tight md:text-3xl">
+              <h5 className="font-ivy-headline text-primary mb-2 text-lg leading-tight md:text-xl">
                 {post.title}
               </h5>
 
-              <div className="font-neue-haas text-primary/70 mb-2 line-clamp-3 max-w-xl text-base md:text-lg">
+              <div className="font-neue-haas text-primary/70 mb-2 line-clamp-3 max-w-xl text-sm md:text-base">
                 {post.body && <PortableText value={post.body.slice(0, 1)} />}
               </div>
             </div>

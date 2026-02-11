@@ -196,7 +196,7 @@ function AnimatedText({
                 };
 
                 const animation = gsap.to(split.lines, {
-                  yPercent: 0,
+                  yPercent: -16,
                   autoAlpha: 1, // Reveal with autoAlpha for smooth transition
                   stagger,
                   duration,
