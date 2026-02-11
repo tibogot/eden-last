@@ -1,12 +1,13 @@
 import { Link } from "next-view-transitions";
 import HeroParallax from "@/app/components/HeroParallax";
 import RestaurantHeroTitle from "@/app/components/RestaurantHeroTitle";
+import StackingCardsPin3D from "@/app/components/StackingCardsPin3D2";
 
 export default function Restaurant() {
   return (
     <main className="bg-secondary text-primary">
       <HeroParallax
-        imageSrc="/images/daniel-park.jpg"
+        imageSrc="/images/shourav-sheikh.jpg"
         imageAlt="Restaurant image"
       >
         <RestaurantHeroTitle />
@@ -62,6 +63,7 @@ export default function Restaurant() {
           </div>
         </div>
       </section>
+      <StackingCardsPin3D />
     </main>
   );
 }
