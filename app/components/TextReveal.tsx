@@ -83,9 +83,9 @@ export default function TextReveal({
           trigger: textElement,
           scrub: 1,
           start: "top bottom-=20%",
-          end: "center center",
+          end: "bottom center",
           invalidateOnRefresh: true,
-          markers: true,
+          // markers: true,
         },
       });
 
