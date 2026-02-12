@@ -406,8 +406,11 @@ const TestimonialsTicker = () => {
   return (
     <section className="bg-secondary relative w-full overflow-hidden py-20 md:py-32">
       <div className="container px-4 md:px-8">
+        <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
+          TESTIMONIAL
+        </span>
         <AnimatedText>
-          <h2 className="font-ivy-headline text-primary text-5xl md:text-7xl">
+          <h2 className="font-ivy-headline text-primary mt-20 max-w-2xl text-4xl leading-tight md:text-5xl">
             What guests say about us
           </h2>
         </AnimatedText>
