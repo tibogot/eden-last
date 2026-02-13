@@ -1,18 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap, Draggable } from "@/app/lib/gsapConfig";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const CARD_COUNT = 8;
-const ROTATION_TILT = 4; // degrees — each card tilts left or right (alternating)
+const MAX_ROTATION = 14; // degrees — total spread from front to back
 const SWIPE_THRESHOLD_PX = 50;
 const BOUNDS_PX = 400;
 
-function getRotationForIndex(index: number, _total: number): number {
-  // Alternate: even index = tilt left (negative), odd = tilt right (positive)
-  return index % 2 === 0 ? -ROTATION_TILT : ROTATION_TILT;
+function getRotationForIndex(index: number, total: number): number {
+  if (index === 0) return 0; // top card is straight
+  const step = total > 1 ? MAX_ROTATION / (total - 1) : 0;
+  const magnitude = index * step;
+  const direction = index % 2 === 0 ? 1 : -1;
+  return magnitude * direction;
 }
 
 type CardItem = {
@@ -41,28 +44,95 @@ export default function NightLifeCardStack({
   cards?: CardItem[];
   title?: string;
 }) {
-  const initialDeck = cards.slice(0, CARD_COUNT);
-  const [deck, setDeck] = useState<CardItem[]>(initialDeck);
-  const [rightTrigger, setRightTrigger] = useState(0);
-  const [leftTrigger, setLeftTrigger] = useState(0);
+  const pool = cards.slice(0, CARD_COUNT);
+  // deckOrder[stackPosition] = cardIndex.  Position 0 = top of stack.
+  const deckOrderRef = useRef<number[]>(pool.map((_, i) => i));
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const lastActionRef = useRef<"left" | "right">("left");
   const draggablesRef = useRef<InstanceType<typeof Draggable>[]>([]);
-  const animateToBackRef = useRef<(target: HTMLDivElement, fromIndex: number) => void>(() => {});
-  const animateToFrontRef = useRef<(target: HTMLDivElement, fromIndex: number) => void>(() => {});
+  const isAnimatingRef = useRef(false);
 
-  useEffect(() => {
-    const len = deck.length;
+  // Ref-held functions so GSAP callbacks always call the latest version
+  // and circular deps (setupDraggable ↔ sendTopToBack) are broken.
+  const fns = useRef({
+    applyStackLayout: () => {},
+    setupDraggable: () => {},
+    sendTopToBack: (_?: boolean) => {},
+    bringBackToFront: () => {},
+  });
 
-    const animateToBackOfDeck = (
-      target: HTMLDivElement,
-      fromIndex: number
-    ) => {
-      const backRotation = getRotationForIndex(len - 1, len);
-      // Set rotation immediately so the card already has its "back" tilt while moving — no rotate-after-arrive
-      gsap.set(target, { rotation: backRotation });
+  /* ---------- function implementations (updated every render) ---------- */
 
-      gsap.to(target, {
+  fns.current.applyStackLayout = () => {
+    const order = deckOrderRef.current;
+    const len = order.length;
+    order.forEach((cardIdx, stackPos) => {
+      const el = cardRefs.current[cardIdx];
+      if (!el) return;
+      gsap.set(el, {
+        zIndex: len - stackPos,
+        rotation: getRotationForIndex(stackPos, len),
+        x: 0,
+        y: 0,
+        scale: 1,
+      });
+    });
+  };
+
+  fns.current.setupDraggable = () => {
+    draggablesRef.current.forEach((d) => d.kill());
+    draggablesRef.current = [];
+
+    const topCardIdx = deckOrderRef.current[0];
+    const topEl = cardRefs.current[topCardIdx];
+    if (!topEl) return;
+
+    const [instance] = Draggable.create(topEl, {
+      type: "x,y",
+      bounds: {
+        minX: -BOUNDS_PX,
+        maxX: BOUNDS_PX,
+        minY: -BOUNDS_PX,
+        maxY: BOUNDS_PX,
+      },
+      edgeResistance: 0.75,
+      onDragEnd: function () {
+        const dx = this.x;
+        const dy = this.y;
+        if (
+          Math.abs(dx) >= SWIPE_THRESHOLD_PX ||
+          Math.abs(dy) >= SWIPE_THRESHOLD_PX
+        ) {
+          fns.current.sendTopToBack(false);
+        } else {
+          gsap.to(this.target, { x: 0, y: 0, duration: 0.25 });
+        }
+      },
+    });
+    draggablesRef.current.push(instance);
+  };
+
+  fns.current.sendTopToBack = (flingFirst = false) => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
+
+    const order = deckOrderRef.current;
+    const topCardIdx = order[0];
+    const topEl = cardRefs.current[topCardIdx];
+    if (!topEl) {
+      isAnimatingRef.current = false;
+      return;
+    }
+
+    // Kill draggable while animating
+    draggablesRef.current.forEach((d) => d.kill());
+    draggablesRef.current = [];
+
+    const len = order.length;
+    const backRotation = getRotationForIndex(len - 1, len);
+
+    const returnToBack = () => {
+      gsap.set(topEl, { rotation: backRotation });
+      gsap.to(topEl, {
         x: 0,
         y: 0,
         scale: 0.92,
@@ -70,145 +140,103 @@ export default function NightLifeCardStack({
         duration: 0.35,
         ease: "power2.out",
         onComplete: () => {
-          gsap.set(target, { scale: 1 });
-          setDeck((prev) => {
-            const next = [...prev];
-            const [removed] = next.splice(fromIndex, 1);
-            next.push(removed);
-            return next;
-          });
+          gsap.set(topEl, { scale: 1 });
+          // Move top card to back of order
+          const [removed] = order.splice(0, 1);
+          order.push(removed);
+          fns.current.applyStackLayout();
+          fns.current.setupDraggable();
+          isAnimatingRef.current = false;
         },
       });
     };
 
-    const animateToFrontOfDeck = (
-      target: HTMLDivElement,
-      fromIndex: number
-    ) => {
-      gsap.set(target, { zIndex: len + 1 });
-      gsap.fromTo(
-        target,
-        { x: 300, y: 0 },
-        {
-          x: 0,
-          y: 0,
-          scale: 1,
-          rotation: getRotationForIndex(0, len),
-          duration: 0.35,
-          ease: "power2.out",
-          onComplete: () => {
-            gsap.set(target, { scale: 1 });
-            setDeck((prev) => {
-              const next = [...prev];
-              const [removed] = next.splice(fromIndex, 1);
-              next.unshift(removed);
-              return next;
-            });
-          },
-        }
-      );
-    };
+    if (flingFirst) {
+      gsap.to(topEl, {
+        x: -300,
+        scale: 1.08,
+        duration: 0.25,
+        ease: "power2.out",
+        onComplete: returnToBack,
+      });
+    } else {
+      gsap.set(topEl, { zIndex: 0 });
+      returnToBack();
+    }
+  };
 
-    animateToBackRef.current = animateToBackOfDeck;
-    animateToFrontRef.current = animateToFrontOfDeck;
+  fns.current.bringBackToFront = () => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
 
-    // Kill previous Draggable instances
+    const order = deckOrderRef.current;
+    const len = order.length;
+    const backCardIdx = order[len - 1];
+    const backEl = cardRefs.current[backCardIdx];
+    if (!backEl) {
+      isAnimatingRef.current = false;
+      return;
+    }
+
+    // Kill draggable while animating
     draggablesRef.current.forEach((d) => d.kill());
     draggablesRef.current = [];
 
-    cardRefs.current.forEach((cardEl, index) => {
-      if (!cardEl) return;
+    gsap.set(backEl, { zIndex: len + 1 });
+    gsap.fromTo(
+      backEl,
+      { x: 300, y: 0 },
+      {
+        x: 0,
+        y: 0,
+        scale: 1,
+        rotation: getRotationForIndex(0, len),
+        duration: 0.35,
+        ease: "power2.out",
+        onComplete: () => {
+          // Move back card to front of order
+          const removed = order.pop()!;
+          order.unshift(removed);
+          fns.current.applyStackLayout();
+          fns.current.setupDraggable();
+          isAnimatingRef.current = false;
+        },
+      },
+    );
+  };
 
-      // Center card and set stack position; only set rotation for non-top cards so the new top doesn't snap-rotate
-      const targetRotation = getRotationForIndex(index, len);
-      const setProps: Record<string, unknown> = {
+  /* ---------- initial setup — runs once ---------- */
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const order = deckOrderRef.current;
+    const len = order.length;
+
+    order.forEach((cardIdx, stackPos) => {
+      const el = cardRefs.current[cardIdx];
+      if (!el) return;
+      gsap.set(el, {
         xPercent: -50,
         yPercent: -50,
         x: 0,
         y: 0,
         scale: 1,
-        zIndex: len - index,
-      };
-      if (index !== 0) {
-        setProps.rotation = targetRotation;
-      }
-      gsap.set(cardEl, setProps);
-
-      // Only the top card (index 0) is draggable — otherwise you can drag a lower card and the wrong one goes to the back
-      if (index === 0) {
-        const [instance] = Draggable.create(cardEl, {
-          type: "x,y",
-          bounds: {
-            minX: -BOUNDS_PX,
-            maxX: BOUNDS_PX,
-            minY: -BOUNDS_PX,
-            maxY: BOUNDS_PX,
-          },
-          edgeResistance: 0.75,
-          onDragEnd: function () {
-            lastActionRef.current = "left";
-            const dx = this.x;
-            const dy = this.y;
-            if (
-              Math.abs(dx) >= SWIPE_THRESHOLD_PX ||
-              Math.abs(dy) >= SWIPE_THRESHOLD_PX
-            ) {
-              gsap.set(this.target, { zIndex: 0 });
-              animateToBackOfDeck(this.target as HTMLDivElement, 0);
-            } else {
-              gsap.to(this.target, { x: 0, y: 0, duration: 0.25 });
-            }
-          },
-        });
-        draggablesRef.current.push(instance);
-      }
+        zIndex: len - stackPos,
+        rotation: getRotationForIndex(stackPos, len),
+      });
     });
+
+    fns.current.setupDraggable();
 
     return () => {
       draggablesRef.current.forEach((d) => d.kill());
       draggablesRef.current = [];
     };
-  }, [deck]);
-
-  // Right arrow: send top card to back
-  useEffect(() => {
-    if (rightTrigger === 0) return;
-    const topCard = cardRefs.current[0];
-    if (!topCard) return;
-    lastActionRef.current = "left";
-    gsap.to(topCard, {
-      x: -300,
-      scale: 1.08,
-      duration: 0.25,
-      ease: "power2.out",
-      onComplete: () => {
-        animateToBackRef.current(topCard, 0);
-      },
-    });
-  }, [rightTrigger]);
-
-  // Left arrow: bring last card to front
-  useEffect(() => {
-    if (leftTrigger === 0) return;
-    const lastIndex = deck.length - 1;
-    const backCard = cardRefs.current[lastIndex];
-    if (!backCard) return;
-    lastActionRef.current = "right";
-    gsap.set(backCard, { scale: 0.92 });
-    gsap.to(backCard, {
-      x: 300,
-      scale: 1.08,
-      duration: 0.25,
-      ease: "power2.out",
-      onComplete: () => {
-        animateToFrontRef.current(backCard, lastIndex);
-      },
-    });
-  }, [leftTrigger]);
+  }, []);
 
   return (
     <section
-      className={`relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-secondary px-4 py-20 ${className}`}
+      className={`bg-secondary relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-20 ${className}`}
     >
       <h2 className="font-ivy-headline text-primary mb-10 text-center text-3xl md:text-4xl">
         {title}
@@ -218,16 +246,16 @@ export default function NightLifeCardStack({
         className="relative flex min-h-[460px] w-full max-w-xl items-center justify-center md:min-h-[560px] md:max-w-2xl"
         style={{ perspective: "1200px" }}
       >
-        {deck.map((card, index) => (
+        {pool.map((card, index) => (
           <div
             key={card.id}
             ref={(el) => {
               cardRefs.current[index] = el;
             }}
-            className="absolute left-1/2 top-1/2 h-[420px] w-[360px] cursor-grab touch-none select-none active:cursor-grabbing md:h-[520px] md:w-[440px]"
+            className="absolute top-1/2 left-1/2 h-[420px] w-[360px] cursor-grab touch-none select-none active:cursor-grabbing md:h-[520px] md:w-[440px]"
             style={{ position: "absolute" }}
           >
-            <div className="relative h-full w-full overflow-hidden rounded-xl bg-primary/10 shadow-lg ring-1 ring-primary/10">
+            <div className="bg-primary/10 ring-primary/10 relative h-full w-full overflow-hidden rounded-xl shadow-lg ring-1">
               <Image
                 src={card.imageSrc}
                 alt={card.alt}
@@ -245,16 +273,16 @@ export default function NightLifeCardStack({
       <div className="mt-8 flex items-center justify-center gap-6">
         <button
           type="button"
-          onClick={() => setLeftTrigger((c) => c + 1)}
-          className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-primary/30 bg-secondary text-primary transition-colors hover:border-primary hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/50"
+          onClick={() => fns.current.bringBackToFront()}
+          className="border-primary/30 bg-secondary text-primary hover:border-primary hover:bg-primary/10 focus:ring-primary/50 flex h-14 w-14 items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
           aria-label="Bring previous card to front"
         >
           <ChevronLeft className="h-7 w-7" />
         </button>
         <button
           type="button"
-          onClick={() => setRightTrigger((c) => c + 1)}
-          className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-primary/30 bg-secondary text-primary transition-colors hover:border-primary hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/50"
+          onClick={() => fns.current.sendTopToBack(true)}
+          className="border-primary/30 bg-secondary text-primary hover:border-primary hover:bg-primary/10 focus:ring-primary/50 flex h-14 w-14 items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
           aria-label="Send top card to back"
         >
           <ChevronRight className="h-7 w-7" />

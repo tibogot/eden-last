@@ -118,7 +118,7 @@ export default async function Home() {
           </div>
         </div>
       </section> */}
-      <section className="bg-secondary text-primary py-16 md:py-32">
+      {/* <section className="bg-secondary text-primary py-16 md:py-32">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center justify-center text-center">
             <TextReveal
@@ -134,7 +134,7 @@ export default async function Home() {
             </TextReveal>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* <section className="py-20 md:py-32">
         <TextReveal
           className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"

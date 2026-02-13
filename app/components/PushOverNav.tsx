@@ -13,7 +13,7 @@ import { gsap, SplitText, useGSAP } from "../lib/gsapConfig";
 const customEase = "expo.out"; // Try: "expo.out", "power3.out", "power4.out", or keep original: "cubic-bezier(0.87, 0, 0.13, 1)"
 
 // Pages that have a hero image at the top (navbar should start white)
-const pagesWithHero = ["/", "/about", "/restaurant"];
+const pagesWithHero = ["/", "/about", "/restaurant", "/experiences"];
 
 export default function PushOverNav() {
   const lenis = useLenis();

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import TextReveal from "@/app/components/TextReveal";
 import ScrollColorSwap from "@/app/components/ScrollColorSwap";
-import HeroParallax from "@/app/components/HeroParallax";
+import ParallaxHeroImage from "@/app/components/ParallaxHeroImage";
 import StickyClipRevealText from "@/app/components/StickyClipRevealText";
 import WhyUsSection from "../components/WhyUs";
 import StickyStackScroll5 from "../components/StickyStackScroll5";
@@ -11,49 +11,36 @@ import NightLifeCardStack from "../components/NightLifeCardStack";
 export default function Experiences() {
   return (
     <main className="bg-secondary text-primary">
-      <HeroParallax
-        imageSrc="/images/iris-lavoie.jpg"
-        imageAlt="Experiences hero"
-      >
-        <div className="absolute inset-0 flex items-center justify-center px-4">
-          <h1 className="font-ivy-headline max-w-4xl text-center text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
+      <section className="flex w-full items-center justify-center px-4 pt-24 md:px-8 md:pt-32">
+        <div className="w-full max-w-4xl text-center">
+          <h1 className="font-ivy-headline mx-auto w-full text-5xl leading-tight md:text-8xl">
             Where Moments Become Memories
           </h1>
         </div>
-      </HeroParallax>
-
-      <section className="bg-secondary text-primary py-24">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col items-center text-center">
-            <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
-              VISIT US
-            </span>
-            <h2 className="font-ivy-headline mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
-              Come experience the magic of Eden Garden for yourself
-            </h2>
-            <p className="mb-10 max-w-xl text-lg">
-              Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
-              blend of entertainment and relaxation. From live music and dance
-              shows to thrilling football matches, there.{" "}
-            </p>
-          </div>
-        </div>
       </section>
 
-      <section className="px-4 md:px-8">
-        <div className="relative h-[80vh] w-full overflow-hidden">
-          <Image
-            src="/images/roberto-nickson.jpg"
-            alt="Experiences"
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
+      <ParallaxHeroImage
+        src="/images/obinna-okerekeocha.jpg"
+        alt="Experiences hero"
+        className="mt-40"
+      />
+
+      <section className="py-24 md:py-40">
+        <TextReveal
+          className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
+          startColor="rgba(70, 86, 67, 0.2)"
+          endColor="rgb(70, 86, 67)"
+        >
+          <h4 className="font-ivy-headline text-3xl leading-tight md:text-6xl">
+            Abuja&apos;s premier destination for traditional cuisine,
+            entertainment, and unforgettable experiences.
+          </h4>
+        </TextReveal>
       </section>
 
-      {/* <section className="bg-secondary text-primary pt-32">
+      <section className="bg-secondary text-primary pt-32">
         <div className="container px-4 md:px-8">
+          {/* First Section - PHILOSOPHY label and title */}
           <div className="flex flex-col">
             <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
               PHILOSOPHY
@@ -64,9 +51,10 @@ export default function Experiences() {
             </h2>
           </div>
         </div>
-      </section> */}
-      {/* <section className="bg-secondary text-primary pt-20 pb-32">
+      </section>
+      <section className="bg-secondary text-primary pt-20 pb-32">
         <div className="container px-4 md:px-8">
+          {/* Second Section - Paragraphs and link, aligned to the right */}
           <div className="flex flex-col gap-8 md:ml-auto md:w-1/2">
             <p className="font-neue-haas text-primary text-lg">
               Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
@@ -94,7 +82,7 @@ export default function Experiences() {
             </Link>
           </div>
         </div>
-      </section> */}
+      </section>
       <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center justify-center text-center">
@@ -233,7 +221,7 @@ export default function Experiences() {
       </ScrollColorSwap>
 
       {/* Section after color swap to show blend */}
-      {/* <section className="bg-secondary text-primary py-8">
+      <section className="bg-secondary text-primary py-8">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center text-center">
             <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
@@ -253,7 +241,7 @@ export default function Experiences() {
             </Link>
           </div>
         </div>
-      </section> */}
+      </section>
 
       <StickyClipRevealText
         imageSrc="/images/shourav-sheikh.jpg"

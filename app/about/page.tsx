@@ -47,7 +47,7 @@ export default function About() {
           </p>
         </div>
       </section> */}
-      <div className="pt-20">
+      {/* <div className="pt-20">
         <PinnedImageReveal
           imageSrc="/images/hero-2.jpg"
           imageAlt="Eden Garden"
@@ -63,30 +63,16 @@ export default function About() {
             </>
           }
         />
-      </div>
+      </div> */}
       <section className="py-32 md:py-80">
         <TextReveal
-          className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
+          className="mx-auto w-full px-4 text-center md:px-8"
           startColor="rgba(70, 86, 67, 0.2)"
           endColor="rgb(70, 86, 67)"
         >
           <h4 className="font-ivy-headline text-4xl leading-tight md:text-6xl">
-            Abuja&apos;s premier destination for traditional cuisine,
-            entertainment, and unforgettable experiences.
-          </h4>
-        </TextReveal>
-      </section>
-      <section className="py-32 md:py-80">
-        <TextReveal
-          className="mx-auto w-full max-w-4xl px-4 text-center md:px-8"
-          startColor="rgba(70, 86, 67, 0.2)"
-          endColor="rgb(70, 86, 67)"
-        >
-          <h4 className="font-ivy-headline text-4xl leading-tight md:text-6xl">
-            Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
-            blend of entertainment and relaxation. From live music and dance
-            shows to thrilling football matches, we create unforgettable
-            experiences that bring people together.
+            Fragments of thought arranged in sequence become patterns. They
+            unfold step by step, shaping meaning as they move forward.
           </h4>
         </TextReveal>
       </section>
