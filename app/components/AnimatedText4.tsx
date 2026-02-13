@@ -1,8 +1,11 @@
 "use client";
+/**
+ * AnimatedText4 – Backup / legacy version.
+ * Original behavior: ScrollTrigger only (no mobile IntersectionObserver).
+ * Use AnimatedText3 for the version with mobile fix.
+ */
 import { useRef, ReactNode, useState, useEffect } from "react";
 import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/app/lib/gsapConfig";
-
-const MOBILE_BREAKPOINT = 768;
 
 // Function to fix SplitText clipping issues with descenders
 function fixMask(
@@ -59,18 +62,8 @@ function AnimatedText({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const splitRefs = useRef<Array<ReturnType<typeof SplitText.create>>>([]); // Store all SplitText instances for cleanup
   const scrollTriggerRefs = useRef<ScrollTrigger[]>([]); // Store ScrollTrigger instances
-  const observerRefs = useRef<IntersectionObserver[]>([]); // For mobile cleanup
   const [fontsReady, setFontsReady] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [, setSplitTextCreated] = useState(false); // Only setter is used
-
-  // Mobile detection (for IntersectionObserver fallback - avoids ScrollTrigger/Lenis conflict after sticky)
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
 
   // Font loading detection using document.fonts.ready
   useEffect(() => {
@@ -192,35 +185,8 @@ function AnimatedText({
                   ease,
                   delay: delay + index * 0.1,
                 });
-              } else if (isMobile) {
-                // Mobile: IntersectionObserver (avoids ScrollTrigger/Lenis conflict after sticky sections)
-                const el =
-                  trigger && typeof trigger === "object"
-                    ? trigger
-                    : wrapperRef.current || child;
-                const obs = new IntersectionObserver(
-                  (entries) => {
-                    const e = entries[0];
-                    if (!e?.isIntersecting) return;
-                    obs.disconnect();
-                    if (wrapperRef.current)
-                      wrapperRef.current.classList.remove("fouc-prevent");
-                    gsap.set(child, { visibility: "visible", opacity: 1 });
-                    gsap.to(split.lines, {
-                      yPercent: -16,
-                      autoAlpha: 1,
-                      stagger,
-                      duration,
-                      ease,
-                      delay,
-                    });
-                  },
-                  { threshold: 0.25, rootMargin: "0px" },
-                );
-                obs.observe(el as Element);
-                observerRefs.current.push(obs);
               } else {
-                // Desktop: ScrollTrigger
+                // Regular scroll-triggered animation
                 const scrollTriggerConfig = {
                   trigger: trigger || wrapperRef.current || child,
                   start: start,
@@ -270,8 +236,6 @@ function AnimatedText({
           if (st && st.kill) st.kill();
         });
         scrollTriggerRefs.current = [];
-        observerRefs.current.forEach((obs) => obs.disconnect());
-        observerRefs.current = [];
 
         // Clean up SplitText instances
         splitRefs.current.forEach((split) => {
@@ -292,7 +256,6 @@ function AnimatedText({
         ease,
         fontsReady,
         isHero,
-        isMobile,
       ],
     },
   );
