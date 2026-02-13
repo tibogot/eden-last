@@ -7,6 +7,7 @@ import StickyClipRevealText from "@/app/components/StickyClipRevealText";
 import WhyUsSection from "../components/WhyUs";
 import StickyStackScroll5 from "../components/StickyStackScroll5";
 import NightLifeCardStack from "../components/NightLifeCardStack";
+import ExperiencesImageTimeline from "../components/ExperiencesImageTimeline";
 
 export default function Experiences() {
   return (
@@ -40,17 +41,16 @@ export default function Experiences() {
         </div>
       </section>
 
-      <section className="px-4 md:px-8">
-        <div className="relative h-[80vh] w-full overflow-hidden">
-          <Image
-            src="/images/roberto-nickson.jpg"
-            alt="Experiences"
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
-      </section>
+      <ExperiencesImageTimeline
+        title="Experiences at Eden Garden"
+        body="Eden Park & Garden is a vibrant oasis in Abuja, offering a unique blend of entertainment and relaxation. From live music and dance shows to thrilling football matches, outdoor activities, fine dining, and award-winning hospitality—there's something for everyone for an unforgettable experience."
+        slides={[
+          { src: "/images/roberto-nickson.jpg", alt: "Skiing in the Alps" },
+          { src: "/images/daniel-park.jpg", alt: "Mountain biking" },
+          { src: "/images/colin.jpg", alt: "Fine dining" },
+          { src: "/images/annie-lang.jpg", alt: "Live music" },
+        ]}
+      />
 
       {/* <section className="bg-secondary text-primary pt-32">
         <div className="container px-4 md:px-8">

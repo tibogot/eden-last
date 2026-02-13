@@ -50,31 +50,28 @@ export default function NightLifeCardStack({
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const draggablesRef = useRef<InstanceType<typeof Draggable>[]>([]);
   const isAnimatingRef = useRef(false);
+  /** Each card keeps one rotation forever (like a real deck); never change after init. */
+  const fixedRotationRef = useRef<number[]>([]);
 
   // Ref-held functions so GSAP callbacks always call the latest version
   // and circular deps (setupDraggable ↔ sendTopToBack) are broken.
   const fns = useRef({
-    applyStackLayout: () => {},
+    applyZIndexOnly: () => {},
     setupDraggable: () => {},
-    sendTopToBack: (_?: boolean) => {},
+    sendTopToBack: (_?: "left" | "right") => {},
     bringBackToFront: () => {},
   });
 
   /* ---------- function implementations (updated every render) ---------- */
 
-  fns.current.applyStackLayout = () => {
+  /** Only update zIndex so the new top card is on top; never touch rotation (cards keep their fixed rotation). */
+  fns.current.applyZIndexOnly = () => {
     const order = deckOrderRef.current;
     const len = order.length;
     order.forEach((cardIdx, stackPos) => {
       const el = cardRefs.current[cardIdx];
       if (!el) return;
-      gsap.set(el, {
-        zIndex: len - stackPos,
-        rotation: getRotationForIndex(stackPos, len),
-        x: 0,
-        y: 0,
-        scale: 1,
-      });
+      gsap.set(el, { zIndex: len - stackPos });
     });
   };
 
@@ -102,7 +99,7 @@ export default function NightLifeCardStack({
           Math.abs(dx) >= SWIPE_THRESHOLD_PX ||
           Math.abs(dy) >= SWIPE_THRESHOLD_PX
         ) {
-          fns.current.sendTopToBack(false);
+          fns.current.sendTopToBack(dx >= 0 ? "right" : "left");
         } else {
           gsap.to(this.target, { x: 0, y: 0, duration: 0.25 });
         }
@@ -111,7 +108,7 @@ export default function NightLifeCardStack({
     draggablesRef.current.push(instance);
   };
 
-  fns.current.sendTopToBack = (flingFirst = false) => {
+  fns.current.sendTopToBack = (direction: "left" | "right" = "right") => {
     if (isAnimatingRef.current) return;
     isAnimatingRef.current = true;
 
@@ -127,42 +124,36 @@ export default function NightLifeCardStack({
     draggablesRef.current.forEach((d) => d.kill());
     draggablesRef.current = [];
 
-    const len = order.length;
-    const backRotation = getRotationForIndex(len - 1, len);
+    const cardRotation = fixedRotationRef.current[topCardIdx] ?? 0;
+    const offX = direction === "right" ? 400 : -400;
 
-    const returnToBack = () => {
-      gsap.set(topEl, { rotation: backRotation });
-      gsap.to(topEl, {
-        x: 0,
-        y: 0,
-        scale: 0.92,
-        zIndex: 0,
-        duration: 0.35,
-        ease: "power2.out",
-        onComplete: () => {
-          gsap.set(topEl, { scale: 1 });
-          // Move top card to back of order
-          const [removed] = order.splice(0, 1);
-          order.push(removed);
-          fns.current.applyStackLayout();
-          fns.current.setupDraggable();
-          isAnimatingRef.current = false;
-        },
-      });
-    };
-
-    if (flingFirst) {
-      gsap.to(topEl, {
-        x: -300,
-        scale: 1.08,
-        duration: 0.25,
-        ease: "power2.out",
-        onComplete: returnToBack,
-      });
-    } else {
-      gsap.set(topEl, { zIndex: 0 });
-      returnToBack();
-    }
+    // 1) Fling card off-screen in the swipe/arrow direction
+    gsap.to(topEl, {
+      x: offX,
+      scale: 1.08,
+      duration: 0.25,
+      ease: "power2.out",
+      onComplete: () => {
+        // 2) Instantly drop behind the stack
+        gsap.set(topEl, { zIndex: 0, rotation: cardRotation });
+        // 3) Slide back to centre behind everything
+        gsap.to(topEl, {
+          x: 0,
+          y: 0,
+          scale: 0.92,
+          duration: 0.35,
+          ease: "power2.out",
+          onComplete: () => {
+            gsap.set(topEl, { scale: 1 });
+            const [removed] = order.splice(0, 1);
+            order.push(removed);
+            fns.current.applyZIndexOnly();
+            fns.current.setupDraggable();
+            isAnimatingRef.current = false;
+          },
+        });
+      },
+    });
   };
 
   fns.current.bringBackToFront = () => {
@@ -182,22 +173,22 @@ export default function NightLifeCardStack({
     draggablesRef.current.forEach((d) => d.kill());
     draggablesRef.current = [];
 
+    const backCardRotation = fixedRotationRef.current[backCardIdx] ?? 0;
     gsap.set(backEl, { zIndex: len + 1 });
     gsap.fromTo(
       backEl,
-      { x: 300, y: 0 },
+      { x: -400, y: 0 },
       {
         x: 0,
         y: 0,
         scale: 1,
-        rotation: getRotationForIndex(0, len),
+        rotation: backCardRotation,
         duration: 0.35,
         ease: "power2.out",
         onComplete: () => {
-          // Move back card to front of order
           const removed = order.pop()!;
           order.unshift(removed);
-          fns.current.applyStackLayout();
+          fns.current.applyZIndexOnly();
           fns.current.setupDraggable();
           isAnimatingRef.current = false;
         },
@@ -212,9 +203,15 @@ export default function NightLifeCardStack({
     const order = deckOrderRef.current;
     const len = order.length;
 
+    // Assign each card a fixed rotation once (by initial stack position); never change it.
+    order.forEach((cardIdx, stackPos) => {
+      fixedRotationRef.current[cardIdx] = getRotationForIndex(stackPos, len);
+    });
+
     order.forEach((cardIdx, stackPos) => {
       const el = cardRefs.current[cardIdx];
       if (!el) return;
+      const rotation = fixedRotationRef.current[cardIdx] ?? 0;
       gsap.set(el, {
         xPercent: -50,
         yPercent: -50,
@@ -222,7 +219,7 @@ export default function NightLifeCardStack({
         y: 0,
         scale: 1,
         zIndex: len - stackPos,
-        rotation: getRotationForIndex(stackPos, len),
+        rotation,
       });
     });
 
@@ -281,7 +278,7 @@ export default function NightLifeCardStack({
         </button>
         <button
           type="button"
-          onClick={() => fns.current.sendTopToBack(true)}
+          onClick={() => fns.current.sendTopToBack("right")}
           className="border-primary/30 bg-secondary text-primary hover:border-primary hover:bg-primary/10 focus:ring-primary/50 flex h-14 w-14 items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
           aria-label="Send top card to back"
         >
