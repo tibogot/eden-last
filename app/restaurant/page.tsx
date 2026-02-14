@@ -1,7 +1,10 @@
+import Image from "next/image";
 import { Link } from "next-view-transitions";
 import HeroParallax from "@/app/components/HeroParallax";
 import RestaurantHeroTitle from "@/app/components/RestaurantHeroTitle";
 import StackingCardsPin3D from "@/app/components/StackingCardsPin3D2";
+import ExperiencesImageTimeline from "../components/ExperiencesImageTimeline";
+import TextReveal from "../components/TextReveal";
 
 export default function Restaurant() {
   return (
@@ -63,7 +66,68 @@ export default function Restaurant() {
           </div>
         </div>
       </section>
+      <section className="bg-secondary text-primary py-20">
+        <div className="px-4 md:px-8">
+          {/* items-stretch so text column is tall; sticky text needs a tall containing block */}
+          <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
+            <div className="relative h-[800px] w-full md:w-1/2">
+              <Image
+                src="/images/colin.jpg"
+                alt="Dining at Eden Garden Restaurant"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="flex w-full flex-col md:w-1/2">
+              <div className="flex flex-col justify-start md:sticky md:top-24">
+                {/* <span className="font-neue-haas mb-4 text-xs tracking-wider uppercase text-primary">
+                  THE EXPERIENCE
+                </span> */}
+                <h2 className="font-ivy-headline text-primary mb-6 max-w-xl text-3xl leading-tight md:text-4xl">
+                  A setting where every detail is crafted for your comfort.
+                </h2>
+                <p className="font-neue-haas text-primary max-w-xl text-lg">
+                  From the moment you step in, our team ensures a seamless
+                  experience. Whether you choose a table by the garden or prefer
+                  the intimacy of our indoor space, you&apos;ll find the same
+                  warmth and attention to detail that define Eden Park & Garden
+                  Restaurant.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <StackingCardsPin3D />
+      <section className="bg-secondary text-primary py-32">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col items-center justify-center text-center">
+            <TextReveal
+              className="max-w-4xl"
+              startColor="rgba(70, 86, 67, 0.2)"
+              endColor="rgb(70, 86, 67)"
+            >
+              <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl">
+                Of all the vibrant spaces, it is the only one that becomes even
+                more captivating as you explore, ending not with a grand finale
+                but by seamlessly blending into the natural landscape.
+              </p>
+            </TextReveal>
+          </div>
+        </div>
+      </section>
+      <ExperiencesImageTimeline
+        title="Restaurant at Eden Garden"
+        body="Eden Park & Garden Restaurant is a vibrant culinary oasis in Abuja, offering a unique blend of traditional cuisine and contemporary dining experiences. From authentic local dishes to innovative culinary creations, there's something for everyone. Indulge in traditional cuisine while enjoying the intimate ambiance of our restaurant."
+        slides={[
+          { src: "/images/colin.jpg", alt: "Dining at Eden Garden Restaurant" },
+          { src: "/images/iris-lavoie.jpg", alt: "Live music" },
+          { src: "/images/roberto-nickson.jpg", alt: "Live music" },
+          { src: "/images/iris-lavoie.jpg", alt: "Live music" },
+          { src: "/images/roberto-nickson.jpg", alt: "Live music" },
+          { src: "/images/iris-lavoie.jpg", alt: "Live music" },
+        ]}
+      />
     </main>
   );
 }

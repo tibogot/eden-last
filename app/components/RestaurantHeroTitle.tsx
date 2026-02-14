@@ -61,7 +61,7 @@ export default function RestaurantHeroTitle({
   if (!isReady) {
     return (
       <div
-        className="flex h-full flex-col items-center justify-center"
+        className="flex h-full flex-col items-center justify-end pb-24 md:pb-32"
         aria-hidden
       >
         <div className="w-full px-4 md:px-8">
@@ -78,7 +78,7 @@ export default function RestaurantHeroTitle({
   }
 
   return (
-    <div className="flex h-full flex-col items-center justify-center">
+    <div className="flex h-full flex-col items-center justify-end pb-24 md:pb-32">
       <div className="w-full px-4 md:px-8">
         <div className="flex flex-col items-center text-center">
           <h1>

@@ -17,7 +17,7 @@ export default function Experiences() {
         imageSrc="/images/ani-augustine.jpg"
         imageAlt="Experiences hero"
       >
-        <div className="absolute inset-0 flex items-center justify-center px-4">
+        <div className="absolute inset-0 flex items-end justify-center px-4 pb-24 md:pb-32">
           <h1 className="font-ivy-headline max-w-4xl text-center text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
             Where Moments Become Memories
           </h1>
