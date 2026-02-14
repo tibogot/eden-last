@@ -133,7 +133,8 @@ export default function ExperiencesImageTimeline({
                       src={slide.src}
                       alt={slide.alt}
                       fill
-                      sizes="112px"
+                      sizes="(max-width: 768px) 25vw, 112px"
+                      quality={60}
                       className="object-cover"
                     />
                     {/* Inactive: faded */}
