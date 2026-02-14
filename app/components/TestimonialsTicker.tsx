@@ -404,7 +404,7 @@ const TestimonialsTicker = () => {
   }, []);
 
   return (
-    <section className="bg-secondary relative w-full overflow-hidden py-20 md:py-32">
+    <section className="bg-secondary relative w-full overflow-hidden py-20">
       <div className="container px-4 md:px-8">
         <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
           TESTIMONIAL

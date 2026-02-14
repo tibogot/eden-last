@@ -2,20 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { gsap, Draggable, ScrollTrigger } from "@/app/lib/gsapConfig";
+import { gsap, Draggable } from "@/app/lib/gsapConfig";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-// Dark mode colors for the "After dark" section
-const LIGHT_BG = "#fffdf6";
-const LIGHT_TEXT = "#465643";
-const LIGHT_TEXT_MUTED = "rgba(70, 86, 67, 0.8)";
-const LIGHT_TEXT_SUBTLE = "rgba(70, 86, 67, 0.7)";
-const LIGHT_BORDER = "rgba(70, 86, 67, 0.3)";
-const DARK_BG = "#0c0c0c";
-const DARK_TEXT = "#fffdf6";
-const DARK_TEXT_MUTED = "rgba(255, 253, 246, 0.85)";
-const DARK_TEXT_SUBTLE = "rgba(255, 253, 246, 0.6)";
-const DARK_BORDER = "rgba(255, 253, 246, 0.35)";
 
 const CARD_COUNT = 8;
 const MAX_ROTATION = 14; // degrees — total spread from front to back
@@ -100,14 +88,12 @@ export default function NightLifeCardStack({
   const isAnimatingRef = useRef(false);
   /** Each card keeps one rotation forever (like a real deck); never change after init. */
   const fixedRotationRef = useRef<number[]>([]);
-  const sectionRef = useRef<HTMLElement>(null);
 
   // Ref-held functions so GSAP callbacks always call the latest version
   // and circular deps (setupDraggable ↔ sendTopToBack) are broken.
   const fns = useRef({
     applyZIndexOnly: () => {},
     setupDraggable: () => {},
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- implementation uses the arg
     sendTopToBack: (_?: "left" | "right") => {},
     bringBackToFront: () => {},
   });
@@ -248,6 +234,7 @@ export default function NightLifeCardStack({
 
   /* ---------- initial setup — runs once ---------- */
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const order = deckOrderRef.current;
     const len = order.length;
@@ -280,89 +267,18 @@ export default function NightLifeCardStack({
     };
   }, []);
 
-  /* ---------- Scroll-triggered dark mode transition ---------- */
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    // Force light theme on section so it always starts light (visible on first paint)
-    gsap.set(section, {
-      "--ad-bg": LIGHT_BG,
-      "--ad-text": LIGHT_TEXT,
-      "--ad-text-muted": LIGHT_TEXT_MUTED,
-      "--ad-text-subtle": LIGHT_TEXT_SUBTLE,
-      "--ad-border": LIGHT_BORDER,
-    } as gsap.TweenVars);
-
-    let trigger: ScrollTrigger | null = null;
-    const setupTrigger = () => {
-      trigger = ScrollTrigger.create({
-        trigger: section,
-        start: "top 50%",
-        onEnter: () => {
-          gsap.to(section, {
-            "--ad-bg": DARK_BG,
-            "--ad-text": DARK_TEXT,
-            "--ad-text-muted": DARK_TEXT_MUTED,
-            "--ad-text-subtle": DARK_TEXT_SUBTLE,
-            "--ad-border": DARK_BORDER,
-            duration: 1.1,
-            ease: "power2.inOut",
-          } as gsap.TweenVars);
-        },
-        onLeaveBack: () => {
-          gsap.to(section, {
-            "--ad-bg": LIGHT_BG,
-            "--ad-text": LIGHT_TEXT,
-            "--ad-text-muted": LIGHT_TEXT_MUTED,
-            "--ad-text-subtle": LIGHT_TEXT_SUBTLE,
-            "--ad-border": LIGHT_BORDER,
-            duration: 1.1,
-            ease: "power2.inOut",
-          } as gsap.TweenVars);
-        },
-      });
-    };
-
-    // Wait for next frame so section has painted in light mode, then attach ScrollTrigger
-    const raf = requestAnimationFrame(() => setupTrigger());
-    return () => {
-      cancelAnimationFrame(raf);
-      trigger?.kill();
-    };
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
-      className={`relative flex min-h-[120vh] flex-col items-center justify-center overflow-hidden px-4 py-24 ${className}`}
-      style={{
-        backgroundColor: "var(--ad-bg)",
-        color: "var(--ad-text)",
-        ["--ad-bg" as string]: LIGHT_BG,
-        ["--ad-text" as string]: LIGHT_TEXT,
-        ["--ad-text-muted" as string]: LIGHT_TEXT_MUTED,
-        ["--ad-text-subtle" as string]: LIGHT_TEXT_SUBTLE,
-        ["--ad-border" as string]: LIGHT_BORDER,
-      }}
+      className={`bg-secondary relative flex min-h-[120vh] flex-col items-center justify-center overflow-hidden px-4 py-24 ${className}`}
     >
       <div className="mb-20 flex flex-col items-center text-center">
-        <span
-          className="font-neue-haas mb-6 text-xs tracking-wider uppercase"
-          style={{ color: "var(--ad-text)" }}
-        >
+        <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
           {label}
         </span>
-        <h2
-          className="font-ivy-headline mb-8 max-w-3xl text-4xl leading-tight md:text-5xl"
-          style={{ color: "var(--ad-text)" }}
-        >
+        <h2 className="font-ivy-headline text-primary mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
           {title}
         </h2>
-        <p
-          className="mx-auto max-w-xl text-center text-lg"
-          style={{ color: "var(--ad-text-muted)" }}
-        >
+        <p className="text-primary/80 mx-auto max-w-xl text-center text-lg">
           {body}
         </p>
       </div>
@@ -380,13 +296,7 @@ export default function NightLifeCardStack({
             className="absolute top-1/2 left-1/2 h-[420px] w-[360px] cursor-grab touch-none select-none active:cursor-grabbing md:h-[520px] md:w-[440px]"
             style={{ position: "absolute" }}
           >
-            <div
-              className="relative h-full w-full overflow-hidden rounded-xl shadow-lg"
-              style={{
-                backgroundColor: "rgba(255, 253, 246, 0.08)",
-                border: "1px solid var(--ad-border)",
-              }}
-            >
+            <div className="bg-primary/10 ring-primary/10 relative h-full w-full overflow-hidden rounded-xl shadow-lg ring-1">
               <Image
                 src={card.imageSrc}
                 alt={card.alt}
@@ -405,12 +315,7 @@ export default function NightLifeCardStack({
         <button
           type="button"
           onClick={() => fns.current.sendTopToBack("left")}
-          className="focus:ring-primary/50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
-          style={{
-            borderColor: "var(--ad-border)",
-            backgroundColor: "var(--ad-bg)",
-            color: "var(--ad-text)",
-          }}
+          className="border-primary/30 bg-secondary text-primary hover:border-primary hover:bg-primary/10 focus:ring-primary/50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
           aria-label="Send top card to back (left)"
         >
           <ChevronLeft className="h-7 w-7" />
@@ -418,22 +323,14 @@ export default function NightLifeCardStack({
         <button
           type="button"
           onClick={() => fns.current.sendTopToBack("right")}
-          className="focus:ring-primary/50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
-          style={{
-            borderColor: "var(--ad-border)",
-            backgroundColor: "var(--ad-bg)",
-            color: "var(--ad-text)",
-          }}
+          className="border-primary/30 bg-secondary text-primary hover:border-primary hover:bg-primary/10 focus:ring-primary/50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
           aria-label="Send top card to back"
         >
           <ChevronRight className="h-7 w-7" />
         </button>
       </div>
 
-      <p
-        className="font-neue-haas mx-auto mt-6 max-w-sm text-center text-sm"
-        style={{ color: "var(--ad-text-subtle)" }}
-      >
+      <p className="font-neue-haas text-primary/70 mx-auto mt-6 max-w-sm text-center text-sm">
         Swipe the top card or use the arrows to send it to the back
       </p>
     </section>
