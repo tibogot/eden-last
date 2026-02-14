@@ -13,7 +13,10 @@ import AnimatedText from "../components/AnimatedText3";
 export default function Experiences() {
   return (
     <main className="bg-secondary text-primary">
-      <HeroParallax imageSrc="/images/chicken.jpg" imageAlt="Experiences hero">
+      <HeroParallax
+        imageSrc="/images/ani-augustine.jpg"
+        imageAlt="Experiences hero"
+      >
         <div className="absolute inset-0 flex flex-col items-center justify-end gap-5 px-4 pb-10 md:gap-6 md:pb-14">
           <h1 className="font-ivy-headline max-w-4xl text-center text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
             Where Moments Become Memories
@@ -47,7 +50,7 @@ export default function Experiences() {
         </div>
       </section>
 
-      <ExperiencesImageTimeline
+      {/* <ExperiencesImageTimeline
         title="Experiences at Eden Garden"
         body="Eden Park & Garden is a vibrant oasis in Abuja, offering a unique blend of entertainment and relaxation. From live music and dance shows to thrilling football matches, outdoor activities, fine dining, and award-winning hospitality—there's something for everyone for an unforgettable experience."
         slides={[
@@ -56,7 +59,7 @@ export default function Experiences() {
           { src: "/images/colin.jpg", alt: "Fine dining" },
           { src: "/images/annie-lang.jpg", alt: "Live music" },
         ]}
-      />
+      /> */}
 
       {/* <section className="bg-secondary text-primary pt-32">
         <div className="container px-4 md:px-8">
@@ -118,7 +121,7 @@ export default function Experiences() {
           </div>
         </div>
       </section> */}
-      <StickyStackScroll5 />
+      {/* <StickyStackScroll5 /> */}
 
       {/* <ScrollColorSwap className="py-32">
         <div className="container mx-auto px-4 md:px-8">
@@ -283,7 +286,7 @@ export default function Experiences() {
           </>
         }
       /> */}
-      <WhyUsSection />
+      {/* <WhyUsSection /> */}
       {/* <NightLifeCardStack /> */}
 
       <section className="relative min-h-screen w-full overflow-hidden">
