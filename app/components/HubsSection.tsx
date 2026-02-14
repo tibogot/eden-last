@@ -15,6 +15,8 @@ const HUB_CARDS = [
     src: "/images/colin.jpg",
     alt: "Culinary excellence at Eden Garden",
     title: "Culinary excellence",
+    description:
+      "Authentic traditional cuisine and contemporary dishes in a unique setting.",
     href: "/restaurant",
   },
   {
@@ -22,6 +24,8 @@ const HUB_CARDS = [
     src: "/images/mche-lee-Bribs3.jpg",
     alt: "Live entertainment experiences",
     title: "Live entertainment",
+    description:
+      "Live music, dance shows, and thrilling football matches under the stars.",
     href: "/experiences",
   },
   {
@@ -29,6 +33,8 @@ const HUB_CARDS = [
     src: "/images/obinna-okerekeocha.jpg",
     alt: "Events and celebrations",
     title: "Events and celebrations",
+    description:
+      "From birthdays to corporate gatherings and weddings—we bring people together.",
     href: "/events",
   },
 ];
@@ -593,9 +599,12 @@ export default function HubsSection() {
                     />
                   </div>
                 </div>
-                <div className="absolute bottom-0 left-0 z-10 p-4 md:p-5">
+                <div className="absolute bottom-0 left-0 z-10 flex flex-col gap-1 p-4 md:p-5">
                   <p className="font-neue-haas max-w-xs text-base font-normal text-secondary md:text-2xl lg:text-2xl">
                     {card.title}
+                  </p>
+                  <p className="font-neue-haas max-w-xs text-sm text-secondary/80 md:text-base">
+                    {card.description}
                   </p>
                 </div>
               </Link>

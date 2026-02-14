@@ -15,10 +15,13 @@ export default function About() {
         imageSrc="/images/chuntung-kam.jpg"
         imageAlt="Eden Park & Garden"
       >
-        <div className="absolute inset-0 flex items-end justify-center px-4 pb-24 md:pb-32">
+        <div className="absolute inset-0 flex flex-col items-center justify-end gap-5 px-4 pb-10 md:pb-14 md:gap-6">
           <h1 className="font-ivy-headline max-w-4xl text-center text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
             The Story of Eden Garden
           </h1>
+          <p className="text-white/90 max-w-lg text-center text-sm leading-relaxed drop-shadow-sm md:max-w-xl md:text-base md:leading-relaxed">
+            Born from a simple belief: the best experiences happen when people gather. In the heart of Abuja, we created a space where entertainment and tranquility coexist—where every corner holds the possibility of connection.
+          </p>
         </div>
       </HeroParallax>
 
@@ -112,6 +115,7 @@ export default function About() {
                 alt="Eden Garden atmosphere"
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
             <div className="flex w-full flex-col md:w-1/2">

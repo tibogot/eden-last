@@ -92,34 +92,38 @@ export default async function EventPage(props: { params: Promise<{ slug: string 
   }
 
   return (
-    <main className="bg-secondary text-primary py-32">
-      <div className="mx-auto flex max-w-4xl flex-col items-center px-4 md:px-8">
-        <h1 className="font-ivy-headline text-primary mb-4 w-full text-center text-4xl leading-tight md:text-6xl">
-          {event.title}
-        </h1>
+    <main className="bg-secondary text-primary">
+      {/* Full-bleed hero image - no rounding */}
+      {event.mainImage && imageUrl && (
+        <section className="relative h-[55vh] min-h-[320px] w-full overflow-hidden md:min-h-[420px]">
+          <Image
+            src={imageUrl}
+            alt={event.title}
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-secondary/80 via-transparent to-transparent" />
+        </section>
+      )}
+
+      <div className="mx-auto flex max-w-4xl flex-col items-center px-4 pt-16 pb-12 md:px-8 md:pt-24">
         {event.publishedAt && (
-          <p className="font-neue-haas text-primary/60 mb-6 text-center text-sm">
+          <p className="font-neue-haas text-primary/60 mb-3 text-center text-xs uppercase tracking-wider">
             {new Date(event.publishedAt).toLocaleDateString()}
           </p>
         )}
-        {event.mainImage && imageUrl && (
-          <div className="relative mb-8 h-[420px] w-full overflow-hidden rounded-xl">
-            <Image
-              src={imageUrl}
-              alt={event.title}
-              fill
-              className="object-cover"
-            />
-          </div>
-        )}
-        <div className="font-neue-haas text-primary prose prose-lg mx-auto w-full max-w-3xl text-center">
+        <h1 className="font-ivy-headline text-primary mb-12 w-full text-center text-4xl leading-tight md:text-6xl">
+          {event.title}
+        </h1>
+        <div className="font-neue-haas text-primary prose prose-lg mx-auto w-full max-w-3xl text-center prose-headings:font-ivy-headline">
           {event.body && <PortableText value={event.body} />}
         </div>
       </div>
 
       {/* Navigation Section */}
-      <section className="bg-secondary text-primary border-t border-primary/20 mt-16 py-16">
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 px-4 md:flex-row md:justify-between md:px-8">
+      <section className="bg-secondary text-primary border-t border-primary/15 mt-8 py-16 md:py-20">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-10 px-4 md:flex-row md:justify-between md:px-8">
           {/* Previous Event */}
           {previousEvent ? (
             <Link

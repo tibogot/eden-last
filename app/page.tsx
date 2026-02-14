@@ -152,7 +152,7 @@ export default async function Home() {
           {/* First Section - EXPERIENCES label and title */}
           <div className="flex flex-col">
             <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
-              EXPERIENCES
+              THE SOUL OF EDEN
             </span>
             <AnimatedText>
               <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl leading-tight md:text-5xl">
@@ -186,10 +186,10 @@ export default async function Home() {
               paradise in every sip and bite.
             </p> */}
             <Link
-              href="/experiences"
+              href="/about"
               className="font-neue-haas text-primary mt-4 text-xs tracking-wider uppercase underline transition-opacity hover:opacity-70"
             >
-              EXPLORE EXPERIENCES
+              LEARN OUR STORY
             </Link>
           </div>
         </div>
@@ -248,6 +248,33 @@ export default async function Home() {
           }
         />
         <WhyUsSection />
+
+        <section className="relative min-h-screen w-full overflow-hidden">
+          <Image
+            src="/images/real.jpg"
+            alt=""
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </section>
+
+        <section className="bg-secondary text-primary py-40">
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="flex flex-col items-center justify-center text-center">
+              <TextReveal
+                className="max-w-4xl"
+                startColor="rgba(70, 86, 67, 0.2)"
+                endColor="rgb(70, 86, 67)"
+              >
+                <p className="font-ivy-headline text-primary text-3xl leading-tight text-balance md:text-5xl">
+                  In the heart of Abuja, Eden is where the garden meets the
+                  city—and moments become memories.
+                </p>
+              </TextReveal>
+            </div>
+          </div>
+        </section>
 
         <TestimonialsTicker />
         {/* <section className="bg-secondary text-primary py-32">

@@ -1272,6 +1272,17 @@ export default function PushOverNav() {
                 {/* Main Menu Links */}
                 <div className="menu-col text-secondary flex flex-[3] flex-col gap-2">
                   <div
+                    className={`menu-link ${pathname === "/" ? "menu-link-active" : ""}`}
+                  >
+                    <Link
+                      href="/"
+                      onClick={(e) => handleLinkClick(e, "/")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
+                    >
+                      Home
+                    </Link>
+                  </div>
+                  <div
                     className={`menu-link ${pathname === "/about" ? "menu-link-active" : ""}`}
                   >
                     <Link
@@ -1357,7 +1368,7 @@ export default function PushOverNav() {
             >
               <div className="relative h-[80vh] w-full max-w-xl">
                 <Image
-                  src="/images/jordan.jpg"
+                  src="/images/chuntung-kam.jpg"
                   alt="Menu background"
                   fill
                   className="object-cover"

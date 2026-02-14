@@ -17,10 +17,13 @@ export default function Experiences() {
         imageSrc="/images/ani-augustine.jpg"
         imageAlt="Experiences hero"
       >
-        <div className="absolute inset-0 flex items-end justify-center px-4 pb-24 md:pb-32">
+        <div className="absolute inset-0 flex flex-col items-center justify-end gap-5 px-4 pb-10 md:pb-14 md:gap-6">
           <h1 className="font-ivy-headline max-w-4xl text-center text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
             Where Moments Become Memories
           </h1>
+          <p className="text-white/90 max-w-lg text-center text-sm leading-relaxed drop-shadow-sm md:max-w-xl md:text-base md:leading-relaxed">
+            From live music and dance shows to fine dining and award-winning hospitality, Eden Garden brings together the best of Abuja under one roof. Every visit unfolds as a new chapter—whether you&apos;re here for a meal, a concert, or a night out with friends.
+          </p>
         </div>
       </HeroParallax>
 

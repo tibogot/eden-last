@@ -17,8 +17,24 @@ export default function Footer() {
     }
   };
 
+  const isEventsActive = pathname === "/events" || pathname.startsWith("/events/");
+
   return (
     <footer className="bg-primary relative flex min-h-[50vh] w-full flex-col px-4 pt-8 md:min-h-[55vh] md:px-8">
+      <style>{`
+        .footer-links-col .footer-link {
+          transition: opacity 0.3s ease;
+        }
+        .footer-links-col:has(.footer-link:hover) .footer-link:not(:hover) {
+          opacity: 0.3;
+        }
+        .footer-link-active {
+          opacity: 0.3;
+        }
+        .footer-link-active:hover {
+          opacity: 1;
+        }
+      `}</style>
       {/* Top row: Logo + slogan left, Address | Contact | Links right */}
       <div className="flex flex-1 flex-col gap-10 md:flex-row md:items-start md:justify-between">
         {/* Logo + description - on home: scroll to top; elsewhere: link to home */}
@@ -69,40 +85,74 @@ export default function Footer() {
 
         {/* Links | Address | Contact - 2 cols on mobile, row on md+ */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:flex md:flex-row md:gap-14 lg:gap-20">
-          <div className="flex flex-col items-start gap-0.5">
+          <div className="footer-links-col flex flex-col items-start gap-0.5">
             <p className="text-secondary mb-4 text-base font-medium tracking-wider uppercase">
               LINKS
             </p>
-            <TransitionLink
-              href="/about"
-              className="text-secondary text-base transition-colors hover:opacity-80"
-            >
-              About
-            </TransitionLink>
-            <TransitionLink
-              href="/restaurant"
-              className="text-secondary text-base transition-colors hover:opacity-80"
-            >
-              Restaurant
-            </TransitionLink>
-            <TransitionLink
-              href="/experiences"
-              className="text-secondary text-base transition-colors hover:opacity-80"
-            >
-              Experiences
-            </TransitionLink>
-            <TransitionLink
-              href="/events"
-              className="text-secondary text-base transition-colors hover:opacity-80"
-            >
-              Events
-            </TransitionLink>
-            <TransitionLink
-              href="/contact"
-              className="text-secondary text-base transition-colors hover:opacity-80"
-            >
-              Contact
-            </TransitionLink>
+            <div className={`footer-link ${pathname === "/" ? "footer-link-active" : ""}`}>
+              {pathname === "/" ? (
+                <button
+                  type="button"
+                  onClick={handleScrollToTop}
+                  className="text-secondary text-left text-base transition-colors hover:opacity-80"
+                  aria-current="page"
+                >
+                  Home
+                </button>
+              ) : (
+                <TransitionLink
+                  href="/"
+                  className="text-secondary text-base transition-colors hover:opacity-80"
+                >
+                  Home
+                </TransitionLink>
+              )}
+            </div>
+            <div className={`footer-link ${pathname === "/about" ? "footer-link-active" : ""}`}>
+              <TransitionLink
+                href="/about"
+                className="text-secondary text-base transition-colors hover:opacity-80"
+                aria-current={pathname === "/about" ? "page" : undefined}
+              >
+                About
+              </TransitionLink>
+            </div>
+            <div className={`footer-link ${pathname === "/restaurant" ? "footer-link-active" : ""}`}>
+              <TransitionLink
+                href="/restaurant"
+                className="text-secondary text-base transition-colors hover:opacity-80"
+                aria-current={pathname === "/restaurant" ? "page" : undefined}
+              >
+                Restaurant
+              </TransitionLink>
+            </div>
+            <div className={`footer-link ${pathname === "/experiences" ? "footer-link-active" : ""}`}>
+              <TransitionLink
+                href="/experiences"
+                className="text-secondary text-base transition-colors hover:opacity-80"
+                aria-current={pathname === "/experiences" ? "page" : undefined}
+              >
+                Experiences
+              </TransitionLink>
+            </div>
+            <div className={`footer-link ${isEventsActive ? "footer-link-active" : ""}`}>
+              <TransitionLink
+                href="/events"
+                className="text-secondary text-base transition-colors hover:opacity-80"
+                aria-current={isEventsActive ? "page" : undefined}
+              >
+                Events
+              </TransitionLink>
+            </div>
+            <div className={`footer-link ${pathname === "/contact" ? "footer-link-active" : ""}`}>
+              <TransitionLink
+                href="/contact"
+                className="text-secondary text-base transition-colors hover:opacity-80"
+                aria-current={pathname === "/contact" ? "page" : undefined}
+              >
+                Contact
+              </TransitionLink>
+            </div>
           </div>
           <div>
             <p className="text-secondary mb-4 text-base font-medium tracking-wider uppercase">
