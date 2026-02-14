@@ -121,7 +121,7 @@ export default function Experiences() {
           </div>
         </div>
       </section> */}
-      {/* <StickyStackScroll5 /> */}
+      <StickyStackScroll5 />
 
       <ScrollColorSwap className="py-32">
         <div className="container mx-auto px-4 md:px-8">
