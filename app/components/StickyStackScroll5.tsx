@@ -401,14 +401,12 @@ export default function StickyStackScroll() {
                 {data.description}
               </p>
               <div className="mt-8">
-                <div className="h-[400px] w-full overflow-hidden rounded-sm">
+                <div className="relative h-[400px] w-full overflow-hidden rounded-sm">
                   <Image
                     src={data.image}
                     alt={data.imageAlt}
-                    width={1000}
-                    height={400}
-                    className="h-full w-full object-cover"
-                    style={{ width: "100%", height: "100%" }}
+                    fill
+                    className="object-cover"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>

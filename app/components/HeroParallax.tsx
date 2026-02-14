@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { useLenis } from "lenis/react";
 
 interface HeroParallaxProps {
   imageSrc: string;
@@ -17,18 +18,21 @@ export default function HeroParallax({
   className = "",
 }: HeroParallaxProps) {
   const imageRef = useRef<HTMLDivElement>(null);
+  const lenis = useLenis();
 
   useEffect(() => {
-    const handleScroll = () => {
+    if (!lenis) return;
+
+    const applyParallax = () => {
       if (!imageRef.current) return;
-      const scrollY = window.scrollY;
-      // Move the image at 40% of scroll speed for parallax effect
+      const scrollY = lenis.scroll;
       imageRef.current.style.transform = `translateY(${scrollY * 0.4}px)`;
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    applyParallax();
+    lenis.on("scroll", applyParallax);
+    return () => lenis.off("scroll", applyParallax);
+  }, [lenis]);
 
   return (
     <section className={`relative h-svh w-full overflow-hidden ${className}`}>
