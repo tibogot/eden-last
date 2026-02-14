@@ -15,12 +15,15 @@ export default function About() {
         imageSrc="/images/chuntung-kam.jpg"
         imageAlt="Eden Park & Garden"
       >
-        <div className="absolute inset-0 flex flex-col items-center justify-end gap-5 px-4 pb-10 md:pb-14 md:gap-6">
+        <div className="absolute inset-0 flex flex-col items-center justify-end gap-5 px-4 pb-10 md:gap-6 md:pb-14">
           <h1 className="font-ivy-headline max-w-4xl text-center text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
             The Story of Eden Garden
           </h1>
-          <p className="text-white/90 max-w-lg text-center text-sm leading-relaxed drop-shadow-sm md:max-w-xl md:text-base md:leading-relaxed">
-            Born from a simple belief: the best experiences happen when people gather. In the heart of Abuja, we created a space where entertainment and tranquility coexist—where every corner holds the possibility of connection.
+          <p className="max-w-lg text-center text-sm leading-relaxed text-white/90 drop-shadow-sm md:max-w-xl md:text-base md:leading-relaxed">
+            Born from a simple belief: the best experiences happen when people
+            gather. In the heart of Abuja, we created a space where
+            entertainment and tranquility coexist—where every corner holds the
+            possibility of connection.
           </p>
         </div>
       </HeroParallax>
@@ -95,7 +98,7 @@ export default function About() {
 
       <section className="py-32 md:py-80">
         <TextReveal
-          className="mx-auto w-full px-4 text-center md:px-8"
+          className="mx-auto w-full max-w-6xl px-4 text-center text-balance md:px-8"
           startColor="rgba(70, 86, 67, 0.2)"
           endColor="rgb(70, 86, 67)"
         >
