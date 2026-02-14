@@ -13,10 +13,7 @@ import AnimatedText from "../components/AnimatedText3";
 export default function Experiences() {
   return (
     <main className="bg-secondary text-primary">
-      <HeroParallax
-        imageSrc="/images/ani-augustine.jpg"
-        imageAlt="Experiences hero"
-      >
+      <HeroParallax imageSrc="/images/chicken.jpg" imageAlt="Experiences hero">
         <div className="absolute inset-0 flex flex-col items-center justify-end gap-5 px-4 pb-10 md:gap-6 md:pb-14">
           <h1 className="font-ivy-headline max-w-4xl text-center text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
             Where Moments Become Memories
