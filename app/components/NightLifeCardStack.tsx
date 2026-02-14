@@ -21,6 +21,12 @@ const CARD_COUNT = 8;
 const MAX_ROTATION = 14; // degrees — total spread from front to back
 const SWIPE_THRESHOLD_PX = 50;
 const BOUNDS_PX = 400;
+const MOBILE_BREAKPOINT = 768;
+
+function isMobileViewport(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.innerWidth < MOBILE_BREAKPOINT;
+}
 
 function getRotationForIndex(index: number, total: number): number {
   if (index === 0) return 0; // top card is straight
@@ -98,6 +104,7 @@ export default function NightLifeCardStack({
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const draggablesRef = useRef<InstanceType<typeof Draggable>[]>([]);
   const isAnimatingRef = useRef(false);
+  const isMobileRef = useRef(isMobileViewport());
   /** Each card keeps one rotation forever (like a real deck); never change after init. */
   const fixedRotationRef = useRef<number[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
@@ -133,21 +140,28 @@ export default function NightLifeCardStack({
     const topEl = cardRefs.current[topCardIdx];
     if (!topEl) return;
 
+    const mobile = isMobileRef.current;
+    // On mobile: horizontal-only so vertical swipe scrolls the page
+    const dragType = mobile ? "x" : "x,y";
+    const bounds = mobile
+      ? { minX: -BOUNDS_PX, maxX: BOUNDS_PX }
+      : {
+          minX: -BOUNDS_PX,
+          maxX: BOUNDS_PX,
+          minY: -BOUNDS_PX,
+          maxY: BOUNDS_PX,
+        };
+
     const [instance] = Draggable.create(topEl, {
-      type: "x,y",
-      bounds: {
-        minX: -BOUNDS_PX,
-        maxX: BOUNDS_PX,
-        minY: -BOUNDS_PX,
-        maxY: BOUNDS_PX,
-      },
+      type: dragType,
+      bounds,
       edgeResistance: 0.75,
       onDragEnd: function () {
         const dx = this.x;
         const dy = this.y;
         if (
           Math.abs(dx) >= SWIPE_THRESHOLD_PX ||
-          Math.abs(dy) >= SWIPE_THRESHOLD_PX
+          (!mobile && Math.abs(dy) >= SWIPE_THRESHOLD_PX)
         ) {
           fns.current.sendTopToBack(dx >= 0 ? "right" : "left");
         } else {
@@ -249,6 +263,7 @@ export default function NightLifeCardStack({
   /* ---------- initial setup — runs once ---------- */
 
   useEffect(() => {
+    isMobileRef.current = isMobileViewport();
     const order = deckOrderRef.current;
     const len = order.length;
 
@@ -274,7 +289,17 @@ export default function NightLifeCardStack({
 
     fns.current.setupDraggable();
 
+    const handleResize = () => {
+      const wasMobile = isMobileRef.current;
+      isMobileRef.current = isMobileViewport();
+      if (wasMobile !== isMobileRef.current) {
+        fns.current.setupDraggable();
+      }
+    };
+    window.addEventListener("resize", handleResize);
+
     return () => {
+      window.removeEventListener("resize", handleResize);
       draggablesRef.current.forEach((d) => d.kill());
       draggablesRef.current = [];
     };
@@ -368,7 +393,7 @@ export default function NightLifeCardStack({
       </div>
 
       <div
-        className="relative flex min-h-[520px] w-full max-w-xl items-center justify-center md:min-h-[640px] md:max-w-2xl"
+        className="relative flex min-h-[380px] w-full max-w-xl items-center justify-center sm:min-h-[440px] md:min-h-[640px] md:max-w-2xl"
         style={{ perspective: "1200px" }}
       >
         {pool.map((card, index) => (
@@ -377,7 +402,7 @@ export default function NightLifeCardStack({
             ref={(el) => {
               cardRefs.current[index] = el;
             }}
-            className="absolute top-1/2 left-1/2 h-[420px] w-[360px] cursor-grab touch-none select-none active:cursor-grabbing md:h-[520px] md:w-[440px]"
+            className="absolute top-1/2 left-1/2 h-[320px] w-[280px] cursor-grab touch-none select-none active:cursor-grabbing sm:h-[380px] sm:w-[320px] md:h-[520px] md:w-[440px]"
             style={{ position: "absolute" }}
           >
             <div
@@ -391,7 +416,7 @@ export default function NightLifeCardStack({
                 src={card.imageSrc}
                 alt={card.alt}
                 fill
-                sizes="(max-width: 768px) 360px, 440px"
+                sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 440px"
                 className="object-cover"
                 draggable={false}
                 priority={index < 2}
