@@ -153,7 +153,7 @@ export default function About() {
         ]}
       />
 
-      <section className="bg-secondary text-primary py-32">
+      {/* <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center justify-center text-center">
             <TextReveal
@@ -167,7 +167,7 @@ export default function About() {
             </TextReveal>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <StickyClipRevealText
         imageSrc="/images/shourav-sheikh.jpg"
@@ -187,7 +187,7 @@ export default function About() {
         }
         overlayContent={
           <>
-            <h2 className="font-ivy-headline mb-6 text-4xl leading-tight md:text-6xl">
+            <h2 className="font-ivy-headline mb-6 text-4xl leading-tight text-balance md:text-7xl">
               We can&apos;t wait to welcome you.
             </h2>
             <p className="text-lg opacity-90 md:text-xl">

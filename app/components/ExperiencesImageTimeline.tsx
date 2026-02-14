@@ -91,7 +91,7 @@ export default function ExperiencesImageTimeline({
           {/* Right: on mobile = big image full width + thumbnails row; on md = thumb column + big image */}
           <div className="flex w-full flex-col gap-3 md:col-span-7 md:w-auto md:flex-row md:gap-4">
             {/* Big image: full width on mobile, right side on md; order-first on mobile so it appears above thumbs */}
-            <div className="bg-primary/5 relative order-1 min-h-[500px] flex-1 overflow-hidden md:order-2 md:min-h-[80vh]">
+            <div className="bg-primary/5 relative order-1 min-h-[500px] flex-1 overflow-hidden md:order-2 md:min-h-[100vh]">
               {items.map((slide, i) => (
                 <div
                   key={i}
@@ -112,8 +112,8 @@ export default function ExperiencesImageTimeline({
               ))}
             </div>
 
-            {/* Thumbnails: row on mobile, column on md; order-second on mobile so below big image */}
-            <div className="order-2 flex shrink-0 flex-row gap-2 md:order-1 md:w-[112px] md:flex-col md:gap-3">
+            {/* Thumbnails: row on mobile, column on md; sticky on md so it stays in view like the text col */}
+            <div className="order-2 flex shrink-0 flex-row gap-2 md:sticky md:top-8 md:order-1 md:w-[112px] md:flex-col md:gap-3 md:self-start">
               {items.map((slide, i) => {
                 const isActive = i === activeIndex;
                 return (
