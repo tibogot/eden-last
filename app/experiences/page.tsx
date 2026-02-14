@@ -123,9 +123,8 @@ export default function Experiences() {
       </section> */}
       <StickyStackScroll5 />
 
-      <ScrollColorSwap className="py-32">
+      {/* <ScrollColorSwap className="py-32">
         <div className="container mx-auto px-4 md:px-8">
-          {/* First block - intro */}
           <div className="mb-40">
             <span className="font-neue-haas text-xs tracking-wider uppercase">
               WHAT WE OFFER
@@ -136,7 +135,6 @@ export default function Experiences() {
             </h2>
           </div>
 
-          {/* Second block - 2 col images */}
           <div className="mb-40 grid gap-16 md:grid-cols-2">
             <div>
               <Image
@@ -166,7 +164,6 @@ export default function Experiences() {
             </div>
           </div>
 
-          {/* Third block - full width image */}
           <div className="relative mb-40 h-[70vh] w-full overflow-hidden">
             <Image
               src="/images/annie-lang.jpg"
@@ -177,7 +174,6 @@ export default function Experiences() {
             />
           </div>
 
-          {/* Fourth block - quote */}
           <div className="mb-40">
             <p className="font-ivy-headline max-w-3xl text-2xl leading-relaxed md:text-3xl">
               Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
@@ -186,7 +182,6 @@ export default function Experiences() {
             </p>
           </div>
 
-          {/* Fifth block - 3 col features */}
           <div className="mb-40 grid gap-16 md:grid-cols-3">
             <div>
               <h4 className="mb-2 text-xs tracking-wider uppercase">Events</h4>
@@ -206,7 +201,6 @@ export default function Experiences() {
             </div>
           </div>
 
-          {/* Sixth block - another image row */}
           <div className="mb-40 grid gap-8 md:grid-cols-2">
             <div className="relative h-[50vh] overflow-hidden">
               <Image
@@ -228,7 +222,6 @@ export default function Experiences() {
             </div>
           </div>
 
-          {/* Final block - closing text */}
           <div className="pb-20">
             <h3 className="font-ivy-headline mb-6 text-3xl md:text-4xl">
               A place to return to
@@ -239,7 +232,7 @@ export default function Experiences() {
             </p>
           </div>
         </div>
-      </ScrollColorSwap>
+      </ScrollColorSwap> */}
 
       {/* Section after color swap to show blend */}
       {/* <section className="bg-secondary text-primary py-8">
