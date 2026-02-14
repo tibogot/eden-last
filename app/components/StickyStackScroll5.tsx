@@ -17,35 +17,35 @@ interface CardData {
 const cardData: CardData[] = [
   {
     number: "01",
-    title: "Custom Web Development",
+    title: "Live Music",
     description:
-      "We provide bespoke web development solutions tailored to your business needs. Our team ensures top-notch performance and scalability. Every project is designed with modern technologies and best practices in mind.",
-    image: "/images/hero-2.jpg",
-    imageAlt: "Web Development",
+      "Sunset sessions with curated sound experiences. From acoustic evenings to full-band performances, Eden Garden comes alive with live music that sets the perfect mood.",
+    image: "/images/annie-lang.jpg",
+    imageAlt: "Live music at Eden Garden",
   },
   {
     number: "02",
-    title: "Mobile App Development",
+    title: "Garden Dining",
     description:
-      "Crafting intuitive and engaging mobile applications for both Android and iOS platforms. Enhance your user experience with our expert team. We combine cutting-edge design with robust functionality.",
-    image: "/images/daniel-park.jpg",
-    imageAlt: "App Development",
+      "Seasonal plates served in the open air. Indulge in authentic traditional cuisine and contemporary dishes while surrounded by lush greenery and the warmth of shared moments.",
+    image: "/images/colin.jpg",
+    imageAlt: "Garden dining at Eden Garden",
   },
   {
     number: "03",
-    title: "Digital Marketing",
+    title: "Events & Celebrations",
     description:
-      "Comprehensive digital marketing services to boost your online presence. From SEO to social media campaigns, we cover it all. Our strategies are data-driven and results-oriented.",
-    image: "/images/colin.jpg",
-    imageAlt: "Digital Marketing",
+      "Weekends with a slow glow. Whether it is a birthday, corporate gathering, or wedding, we create unforgettable experiences that bring people together in our vibrant oasis.",
+    image: "/images/mche-lee-Bribs3.jpg",
+    imageAlt: "Events and celebrations at Eden Garden",
   },
   {
     number: "04",
-    title: "Cloud Solutions",
+    title: "Terrace Bar & Night Life",
     description:
-      "Reliable and secure cloud solutions to streamline your business operations. Leverage the power of the cloud with our expertise. We ensure scalability, security, and optimal performance.",
-    image: "/images/table-tennis.jpg",
-    imageAlt: "Cloud Solutions",
+      "Drinks under the stars. Eden Garden comes alive after dark with crafted cocktails, live entertainment, and an atmosphere that turns every evening into an unforgettable experience.",
+    image: "/images/iris-lavoie.jpg",
+    imageAlt: "Terrace bar and night life at Eden Garden",
   },
 ];
 
@@ -373,11 +373,11 @@ export default function StickyStackScroll() {
       <section className="bg-secondary text-primary intro mx-auto px-4 py-20 text-center md:px-8 md:py-30">
         <AnimatedText delay={0.0} stagger={0.3}>
           <h2 className="font-ivy-headline mx-auto mb-6 max-w-4xl text-4xl md:text-5xl lg:text-6xl">
-            Technology that ships and scales
+            From guided experiences to immersive moments
           </h2>
           <p className="font-pp-neue-montreal mx-auto max-w-2xl text-lg text-primary/80">
-            We build modern, scalable technology solutions that help businesses
-            move faster and adapt to change.
+            Discover what Eden Park & Garden has to offer. Live music, garden
+            dining, events, and night life—all in one vibrant oasis in Abuja.
           </p>
         </AnimatedText>
       </section>

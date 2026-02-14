@@ -8,12 +8,13 @@ import WhyUsSection from "../components/WhyUs";
 import StickyStackScroll5 from "../components/StickyStackScroll5";
 import NightLifeCardStack from "../components/NightLifeCardStack";
 import ExperiencesImageTimeline from "../components/ExperiencesImageTimeline";
+import AnimatedText from "../components/AnimatedText3";
 
 export default function Experiences() {
   return (
     <main className="bg-secondary text-primary">
       <HeroParallax
-        imageSrc="/images/iris-lavoie.jpg"
+        imageSrc="/images/ani-augustine.jpg"
         imageAlt="Experiences hero"
       >
         <div className="absolute inset-0 flex items-center justify-center px-4">
@@ -26,17 +27,19 @@ export default function Experiences() {
       <section className="bg-secondary text-primary py-24">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center text-center">
-            <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
-              VISIT US
-            </span>
-            <h2 className="font-ivy-headline mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
-              Come experience the magic of Eden Garden for yourself
-            </h2>
-            <p className="mb-10 max-w-xl text-lg">
-              Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
-              blend of entertainment and relaxation. From live music and dance
-              shows to thrilling football matches, there.{" "}
-            </p>
+            <AnimatedText>
+              <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
+                VISIT US
+              </span>
+              <h2 className="font-ivy-headline mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
+                Come experience the magic of Eden Garden for yourself
+              </h2>
+              <p className="mx-auto mb-10 max-w-xl text-center text-lg">
+                Eden Park & Garden is a vibrant oasis in Abuja, offering a
+                unique blend of entertainment and relaxation. From live music
+                and dance shows to thrilling football matches, there.{" "}
+              </p>
+            </AnimatedText>
           </div>
         </div>
       </section>
@@ -286,6 +289,16 @@ export default function Experiences() {
       />
       <WhyUsSection />
       <NightLifeCardStack />
+
+      <section className="relative min-h-screen w-full overflow-hidden">
+        <Image
+          src="/images/real.jpg"
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+      </section>
     </main>
   );
 }

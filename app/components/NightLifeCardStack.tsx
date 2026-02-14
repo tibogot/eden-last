@@ -25,24 +25,28 @@ type CardItem = {
 };
 
 const defaultCards: CardItem[] = [
-  { id: 0, imageSrc: "/images/hero.jpg", alt: "Nightlife 1" },
-  { id: 1, imageSrc: "/images/roberto-nickson.jpg", alt: "Nightlife 2" },
-  { id: 2, imageSrc: "/images/annie-lang.jpg", alt: "Nightlife 3" },
-  { id: 3, imageSrc: "/images/pool-game.jpg", alt: "Nightlife 4" },
-  { id: 4, imageSrc: "/images/obinna-okerekeocha.jpg", alt: "Nightlife 5" },
-  { id: 5, imageSrc: "/images/hero.jpg", alt: "Nightlife 6" },
-  { id: 6, imageSrc: "/images/roberto-nickson.jpg", alt: "Nightlife 7" },
-  { id: 7, imageSrc: "/images/annie-lang.jpg", alt: "Nightlife 8" },
+  { id: 0, imageSrc: "/images/night/angelo-pantazis-lkUUCBKQL9E-unsplash.jpg", alt: "Nightlife 1" },
+  { id: 1, imageSrc: "/images/night/axel-gallay-vTNBqfUfRxM-unsplash.jpg", alt: "Nightlife 2" },
+  { id: 2, imageSrc: "/images/night/cheng-feng-fw8QYwDzp8k-unsplash.jpg", alt: "Nightlife 3" },
+  { id: 3, imageSrc: "/images/night/ethan-rheams-fEM9otYJK4c-unsplash.jpg", alt: "Nightlife 4" },
+  { id: 4, imageSrc: "/images/night/john-arano-_qADvinJi20-unsplash.jpg", alt: "Nightlife 5" },
+  { id: 5, imageSrc: "/images/night/one-zone-studio-vj3WPY_QCJc-unsplash.jpg", alt: "Nightlife 6" },
+  { id: 6, imageSrc: "/images/night/petar-avramoski-VzPqBD-UawI-unsplash.jpg", alt: "Nightlife 7" },
+  { id: 7, imageSrc: "/images/night/richard-brutyo-jfy3H7O8198-unsplash.jpg", alt: "Nightlife 8" },
 ];
 
 export default function NightLifeCardStack({
   className = "",
   cards = defaultCards,
+  label = "NIGHT LIFE",
   title = "Night Life",
+  body = "Eden Garden comes alive after dark with live music, cocktails, and an atmosphere that turns every evening into an unforgettable experience.",
 }: {
   className?: string;
   cards?: CardItem[];
+  label?: string;
   title?: string;
+  body?: string;
 }) {
   const pool = cards.slice(0, CARD_COUNT);
   // deckOrder[stackPosition] = cardIndex.  Position 0 = top of stack.
@@ -233,14 +237,22 @@ export default function NightLifeCardStack({
 
   return (
     <section
-      className={`bg-secondary relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-20 ${className}`}
+      className={`bg-secondary relative flex min-h-[120vh] flex-col items-center justify-center overflow-hidden px-4 py-24 ${className}`}
     >
-      <h2 className="font-ivy-headline text-primary mb-10 text-center text-3xl md:text-4xl">
-        {title}
-      </h2>
+      <div className="mb-20 flex flex-col items-center text-center">
+        <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
+          {label}
+        </span>
+        <h2 className="font-ivy-headline text-primary mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
+          {title}
+        </h2>
+        <p className="text-primary/80 mx-auto max-w-xl text-center text-lg">
+          {body}
+        </p>
+      </div>
 
       <div
-        className="relative flex min-h-[460px] w-full max-w-xl items-center justify-center md:min-h-[560px] md:max-w-2xl"
+        className="relative flex min-h-[520px] w-full max-w-xl items-center justify-center md:min-h-[640px] md:max-w-2xl"
         style={{ perspective: "1200px" }}
       >
         {pool.map((card, index) => (
@@ -270,23 +282,23 @@ export default function NightLifeCardStack({
       <div className="mt-8 flex items-center justify-center gap-6">
         <button
           type="button"
-          onClick={() => fns.current.bringBackToFront()}
-          className="border-primary/30 bg-secondary text-primary hover:border-primary hover:bg-primary/10 focus:ring-primary/50 flex h-14 w-14 items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
-          aria-label="Bring previous card to front"
+          onClick={() => fns.current.sendTopToBack("left")}
+          className="border-primary/30 bg-secondary text-primary hover:border-primary hover:bg-primary/10 focus:ring-primary/50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
+          aria-label="Send top card to back (left)"
         >
           <ChevronLeft className="h-7 w-7" />
         </button>
         <button
           type="button"
           onClick={() => fns.current.sendTopToBack("right")}
-          className="border-primary/30 bg-secondary text-primary hover:border-primary hover:bg-primary/10 focus:ring-primary/50 flex h-14 w-14 items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
+          className="border-primary/30 bg-secondary text-primary hover:border-primary hover:bg-primary/10 focus:ring-primary/50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-2 transition-colors focus:ring-2 focus:outline-none"
           aria-label="Send top card to back"
         >
           <ChevronRight className="h-7 w-7" />
         </button>
       </div>
 
-      <p className="font-neue-haas text-primary/70 mt-6 max-w-sm text-center text-sm">
+      <p className="font-neue-haas text-primary/70 mx-auto mt-6 max-w-sm text-center text-sm">
         Swipe the top card or use the arrows to send it to the back
       </p>
     </section>

@@ -107,7 +107,6 @@ export default function ExperiencesImageTimeline({
                     fill
                     sizes="(min-width: 768px) 50vw, 100vw"
                     className="object-cover"
-                    priority={i === 0}
                   />
                 </div>
               ))}
