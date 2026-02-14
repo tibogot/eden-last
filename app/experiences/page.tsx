@@ -293,8 +293,8 @@ export default function Experiences() {
           </>
         }
       /> */}
-      {/* <WhyUsSection /> */}
-      {/* <NightLifeCardStack /> */}
+      <WhyUsSection />
+      <NightLifeCardStack />
 
       <section className="relative min-h-screen w-full overflow-hidden">
         <Image
