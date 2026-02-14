@@ -33,24 +33,24 @@ export default function Experiences() {
       <section className="bg-secondary text-primary py-24">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center text-center">
-            {/* <AnimatedText> */}
-            <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
-              VISIT US
-            </span>
-            <h2 className="font-ivy-headline mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
-              Come experience the magic of Eden Garden for yourself
-            </h2>
-            <p className="mx-auto mb-10 max-w-xl text-center text-lg">
-              Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
-              blend of entertainment and relaxation. From live music and dance
-              shows to thrilling football matches, there.{" "}
-            </p>
-            {/* </AnimatedText> */}
+            <AnimatedText>
+              <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
+                VISIT US
+              </span>
+              <h2 className="font-ivy-headline mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
+                Come experience the magic of Eden Garden for yourself
+              </h2>
+              <p className="mx-auto mb-10 max-w-xl text-center text-lg">
+                Eden Park & Garden is a vibrant oasis in Abuja, offering a
+                unique blend of entertainment and relaxation. From live music
+                and dance shows to thrilling football matches, there.{" "}
+              </p>
+            </AnimatedText>
           </div>
         </div>
       </section>
 
-      <ExperiencesImageTimeline
+      {/* <ExperiencesImageTimeline
         title="Experiences at Eden Garden"
         body="Eden Park & Garden is a vibrant oasis in Abuja, offering a unique blend of entertainment and relaxation. From live music and dance shows to thrilling football matches, outdoor activities, fine dining, and award-winning hospitality—there's something for everyone for an unforgettable experience."
         slides={[
@@ -59,7 +59,7 @@ export default function Experiences() {
           { src: "/images/colin.jpg", alt: "Fine dining" },
           { src: "/images/annie-lang.jpg", alt: "Live music" },
         ]}
-      />
+      /> */}
 
       {/* <section className="bg-secondary text-primary pt-32">
         <div className="container px-4 md:px-8">
