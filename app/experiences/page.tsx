@@ -50,7 +50,7 @@ export default function Experiences() {
         </div>
       </section>
 
-      <section className="relative mx-auto mb-24 min-h-[50vh] w-3/4 overflow-hidden md:min-h-[80vh]">
+      <section className="relative mx-auto mb-24 min-h-[50vh] w-3/4 overflow-hidden md:min-h-[100vh]">
         <Image
           src="/images/dam-dam.jpg"
           alt=""

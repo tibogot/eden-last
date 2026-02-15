@@ -161,43 +161,40 @@ export default async function EventsPage() {
               }
 
               return (
-                <li key={event._id} className="flex flex-col overflow-hidden">
+                <li key={event._id}>
                   <Link
                     href={`/events/${event.slug.current}`}
-                    className="group block"
+                    className="group block h-full"
                   >
-                    {event.mainImage && (
-                      <div className="bg-secondary relative h-56 w-full overflow-hidden md:h-64">
+                    <div className="flex h-full flex-col items-stretch overflow-hidden">
+                      <div className="bg-secondary relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden md:aspect-auto md:h-96">
                         <Image
                           src={imageUrl}
                           alt={event.title}
                           fill
+                          sizes="(max-width: 768px) 85vw, 33vw"
                           className="object-cover object-center"
                           loading="lazy"
-                          sizes="(min-width: 768px) 33vw, 100vw"
                         />
                       </div>
-                    )}
-                    <div className="flex flex-1 flex-col justify-between py-6">
-                      <div>
-                        {event.publishedAt && (
-                          <p className="font-neue-haas text-primary/60 mb-2 text-xs">
-                            {new Date(event.publishedAt).toLocaleDateString()}
-                          </p>
-                        )}
-                        <h5 className="font-ivy-headline text-primary mb-2 text-2xl leading-tight md:text-3xl">
-                          {event.title}
-                        </h5>
-
-                        <div className="font-neue-haas text-primary/70 mb-2 line-clamp-3 max-w-xl text-base md:text-lg">
-                          {event.body && (
-                            <PortableText value={event.body.slice(0, 1)} />
+                      <div className="flex flex-1 flex-col justify-between py-4 md:py-6">
+                        <div>
+                          {event.publishedAt && (
+                            <p className="font-neue-haas text-primary/60 mb-2 text-xs">
+                              {new Date(event.publishedAt).toLocaleDateString()}
+                            </p>
                           )}
+                          <h5 className="font-ivy-headline text-primary mb-2 text-lg leading-tight md:text-xl">
+                            {event.title}
+                          </h5>
+
+                          <div className="font-neue-haas text-primary/70 mb-2 line-clamp-3 max-w-xl text-sm md:text-base">
+                            {event.body && (
+                              <PortableText value={event.body.slice(0, 1)} />
+                            )}
+                          </div>
                         </div>
                       </div>
-                      <span className="font-neue-haas text-primary mt-2 inline-block text-base">
-                        Read more →
-                      </span>
                     </div>
                   </Link>
                 </li>
