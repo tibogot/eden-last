@@ -4,6 +4,7 @@ import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { urlFor } from "@/app/lib/sanityImage";
 import type { PortableTextBlock } from "@portabletext/types";
+import HeroParallax from "@/app/components/HeroParallax";
 
 interface SanityImageAsset {
   asset?: {
@@ -69,7 +70,24 @@ export default async function EventsPage() {
 
   return (
     <main className="bg-secondary text-primary">
-      {/* Hero Section - Latest Event */}
+      {/* New Hero Section - fixed image, same concept as other pages */}
+      <HeroParallax
+        imageSrc="/images/annie-lang.jpg"
+        imageAlt="Eden Garden Events"
+      >
+        <div className="absolute inset-0 flex flex-col items-center justify-end gap-5 px-4 pb-10 md:gap-6 md:pb-14">
+          <h1 className="font-ivy-headline max-w-4xl text-center text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
+            Where Gatherings Come Alive
+          </h1>
+          <p className="max-w-lg text-center text-sm leading-relaxed text-white/90 drop-shadow-sm md:max-w-xl md:text-base md:leading-relaxed">
+            Live music under the stars, curated experiences, and nights that
+            linger long after the lights go down. Eden Garden is where Abuja
+            comes together to celebrate.
+          </p>
+        </div>
+      </HeroParallax>
+
+      {/* Latest Event - exactly like before */}
       {latestEvent && (
         <section className="relative h-svh w-full overflow-hidden">
           <Image
@@ -78,6 +96,7 @@ export default async function EventsPage() {
             fill
             priority
             className="object-cover"
+            sizes="100vw"
           />
           <div className="absolute inset-0 z-10 bg-black/20"></div>
           <div className="relative z-20 flex h-full items-center">
@@ -88,10 +107,10 @@ export default async function EventsPage() {
                     {new Date(latestEvent.publishedAt).toLocaleDateString()}
                   </p>
                 )}
-                <h1 className="font-ivy-headline mb-6 text-5xl leading-tight text-white md:text-7xl">
+                <h2 className="font-ivy-headline mb-6 text-5xl leading-tight text-white md:text-7xl">
                   {latestEvent.title}
-                </h1>
-                <div className="font-neue-haas mb-8 line-clamp-3 text-lg text-white/90 md:text-xl">
+                </h2>
+                <div className="font-neue-haas mb-8 line-clamp-3 max-w-md text-lg text-white/90 md:text-xl">
                   {latestEvent.body && (
                     <PortableText value={latestEvent.body.slice(0, 1)} />
                   )}
@@ -155,6 +174,7 @@ export default async function EventsPage() {
                           fill
                           className="object-cover object-center"
                           loading="lazy"
+                          sizes="(min-width: 768px) 33vw, 100vw"
                         />
                       </div>
                     )}
