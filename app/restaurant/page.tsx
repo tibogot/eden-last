@@ -13,7 +13,19 @@ export default function Restaurant() {
         imageSrc="/images/shourav-sheikh.jpg"
         imageAlt="Restaurant image"
       >
-        <RestaurantHeroTitle />
+        <div className="absolute inset-0 flex flex-col items-center justify-end gap-5 px-4 pb-10 md:gap-6 md:pb-14">
+          <h1 className="font-ivy-headline max-w-4xl text-center text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
+            Where Every Bite Tells a Story
+          </h1>
+          <p className="max-w-lg text-center text-sm leading-relaxed text-white/90 drop-shadow-sm md:max-w-xl md:text-base md:leading-relaxed">
+            Eden Park & Garden Restaurant is a culinary oasis in Abuja—where
+            traditional Nigerian flavors meet contemporary technique. From
+            intimate dinners to celebrations, our chefs craft each dish with
+            passion and the finest local ingredients. Come dine in the heart of
+            the garden.
+          </p>
+        </div>
+        {/* <RestaurantHeroTitle /> */}
       </HeroParallax>
       <section className="bg-secondary text-primary pt-32">
         <div className="container px-4 md:px-8">
@@ -76,6 +88,7 @@ export default function Restaurant() {
                 alt="Dining at Eden Garden Restaurant"
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
             <div className="flex w-full flex-col md:w-1/2">

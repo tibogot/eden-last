@@ -7,6 +7,7 @@ import StickyClipRevealText from "@/app/components/StickyClipRevealText";
 import WhyUsSection from "../components/WhyUs";
 import StickyStackScroll5 from "../components/StickyStackScroll5";
 import NightLifeCardStack from "../components/NightLifeCardStack";
+import HorizontalScrollCards from "../components/HorizontalScrollCards2";
 
 export default function Experiences() {
   return (
@@ -274,6 +275,7 @@ export default function Experiences() {
       />
       <WhyUsSection />
       <NightLifeCardStack />
+      <HorizontalScrollCards />
     </main>
   );
 }

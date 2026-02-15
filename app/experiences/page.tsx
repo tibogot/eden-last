@@ -50,6 +50,16 @@ export default function Experiences() {
         </div>
       </section>
 
+      <section className="relative mx-auto min-h-[80vh] w-3/4 overflow-hidden">
+        <Image
+          src="/images/dam-dam.jpg"
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+      </section>
+
       <ExperiencesImageTimeline
         title="Experiences at Eden Garden"
         body="Eden Park & Garden is a vibrant oasis in Abuja, offering a unique blend of entertainment and relaxation. From live music and dance shows to thrilling football matches, outdoor activities, fine dining, and award-winning hospitality—there's something for everyone for an unforgettable experience."
