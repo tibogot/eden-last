@@ -30,7 +30,7 @@ export default function Experiences() {
         </div>
       </HeroParallax>
 
-      <section className="bg-secondary text-primary py-24">
+      {/* <section className="bg-secondary text-primary py-24">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center text-center">
             <AnimatedText>
@@ -48,7 +48,7 @@ export default function Experiences() {
             </AnimatedText>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* <ExperiencesImageTimeline
         title="Experiences at Eden Garden"
@@ -121,7 +121,7 @@ export default function Experiences() {
           </div>
         </div>
       </section> */}
-      <StickyStackScroll5 />
+      {/* <StickyStackScroll5 /> */}
 
       {/* <ScrollColorSwap className="py-32">
         <div className="container mx-auto px-4 md:px-8">
