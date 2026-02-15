@@ -123,7 +123,7 @@ export default function Experiences() {
       </section> */}
       {/* <StickyStackScroll5 /> */}
 
-      {/* <ScrollColorSwap className="py-32">
+      <ScrollColorSwap className="py-32">
         <div className="container mx-auto px-4 md:px-8">
           <div className="mb-40">
             <span className="font-neue-haas text-xs tracking-wider uppercase">
@@ -232,10 +232,10 @@ export default function Experiences() {
             </p>
           </div>
         </div>
-      </ScrollColorSwap> */}
+      </ScrollColorSwap>
 
       {/* Section after color swap to show blend */}
-      {/* <section className="bg-secondary text-primary py-8">
+      <section className="bg-secondary text-primary py-8">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center text-center">
             <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
@@ -255,7 +255,7 @@ export default function Experiences() {
             </Link>
           </div>
         </div>
-      </section> */}
+      </section>
 
       <StickyClipRevealText
         imageSrc="/images/shourav-sheikh.jpg"
