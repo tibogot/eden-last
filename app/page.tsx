@@ -218,6 +218,34 @@ export default async function Home() {
         {/* <PinnedImageTextReveal /> */}
         {/* <StickyImageTextReveal /> */}
         {/* <StickyClipReveal /> */}
+
+        <section className="bg-secondary text-primary py-40">
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="flex flex-col items-center justify-center text-center">
+              <TextReveal
+                className="max-w-3xl"
+                startColor="rgba(70, 86, 67, 0.2)"
+                endColor="rgb(70, 86, 67)"
+              >
+                <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl">
+                  Of all the vibrant spaces, it is the only one that becomes
+                  even more captivating as you explore, ending not with a grand
+                  finale but by seamlessly blending into the natural landscape.
+                </p>
+              </TextReveal>
+            </div>
+          </div>
+        </section>
+        <section className="relative mt-24 min-h-screen w-full overflow-hidden">
+          <Image
+            src="/images/real.jpg"
+            alt=""
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </section>
+
         <StickyClipRevealText
           imageSrc="/images/roberto-nickson.jpg"
           imageAlt="Eden Garden atmosphere"
@@ -247,9 +275,9 @@ export default async function Home() {
             </>
           }
         />
-        <WhyUsSection />
+        {/* <WhyUsSection /> */}
 
-        <section className="relative min-h-screen w-full overflow-hidden">
+        {/* <section className="relative min-h-screen w-full overflow-hidden">
           <Image
             src="/images/real.jpg"
             alt=""
@@ -257,7 +285,7 @@ export default async function Home() {
             className="object-cover"
             sizes="100vw"
           />
-        </section>
+        </section> */}
 
         <section className="bg-secondary text-primary py-40">
           <div className="container mx-auto px-4 md:px-8">
