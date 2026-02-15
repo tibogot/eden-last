@@ -287,6 +287,38 @@ export default function Experiences() {
         }
       />
       <WhyUsSection />
+      <section className="bg-secondary text-primary py-20">
+        <div className="px-4 md:px-8">
+          <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
+            <div className="relative h-[800px] w-full md:w-1/2">
+              <Image
+                src="/images/colin.jpg"
+                alt="Eden Garden atmosphere"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+            <div className="flex w-full flex-col md:w-1/2">
+              <div className="flex flex-col justify-start md:sticky md:top-24">
+                <span className="font-neue-haas text-primary mb-4 text-xs tracking-wider uppercase">
+                  THE PLACE
+                </span>
+                <h2 className="font-ivy-headline text-primary mb-6 max-w-xl text-3xl leading-tight md:text-4xl">
+                  An oasis in the heart of Abuja.
+                </h2>
+                <p className="font-neue-haas text-primary max-w-xl text-lg">
+                  Our grounds blend lush gardens with open-air venues, creating
+                  a destination that feels both intimate and expansive. From the
+                  terrace bar to the open stage, every space is designed for
+                  gathering—for sharing a meal, celebrating an evening, or
+                  simply being present.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <NightLifeCardStack />
 
       <section className="relative min-h-screen w-full overflow-hidden">
