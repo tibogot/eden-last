@@ -6,6 +6,7 @@ import HeroParallax from "@/app/components/HeroParallax";
 import StickyClipRevealText from "@/app/components/StickyClipRevealText";
 import WhyUsSection from "../components/WhyUs";
 import StickyStackScroll5 from "../components/StickyStackScroll5";
+import StickyStackScrollCSS from "../components/StickyStackScrollCSS";
 import NightLifeCardStack from "../components/NightLifeCardStack";
 import ExperiencesImageTimeline from "../components/ExperiencesImageTimeline";
 import AnimatedText from "../components/AnimatedText3";
@@ -131,7 +132,15 @@ export default function Experiences() {
           </div>
         </div>
       </section> */}
-      {/* <StickyStackScroll5 /> */}
+      <StickyStackScroll5 />
+
+      {/* Compare: CSS-only sticky version */}
+      {/* <section className="bg-secondary pt-16 pb-4">
+        <p className="font-neue-haas text-center text-xs tracking-wider uppercase text-primary/60">
+          Below: CSS sticky version (no GSAP)
+        </p>
+      </section> */}
+      {/* <StickyStackScrollCSS /> */}
 
       {/* <ScrollColorSwap className="py-32">
         <div className="container mx-auto px-4 md:px-8">
