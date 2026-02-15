@@ -257,7 +257,7 @@ export default function Experiences() {
         </div>
       </section> */}
 
-      {/* <StickyClipRevealText
+      <StickyClipRevealText
         imageSrc="/images/shourav-sheikh.jpg"
         imageAlt="Eden Garden atmosphere"
         textContent={
@@ -285,9 +285,9 @@ export default function Experiences() {
             </p>
           </>
         }
-      /> */}
-      {/* <WhyUsSection /> */}
-      {/* <NightLifeCardStack /> */}
+      />
+      <WhyUsSection />
+      <NightLifeCardStack />
 
       <section className="relative min-h-screen w-full overflow-hidden">
         <Image
