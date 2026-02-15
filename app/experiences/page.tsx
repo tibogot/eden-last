@@ -50,7 +50,7 @@ export default function Experiences() {
         </div>
       </section>
 
-      <section className="relative mx-auto min-h-[80vh] w-3/4 overflow-hidden">
+      <section className="relative mx-auto min-h-[50vh] w-3/4 overflow-hidden md:min-h-[80vh]">
         <Image
           src="/images/dam-dam.jpg"
           alt=""
@@ -300,7 +300,7 @@ export default function Experiences() {
       <section className="bg-secondary text-primary py-20">
         <div className="px-4 md:px-8">
           <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
-            <div className="relative h-[800px] w-full md:w-1/2">
+            <div className="relative h-[500px] w-full md:h-[800px] md:w-1/2">
               <Image
                 src="/images/colin.jpg"
                 alt="Eden Garden atmosphere"
