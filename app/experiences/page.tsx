@@ -30,14 +30,14 @@ export default function Experiences() {
         </div>
       </HeroParallax>
 
-      <section className="bg-secondary text-primary py-24">
+      <section className="bg-secondary text-primary py-10 md:py-24">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center text-center">
             <AnimatedText>
               <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
                 VISIT US
               </span>
-              <h2 className="font-ivy-headline mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
+              <h2 className="font-ivy-headline mt-10 mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
                 Come experience the magic of Eden Garden for yourself
               </h2>
               <p className="mx-auto mb-10 max-w-xl text-center text-lg">

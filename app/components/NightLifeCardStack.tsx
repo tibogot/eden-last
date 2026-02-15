@@ -305,12 +305,26 @@ export default function NightLifeCardStack({
     };
   }, []);
 
-  /* ---------- Scroll-triggered dark mode transition ---------- */
+  /* ---------- Dark mode: mobile = always dark, desktop = scroll-triggered transition ---------- */
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    // Force light theme on section so it always starts light (visible on first paint)
+    const mobile = isMobileViewport();
+
+    if (mobile) {
+      // Mobile: always night mode, no animation
+      gsap.set(section, {
+        "--ad-bg": DARK_BG,
+        "--ad-text": DARK_TEXT,
+        "--ad-text-muted": DARK_TEXT_MUTED,
+        "--ad-text-subtle": DARK_TEXT_SUBTLE,
+        "--ad-border": DARK_BORDER,
+      } as gsap.TweenVars);
+      return;
+    }
+
+    // Desktop: start light, animate to dark on scroll
     gsap.set(section, {
       "--ad-bg": LIGHT_BG,
       "--ad-text": LIGHT_TEXT,
@@ -349,7 +363,6 @@ export default function NightLifeCardStack({
       });
     };
 
-    // Wait for next frame so section has painted in light mode, then attach ScrollTrigger
     const raf = requestAnimationFrame(() => setupTrigger());
     return () => {
       cancelAnimationFrame(raf);
@@ -360,15 +373,10 @@ export default function NightLifeCardStack({
   return (
     <section
       ref={sectionRef}
-      className={`relative flex min-h-[120vh] flex-col items-center justify-center overflow-hidden px-4 py-24 ${className}`}
+      className={`relative flex min-h-[120vh] flex-col items-center justify-center overflow-hidden px-4 py-24 [--ad-bg:#0c0c0c] [--ad-text:#fffdf6] [--ad-text-muted:rgba(255,253,246,0.85)] [--ad-text-subtle:rgba(255,253,246,0.6)] [--ad-border:rgba(255,253,246,0.35)] md:[--ad-bg:#fffdf6] md:[--ad-text:#465643] md:[--ad-text-muted:rgba(70,86,67,0.8)] md:[--ad-text-subtle:rgba(70,86,67,0.7)] md:[--ad-border:rgba(70,86,67,0.3)] ${className}`}
       style={{
         backgroundColor: "var(--ad-bg)",
         color: "var(--ad-text)",
-        ["--ad-bg" as string]: LIGHT_BG,
-        ["--ad-text" as string]: LIGHT_TEXT,
-        ["--ad-text-muted" as string]: LIGHT_TEXT_MUTED,
-        ["--ad-text-subtle" as string]: LIGHT_TEXT_SUBTLE,
-        ["--ad-border" as string]: LIGHT_BORDER,
       }}
     >
       <div className="mb-20 flex flex-col items-center text-center">

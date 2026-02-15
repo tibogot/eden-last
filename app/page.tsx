@@ -294,7 +294,7 @@ export default async function Home() {
             </div>
           </div>
         </section> */}
-        {blogPosts.length > 0 && (
+        {/* {blogPosts.length > 0 && (
           <section className="bg-secondary text-primary py-12 md:py-16">
             <div className="mb-8 flex flex-col justify-between gap-4 px-4 md:mb-16 md:flex-row md:items-end md:px-8">
               <div>
@@ -320,7 +320,7 @@ export default async function Home() {
               ))}
             </ul>
           </section>
-        )}
+        )} */}
       </div>
     </main>
   );

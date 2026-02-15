@@ -59,7 +59,7 @@ export default function ExperiencesImageTimeline({
 
   return (
     <section className={`bg-secondary text-primary ${className}`}>
-      <div className="px-4 py-16 md:px-8 md:py-24">
+      <div className="px-4 py-10 md:px-8 md:py-24">
         {/* Two columns: items-stretch so left column is tall; sticky needs a tall containing block (like WhyUs) */}
         <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-12 md:items-stretch md:gap-12">
           {/* Left: wrapper stretches to row height; inner div is sticky */}
