@@ -12,31 +12,30 @@ const SERVICES = [
   {
     title: "Bar lounge",
     description:
-      "Unwind with crafted drinks and a relaxed atmosphere in the heart of the garden.",
+      "Unwind with crafted drinks and a relaxed atmosphere in the heart of the garden. Our bar lounge brings together premium cocktails, local favourites, and a welcoming vibe—whether you're here for a quiet evening or to enjoy live music under the stars. It's the perfect spot to connect with friends or simply take in the lush surroundings.",
     image: "/images/iris-lavoie.jpg",
     imageClass: "aspect-4/3 w-full max-w-[560px]",
-    textMaxWidth: "max-w-[360px]",
   },
   {
     title: "Pool game",
-    description: "Friendly games and tournaments in a laid-back setting.",
+    description:
+      "Friendly games and tournaments in a laid-back setting. Whether you're a seasoned player or just picking up a cue, our pool area offers a relaxed space to challenge friends, join in weekly tournaments, or simply enjoy the game. It's one of the most popular ways to spend an afternoon or evening at Eden.",
     image: "/images/pool-game.jpg",
     imageClass: "aspect-[3/4] w-full max-w-[520px]",
-    textMaxWidth: "max-w-[520px]",
   },
   {
     title: "Table tennis",
-    description: "Quick matches and casual play for all skill levels.",
+    description:
+      "Quick matches and casual play for all skill levels. Our table tennis setup welcomes everyone—from fast-paced rallies to relaxed family games. It's a great way to add a bit of fun and movement to your visit, whether you're waiting for friends or looking for a light-hearted competition in the open air.",
     image: "/images/table-tennis.jpg",
     imageClass: "aspect-square w-full max-w-[280px]",
-    textMaxWidth: "max-w-[280px]",
   },
   {
     title: "Traditional food",
-    description: "Authentic flavours and seasonal dishes in a unique setting.",
+    description:
+      "Authentic flavours and seasonal dishes in a unique setting. Our kitchen celebrates Nigerian and West African cuisine with fresh, locally sourced ingredients and time-honoured recipes. From hearty mains to sharing platters, every dish is prepared to be enjoyed in the garden—where good food meets the warmth of community and the beauty of nature.",
     image: "/images/chicken.jpg",
     imageClass: "aspect-4/3 w-full max-w-[320px]",
-    textMaxWidth: "max-w-[320px]",
   },
 ];
 
@@ -77,10 +76,10 @@ export default function ServicesGrid() {
 
       const CARD_STRENGTH = 110;
       const cardY = CARD_SPEEDS.map(
-        (speed) => -centered * CARD_STRENGTH * speed
+        (speed) => -centered * CARD_STRENGTH * speed,
       );
       const imageY = CARD_SPEEDS.map(
-        (speed) => -centered * IMAGE_PARALLAX_RANGE * speed * 2
+        (speed) => -centered * IMAGE_PARALLAX_RANGE * speed * 2,
       );
 
       setParallax({ cardY, imageY });
@@ -98,14 +97,14 @@ export default function ServicesGrid() {
       aria-label="Our services"
     >
       {/* First two images in grid */}
-      <div className="grid h-auto grid-cols-1 grid-rows-2 gap-8 md:gap-4 md:h-[680px] md:grid-cols-8 md:grid-rows-5">
+      <div className="grid h-auto grid-cols-1 grid-rows-2 gap-8 md:h-[680px] md:grid-cols-8 md:grid-rows-5 md:gap-4">
         <div
           className="col-span-1 row-span-1 flex flex-col will-change-transform md:col-span-3 md:row-span-4"
           style={{ transform: `translateY(${parallax.cardY[0]}px)` }}
         >
           <div className="relative min-h-[280px] w-full flex-1 overflow-hidden md:min-h-0">
             <div
-              className="absolute inset-0 h-[130%] w-full -top-[15%] will-change-transform"
+              className="absolute inset-0 -top-[15%] h-[130%] w-full will-change-transform"
               style={{
                 transform: `translateY(${parallax.imageY[0]}%)`,
               }}
@@ -119,11 +118,11 @@ export default function ServicesGrid() {
               />
             </div>
           </div>
-          <div className={`w-full text-left ${barLounge.textMaxWidth}`}>
+          <div className="w-full text-left">
             <h3 className="font-ivy-headline text-primary mt-3 text-2xl font-normal md:text-2xl">
               {barLounge.title}
             </h3>
-            <p className="font-neue-haas text-primary/80 mt-2 max-w-full text-lg md:max-w-[240px] md:text-base">
+            <p className="font-neue-haas text-primary/80 mt-2 w-full text-lg md:text-base">
               {barLounge.description}
             </p>
           </div>
@@ -134,7 +133,7 @@ export default function ServicesGrid() {
         >
           <div className="relative min-h-[280px] w-full flex-1 overflow-hidden md:min-h-0">
             <div
-              className="absolute inset-0 h-[130%] w-full -top-[15%] will-change-transform"
+              className="absolute inset-0 -top-[15%] h-[130%] w-full will-change-transform"
               style={{
                 transform: `translateY(${parallax.imageY[1]}%)`,
               }}
@@ -148,11 +147,11 @@ export default function ServicesGrid() {
               />
             </div>
           </div>
-          <div className={`w-full text-left ${poolGame.textMaxWidth}`}>
+          <div className="w-full text-left">
             <h3 className="font-ivy-headline text-primary mt-3 text-2xl font-normal md:text-2xl">
               {poolGame.title}
             </h3>
-            <p className="font-neue-haas text-primary/80 mt-2 max-w-full text-lg md:max-w-[240px] md:text-base">
+            <p className="font-neue-haas text-primary/80 mt-2 w-full text-lg md:text-base">
               {poolGame.description}
             </p>
           </div>
@@ -160,14 +159,14 @@ export default function ServicesGrid() {
       </div>
 
       {/* Table tennis and Traditional food in grid */}
-      <div className="mt-12 grid h-auto grid-cols-1 grid-rows-2 gap-8 md:mt-12 md:gap-4 md:h-[680px] md:grid-cols-8 md:grid-rows-5">
+      <div className="mt-12 grid h-auto grid-cols-1 grid-rows-2 gap-8 md:mt-12 md:h-[680px] md:grid-cols-8 md:grid-rows-5 md:gap-4">
         <div
           className="col-span-1 row-span-1 flex flex-col will-change-transform md:col-span-2 md:col-start-2 md:row-span-4"
           style={{ transform: `translateY(${parallax.cardY[2]}px)` }}
         >
           <div className="relative min-h-[280px] w-full flex-1 overflow-hidden md:min-h-0">
             <div
-              className="absolute inset-0 h-[130%] w-full -top-[15%] will-change-transform"
+              className="absolute inset-0 -top-[15%] h-[130%] w-full will-change-transform"
               style={{
                 transform: `translateY(${parallax.imageY[2]}%)`,
               }}
@@ -181,11 +180,11 @@ export default function ServicesGrid() {
               />
             </div>
           </div>
-          <div className={`w-full text-left ${tableTennis.textMaxWidth}`}>
+          <div className="w-full text-left">
             <h3 className="font-ivy-headline text-primary mt-3 text-2xl font-normal md:text-2xl">
               {tableTennis.title}
             </h3>
-            <p className="font-neue-haas text-primary/80 mt-2 max-w-full text-lg md:max-w-[240px] md:text-base">
+            <p className="font-neue-haas text-primary/80 mt-2 w-full text-lg md:text-base">
               {tableTennis.description}
             </p>
           </div>
@@ -196,7 +195,7 @@ export default function ServicesGrid() {
         >
           <div className="relative min-h-[280px] w-full flex-1 overflow-hidden md:min-h-0">
             <div
-              className="absolute inset-0 h-[130%] w-full -top-[15%] will-change-transform"
+              className="absolute inset-0 -top-[15%] h-[130%] w-full will-change-transform"
               style={{
                 transform: `translateY(${parallax.imageY[3]}%)`,
               }}
@@ -210,11 +209,11 @@ export default function ServicesGrid() {
               />
             </div>
           </div>
-          <div className={`w-full text-left ${traditionalFood.textMaxWidth}`}>
+          <div className="w-full text-left">
             <h3 className="font-ivy-headline text-primary mt-3 text-2xl font-normal md:text-2xl">
               {traditionalFood.title}
             </h3>
-            <p className="font-neue-haas text-primary/80 mt-2 max-w-full text-lg md:max-w-[240px] md:text-base">
+            <p className="font-neue-haas text-primary/80 mt-2 w-full text-lg md:text-base">
               {traditionalFood.description}
             </p>
           </div>

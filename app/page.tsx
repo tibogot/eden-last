@@ -147,9 +147,8 @@ export default async function Home() {
           </h4>
         </TextReveal>
       </section> */}
-      <section className="bg-secondary text-primary pt-8 md:pt-16">
+      {/* <section className="bg-secondary text-primary pt-8 md:pt-16">
         <div className="container px-4 md:px-8">
-          {/* First Section - EXPERIENCES label and title */}
           <div className="flex flex-col">
             <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
               THE SOUL OF EDEN
@@ -162,10 +161,9 @@ export default async function Home() {
             </AnimatedText>
           </div>
         </div>
-      </section>
-      <section className="bg-secondary text-primary py-20">
+      </section> */}
+      {/* <section className="bg-secondary text-primary py-20">
         <div className="px-4 md:px-8">
-          {/* Second Section - Paragraphs and link, aligned to the right */}
           <div className="flex flex-col gap-8 md:ml-auto md:w-1/2">
             <p className="font-neue-haas text-primary max-w-xl text-lg">
               At Eden Park & Garden, we believe in drawing people together—in a
@@ -173,24 +171,29 @@ export default async function Home() {
               philosophy is simple: create an oasis in the heart of Abuja where
               entertainment, relaxation, and connection thrive.
             </p>
-            {/* <p className="font-neue-haas text-primary max-w-xl text-lg">
-              Whether you&apos;re here for live music under the stars, a dance
-              performance, or a thrilling football match, every visit is
-              designed to leave a lasting impression. We pair authentic
-              traditional cuisine with an atmosphere that invites you to linger,
-              celebrate, and unwind.
-            </p> */}
-            {/* <p className="font-neue-haas text-primary max-w-xl text-lg">
-              Eden Park & Garden is more than a venue—it&apos;s a place where
-              memories are made and stories unfold. We invite you to experience
-              paradise in every sip and bite.
-            </p> */}
             <Link
               href="/about"
               className="font-neue-haas text-primary mt-4 text-xs tracking-wider uppercase underline transition-opacity hover:opacity-70"
             >
               LEARN OUR STORY
             </Link>
+          </div>
+        </div>
+      </section> */}
+      <section className="bg-secondary text-primary py-40">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col items-center justify-center text-center">
+            <TextReveal
+              className="max-w-3xl"
+              startColor="rgba(70, 86, 67, 0.2)"
+              endColor="rgb(70, 86, 67)"
+            >
+              <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl">
+                Of all the vibrant spaces, it is the only one that becomes even
+                more captivating as you explore, ending not with a grand finale
+                but by seamlessly blending into the natural landscape.
+              </p>
+            </TextReveal>
           </div>
         </div>
       </section>
