@@ -6,7 +6,7 @@ import HeroParallax from "@/app/components/HeroParallax";
 import StickyClipRevealText from "@/app/components/StickyClipRevealText";
 import WhyUsSection from "../components/WhyUs";
 import StickyStackScroll5 from "../components/StickyStackScroll5";
-import StickyStackScrollCSS from "../components/StickyStackScrollCSS";
+import StickyStackScrollCSS from "../components/StickyStackScrollCSS2";
 import NightLifeCardStack from "../components/NightLifeCardStack";
 import ExperiencesImageTimeline from "../components/ExperiencesImageTimeline";
 import AnimatedText from "../components/AnimatedText3";
