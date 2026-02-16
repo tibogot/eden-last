@@ -31,10 +31,9 @@ export default function Footer() {
         }
         .footer-link-active {
           opacity: 0.3;
-          cursor: default;
         }
         .footer-link-active:hover {
-          opacity: 0.3;
+          opacity: 1;
         }
       `}</style>
       {/* Top row: Logo + slogan left, Address | Contact | Links right */}
@@ -116,39 +115,61 @@ export default function Footer() {
                 </TransitionLink>
               )}
             </div>
-            {[
-              { href: "/about", label: "About" },
-              { href: "/restaurant", label: "Restaurant" },
-              { href: "/experiences", label: "Experiences" },
-              { href: "/events", label: "Events" },
-              { href: "/contact", label: "Contact" },
-            ].map(({ href, label }) => {
-              const isActive = href === "/events"
-                ? isEventsActive
-                : pathname === href;
-              return (
-                <div
-                  key={href}
-                  className={`footer-link ${isActive ? "footer-link-active" : ""}`}
-                >
-                  {isActive ? (
-                    <span
-                      className="text-secondary text-base"
-                      aria-current="page"
-                    >
-                      {label}
-                    </span>
-                  ) : (
-                    <TransitionLink
-                      href={href}
-                      className="text-secondary text-base transition-colors hover:opacity-80"
-                    >
-                      {label}
-                    </TransitionLink>
-                  )}
-                </div>
-              );
-            })}
+            <div
+              className={`footer-link ${pathname === "/about" ? "footer-link-active" : ""}`}
+            >
+              <TransitionLink
+                href="/about"
+                className="text-secondary text-base transition-colors hover:opacity-80"
+                aria-current={pathname === "/about" ? "page" : undefined}
+              >
+                About
+              </TransitionLink>
+            </div>
+            <div
+              className={`footer-link ${pathname === "/restaurant" ? "footer-link-active" : ""}`}
+            >
+              <TransitionLink
+                href="/restaurant"
+                className="text-secondary text-base transition-colors hover:opacity-80"
+                aria-current={pathname === "/restaurant" ? "page" : undefined}
+              >
+                Restaurant
+              </TransitionLink>
+            </div>
+            <div
+              className={`footer-link ${pathname === "/experiences" ? "footer-link-active" : ""}`}
+            >
+              <TransitionLink
+                href="/experiences"
+                className="text-secondary text-base transition-colors hover:opacity-80"
+                aria-current={pathname === "/experiences" ? "page" : undefined}
+              >
+                Experiences
+              </TransitionLink>
+            </div>
+            <div
+              className={`footer-link ${isEventsActive ? "footer-link-active" : ""}`}
+            >
+              <TransitionLink
+                href="/events"
+                className="text-secondary text-base transition-colors hover:opacity-80"
+                aria-current={isEventsActive ? "page" : undefined}
+              >
+                Events
+              </TransitionLink>
+            </div>
+            <div
+              className={`footer-link ${pathname === "/contact" ? "footer-link-active" : ""}`}
+            >
+              <TransitionLink
+                href="/contact"
+                className="text-secondary text-base transition-colors hover:opacity-80"
+                aria-current={pathname === "/contact" ? "page" : undefined}
+              >
+                Contact
+              </TransitionLink>
+            </div>
           </div>
           <div>
             <p className="text-secondary mb-4 text-base font-medium tracking-wider uppercase">

@@ -82,7 +82,7 @@ export default function PushOverNav() {
           }
 
           menuCols.forEach((container) => {
-            const textElements = container.querySelectorAll("a, p, span");
+            const textElements = container.querySelectorAll("a, p");
 
             textElements.forEach((element) => {
               if (!(element instanceof HTMLElement)) return;
@@ -1073,10 +1073,9 @@ export default function PushOverNav() {
         }
         .menu-link-active {
           opacity: 0.3;
-          cursor: default;
         }
         .menu-link-active:hover {
-          opacity: 0.3;
+          opacity: 1;
         }
       `}</style>
       <nav className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
@@ -1272,41 +1271,72 @@ export default function PushOverNav() {
               <div className="absolute top-1/2 left-4 flex w-full -translate-y-1/2 transform flex-col items-start gap-12 py-8 md:left-8 md:w-3/4 md:flex-row md:items-end md:gap-8">
                 {/* Main Menu Links */}
                 <div className="menu-col text-secondary flex flex-[3] flex-col gap-2">
-                  {[
-                    { href: "/", label: "Home" },
-                    { href: "/about", label: "About" },
-                    { href: "/restaurant", label: "Restaurant" },
-                    { href: "/experiences", label: "Experiences" },
-                    { href: "/events", label: "Events" },
-                    { href: "/contact", label: "Contact" },
-                  ].map(({ href, label }) => {
-                    const isActive = href === "/events"
-                      ? pathname === "/events" || pathname.startsWith("/events/")
-                      : pathname === href;
-                    return (
-                      <div
-                        key={href}
-                        className={`menu-link ${isActive ? "menu-link-active" : ""}`}
-                      >
-                        {isActive ? (
-                          <span
-                            className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
-                            aria-current="page"
-                          >
-                            {label}
-                          </span>
-                        ) : (
-                          <Link
-                            href={href}
-                            onClick={(e) => handleLinkClick(e, href)}
-                            className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
-                          >
-                            {label}
-                          </Link>
-                        )}
-                      </div>
-                    );
-                  })}
+                  <div
+                    className={`menu-link ${pathname === "/" ? "menu-link-active" : ""}`}
+                  >
+                    <Link
+                      href="/"
+                      onClick={(e) => handleLinkClick(e, "/")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
+                    >
+                      Home
+                    </Link>
+                  </div>
+                  <div
+                    className={`menu-link ${pathname === "/about" ? "menu-link-active" : ""}`}
+                  >
+                    <Link
+                      href="/about"
+                      onClick={(e) => handleLinkClick(e, "/about")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
+                    >
+                      About
+                    </Link>
+                  </div>
+                  <div
+                    className={`menu-link ${pathname === "/restaurant" ? "menu-link-active" : ""}`}
+                  >
+                    <Link
+                      href="/restaurant"
+                      onClick={(e) => handleLinkClick(e, "/restaurant")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
+                    >
+                      Restaurant
+                    </Link>
+                  </div>
+                  <div
+                    className={`menu-link ${pathname === "/experiences" ? "menu-link-active" : ""}`}
+                  >
+                    <Link
+                      href="/experiences"
+                      onClick={(e) => handleLinkClick(e, "/experiences")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
+                    >
+                      Experiences
+                    </Link>
+                  </div>
+                  <div
+                    className={`menu-link ${pathname === "/events" ? "menu-link-active" : ""}`}
+                  >
+                    <Link
+                      href="/events"
+                      onClick={(e) => handleLinkClick(e, "/events")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
+                    >
+                      Events
+                    </Link>
+                  </div>
+                  <div
+                    className={`menu-link ${pathname === "/contact" ? "menu-link-active" : ""}`}
+                  >
+                    <Link
+                      href="/contact"
+                      onClick={(e) => handleLinkClick(e, "/contact")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
+                    >
+                      Contact
+                    </Link>
+                  </div>
                 </div>
               </div>
 
