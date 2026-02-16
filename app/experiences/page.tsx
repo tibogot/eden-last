@@ -140,7 +140,7 @@ export default function Experiences() {
           Below: CSS sticky version (no GSAP)
         </p>
       </section> */}
-      {/* <StickyStackScrollCSS /> */}
+      <StickyStackScrollCSS />
 
       {/* <ScrollColorSwap className="py-32">
         <div className="container mx-auto px-4 md:px-8">

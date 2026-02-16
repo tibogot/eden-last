@@ -49,11 +49,11 @@ const cardData: CardData[] = [
 function Card({ data }: { data: CardData }) {
   return (
     <div className="card relative w-full">
-      <div className="card-inner bg-secondary text-primary border-primary/20 h-[600px] w-full overflow-hidden border-t px-4 py-4 md:h-[600px] md:px-8 md:py-6">
+      <div className="card-inner bg-secondary text-primary border-primary/20 h-[400px] w-full overflow-hidden border-t px-4 pt-4 md:h-[400px] md:px-8 md:pt-6">
         <div className="flex h-full w-full flex-col md:flex-row">
           {/* Number */}
-          <div className="flex w-full items-start md:w-1/12">
-            <span className="text-sm leading-none font-pp-neue-montreal text-primary/60">
+          <div className="flex w-full items-start mb-3 md:mb-0 md:w-1/12">
+            <span className="font-pp-neue-montreal text-primary/60 text-sm leading-none">
               {data.number}
             </span>
           </div>
@@ -61,26 +61,26 @@ function Card({ data }: { data: CardData }) {
           {/* Title + Copy */}
           <div className="flex w-full flex-col items-start md:w-5/12 md:pr-6">
             <div>
-              <h3 className="font-ivy-headline -mt-1 text-4xl leading-none text-primary">
+              <h3 className="font-ivy-headline text-primary -mt-1 text-4xl leading-none">
                 {data.title}
               </h3>
 
               <div className="mt-12" />
 
-              <p className="font-pp-neue-montreal max-w-lg text-lg leading-relaxed text-primary/80">
+              <p className="font-pp-neue-montreal text-primary/80 max-w-lg text-lg leading-relaxed">
                 {data.description}
               </p>
             </div>
           </div>
 
-          {/* Desktop Image */}
-          <div className="relative hidden h-full w-full overflow-hidden rounded-sm md:flex md:w-1/2">
+          {/* Image */}
+          <div className="relative h-48 w-full overflow-hidden rounded-sm md:h-full md:w-1/2">
             <Image
               src={data.image}
               alt={data.imageAlt}
               fill
               className="object-cover"
-              sizes="50vw"
+              sizes="(max-width: 768px) 100vw, 50vw"
               priority={data.number === "01"}
             />
           </div>
@@ -92,95 +92,42 @@ function Card({ data }: { data: CardData }) {
 
 export default function StickyStackScrollCSS() {
   return (
-    <div className="overflow-x-clip bg-secondary">
-      {/* Mobile: intro + cards list */}
-      <section className="bg-secondary text-primary intro mx-auto px-4 py-20 text-center md:hidden md:px-8 md:py-30">
+    <div className="bg-secondary overflow-x-clip">
+      {/* Intro */}
+      <section className="bg-secondary text-primary intro mx-auto px-4 py-20 text-center md:px-8 md:py-30">
         <AnimatedText delay={0.0} stagger={0.3}>
           <h2 className="font-ivy-headline mx-auto mb-6 max-w-4xl text-4xl md:text-5xl lg:text-6xl">
             From guided experiences to immersive moments
           </h2>
-          <p className="font-pp-neue-montreal mx-auto max-w-2xl text-lg text-primary/80">
+          <p className="font-pp-neue-montreal text-primary/80 mx-auto max-w-2xl text-lg">
             Discover what Eden Park & Garden has to offer. Live music, garden
             dining, events, and night life—all in one vibrant oasis in Abuja.
           </p>
         </AnimatedText>
       </section>
 
-      <section className="text-primary block w-full bg-secondary py-8 md:hidden">
-        <div className="space-y-8 px-4">
-          {cardData.map((data) => (
+      {/* Sticky stacking cards — mobile & desktop */}
+      <section className="relative">
+        {cardData.map((data, index) => {
+          const isLast = index === cardData.length - 1;
+          return (
             <div
               key={data.number}
-              className="bg-secondary border-primary/20 overflow-hidden border-t py-6"
+              className={
+                isLast
+                  ? "relative w-full"
+                  : "sticky top-[10vh] w-full md:top-[20vh]"
+              }
+              style={{
+                zIndex: index + 1,
+                marginTop: index === 0 ? 0 : "10vh",
+              }}
             >
-              <span className="text-sm leading-none font-pp-neue-montreal text-primary/60">
-                {data.number}
-              </span>
-              <h3 className="font-ivy-headline mt-4 text-4xl leading-none text-primary">
-                {data.title}
-              </h3>
-              <div className="mt-8" />
-              <p className="font-pp-neue-montreal text-lg leading-relaxed text-primary/80">
-                {data.description}
-              </p>
-              <div className="mt-8">
-                <div className="relative h-[400px] w-full overflow-hidden rounded-sm">
-                  <Image
-                    src={data.image}
-                    alt={data.imageAlt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-              </div>
+              <Card data={data} />
             </div>
-          ))}
-        </div>
+          );
+        })}
       </section>
-
-      {/* Desktop: native-scroll viewport so CSS sticky works with Lenis (data-lenis-prevent).
-          Content scrolls inside this box; intro and cards use position:sticky. */}
-      <div
-        className="relative hidden h-screen overflow-y-auto overflow-x-hidden bg-secondary md:block"
-        data-lenis-prevent
-      >
-        <section className="relative min-h-full">
-          <div className="sticky top-0 z-0 bg-secondary text-primary intro mx-auto px-4 py-20 text-center md:px-8 md:py-30">
-            <AnimatedText delay={0.0} stagger={0.3}>
-              <h2 className="font-ivy-headline mx-auto mb-6 max-w-4xl text-4xl md:text-5xl lg:text-6xl">
-                From guided experiences to immersive moments
-              </h2>
-              <p className="font-pp-neue-montreal mx-auto max-w-2xl text-lg text-primary/80">
-                Discover what Eden Park & Garden has to offer. Live music, garden
-                dining, events, and night life—all in one vibrant oasis in Abuja.
-              </p>
-            </AnimatedText>
-          </div>
-
-          {cardData.map((data, index) => {
-            const isLast = index === cardData.length - 1;
-            if (isLast) {
-              return (
-                <div key={data.number} className="relative z-10">
-                  <Card data={data} />
-                </div>
-              );
-            }
-            return (
-              <div
-                key={data.number}
-                className="relative z-10"
-                style={{ height: "100vh" }}
-              >
-                <div className="sticky top-[20vh] w-full">
-                  <Card data={data} />
-                </div>
-              </div>
-            );
-          })}
-        </section>
-      </div>
     </div>
   );
 }

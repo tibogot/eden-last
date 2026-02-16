@@ -96,7 +96,7 @@ export default async function Home() {
             <p className="mx-auto max-w-lg text-base text-white">
               Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
               blend of entertainment and relaxation. From live music and dance
-              shows to thrilling football matches, there.
+              shows to thrilling football matches, there&apos;s something for everyone.
             </p>
           </div>
         </div>
@@ -191,9 +191,8 @@ export default async function Home() {
                 Come experience the magic of Eden Garden for yourself
               </h2>
               <p className="mx-auto mb-10 max-w-xl text-center text-lg">
-                Eden Park & Garden is a vibrant oasis in Abuja, offering a
-                unique blend of entertainment and relaxation. From live music
-                and dance shows to thrilling football matches, there.{" "}
+                Find us in the heart of Abuja—drop in for a meal, catch a live
+                show, or simply unwind in the garden. Your table is waiting.
               </p>
             </AnimatedText>
           </div>
