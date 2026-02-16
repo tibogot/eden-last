@@ -82,7 +82,7 @@ export default function PushOverNav() {
           }
 
           menuCols.forEach((container) => {
-            const textElements = container.querySelectorAll("a, p");
+            const textElements = container.querySelectorAll("a, p, span");
 
             textElements.forEach((element) => {
               if (!(element instanceof HTMLElement)) return;
