@@ -17,7 +17,8 @@ export default function Footer() {
     }
   };
 
-  const isEventsActive = pathname === "/events" || pathname.startsWith("/events/");
+  const isEventsActive =
+    pathname === "/events" || pathname.startsWith("/events/");
 
   return (
     <footer className="bg-primary relative flex min-h-[50vh] w-full flex-col px-4 pt-8 md:min-h-[55vh] md:px-8">
@@ -47,7 +48,7 @@ export default function Footer() {
               aria-label="Scroll to top"
             >
               <div
-                className="relative h-12 w-36 bg-secondary md:h-14 md:w-40"
+                className="bg-secondary relative h-12 w-36 md:h-14 md:w-40"
                 style={{
                   maskImage: "url('/images/logo3.svg')",
                   maskSize: "contain",
@@ -61,9 +62,13 @@ export default function Footer() {
               />
             </button>
           ) : (
-            <TransitionLink href="/" className="inline-block" aria-label="Eden Park & Garden - Home">
+            <TransitionLink
+              href="/"
+              className="inline-block"
+              aria-label="Eden Park & Garden - Home"
+            >
               <div
-                className="relative h-12 w-36 bg-secondary md:h-14 md:w-40"
+                className="bg-secondary relative h-12 w-36 md:h-14 md:w-40"
                 style={{
                   maskImage: "url('/images/logo3.svg')",
                   maskSize: "contain",
@@ -89,7 +94,9 @@ export default function Footer() {
             <p className="text-secondary mb-4 text-base font-medium tracking-wider uppercase">
               LINKS
             </p>
-            <div className={`footer-link ${pathname === "/" ? "footer-link-active" : ""}`}>
+            <div
+              className={`footer-link ${pathname === "/" ? "footer-link-active" : ""}`}
+            >
               {pathname === "/" ? (
                 <button
                   type="button"
@@ -108,7 +115,9 @@ export default function Footer() {
                 </TransitionLink>
               )}
             </div>
-            <div className={`footer-link ${pathname === "/about" ? "footer-link-active" : ""}`}>
+            <div
+              className={`footer-link ${pathname === "/about" ? "footer-link-active" : ""}`}
+            >
               <TransitionLink
                 href="/about"
                 className="text-secondary text-base transition-colors hover:opacity-80"
@@ -117,7 +126,9 @@ export default function Footer() {
                 About
               </TransitionLink>
             </div>
-            <div className={`footer-link ${pathname === "/restaurant" ? "footer-link-active" : ""}`}>
+            <div
+              className={`footer-link ${pathname === "/restaurant" ? "footer-link-active" : ""}`}
+            >
               <TransitionLink
                 href="/restaurant"
                 className="text-secondary text-base transition-colors hover:opacity-80"
@@ -126,7 +137,9 @@ export default function Footer() {
                 Restaurant
               </TransitionLink>
             </div>
-            <div className={`footer-link ${pathname === "/experiences" ? "footer-link-active" : ""}`}>
+            <div
+              className={`footer-link ${pathname === "/experiences" ? "footer-link-active" : ""}`}
+            >
               <TransitionLink
                 href="/experiences"
                 className="text-secondary text-base transition-colors hover:opacity-80"
@@ -135,7 +148,9 @@ export default function Footer() {
                 Experiences
               </TransitionLink>
             </div>
-            <div className={`footer-link ${isEventsActive ? "footer-link-active" : ""}`}>
+            <div
+              className={`footer-link ${isEventsActive ? "footer-link-active" : ""}`}
+            >
               <TransitionLink
                 href="/events"
                 className="text-secondary text-base transition-colors hover:opacity-80"
@@ -144,7 +159,9 @@ export default function Footer() {
                 Events
               </TransitionLink>
             </div>
-            <div className={`footer-link ${pathname === "/contact" ? "footer-link-active" : ""}`}>
+            <div
+              className={`footer-link ${pathname === "/contact" ? "footer-link-active" : ""}`}
+            >
               <TransitionLink
                 href="/contact"
                 className="text-secondary text-base transition-colors hover:opacity-80"
@@ -199,15 +216,24 @@ export default function Footer() {
             © 2025 Eden Garden Abuja. All rights reserved.
           </p>
           <div className="flex gap-3 text-[10px] opacity-50">
-            <TransitionLink href="/test" className="text-secondary transition-opacity hover:opacity-100">
+            <TransitionLink
+              href="/test"
+              className="text-secondary transition-opacity hover:opacity-100"
+            >
               test
             </TransitionLink>
             <span className="text-secondary/70">·</span>
-            <TransitionLink href="/test2" className="text-secondary transition-opacity hover:opacity-100">
+            <TransitionLink
+              href="/test2"
+              className="text-secondary transition-opacity hover:opacity-100"
+            >
               test2
             </TransitionLink>
             <span className="text-secondary/70">·</span>
-            <TransitionLink href="/test3" className="text-secondary transition-opacity hover:opacity-100">
+            <TransitionLink
+              href="/test3"
+              className="text-secondary transition-opacity hover:opacity-100"
+            >
               test3
             </TransitionLink>
           </div>
