@@ -6,11 +6,11 @@ import { Link as TransitionLink } from "next-view-transitions";
 import Image from "next/image";
 import { useLenis } from "lenis/react";
 import { useRouter, usePathname } from "next/navigation";
-import { gsap, SplitText, useGSAP, CustomEase } from "../lib/gsapConfig";
+import { gsap, SplitText, useGSAP } from "../lib/gsapConfig";
 
-// Custom ease "hop" - cubic-bezier(0.87, 0, 0.13, 1) for overlay slide and menu animations
-CustomEase.create("hop", ".87, 0, .13, 1");
-const customEase = "hop";
+// Custom ease - using expo.out for snappier, more dynamic animation
+// If this doesn't match the original, import the old project to compare
+const customEase = "expo.out"; // Try: "expo.out", "power3.out", "power4.out", or keep original: "cubic-bezier(0.87, 0, 0.13, 1)"
 
 // Pages that have a hero image at the top (navbar should start white)
 const pagesWithHero = ["/", "/about", "/restaurant", "/experiences"];
@@ -61,45 +61,50 @@ export default function PushOverNav() {
   // Track if menu is closing due to navigation (to prevent premature scroll unblock)
   const isNavigatingRef = useRef(false);
 
-  // SplitText when pathname is set (so lines exist before open); skip when menu is open so links don't disappear on link click
+  // Initialize SplitText once on mount using best practices
+  // Using scoped useGSAP with proper cleanup
   useGSAP(
     () => {
-      if (isMenuOpen) return;
-
-      splitTextInstancesRef.current.forEach((split) => {
-        try {
-          split.revert();
-        } catch {
-          // ignore
-        }
-      });
-      splitTextInstancesRef.current = [];
-
+      // Use requestAnimationFrame for better timing (best practice)
       const initRAF = requestAnimationFrame(() => {
+        // Double RAF to ensure DOM is fully rendered
         requestAnimationFrame(() => {
           if (!menuOverlayRef.current) return;
 
           const menuCols =
             menuOverlayRef.current.querySelectorAll<HTMLElement>(".menu-col");
 
-          if (menuCols.length === 0) return;
+          if (menuCols.length === 0) {
+            console.warn(
+              "Menu columns not found during SplitText initialization",
+            );
+            return;
+          }
 
           menuCols.forEach((container) => {
             const textElements = container.querySelectorAll("a, p");
 
             textElements.forEach((element) => {
               if (!(element instanceof HTMLElement)) return;
+
+              // Skip if already split to avoid duplicates
               if (element.querySelector(".line")) return;
 
               try {
+                // Use latest SplitText best practices
                 const split = SplitText.create(element, {
                   type: "lines",
-                  mask: "lines",
+                  mask: "lines", // v3.13.0+ adds overflow: clip wrapper for reveal effects
                   linesClass: "line",
+                  // autoSplit: true, // Optional: enables responsive re-splitting on resize
+                  // reduceWhiteSpace: true, // Optional: removes extra whitespace
                 });
 
                 if (split && split.lines && split.lines.length > 0) {
                   splitTextInstancesRef.current.push(split);
+
+                  // Immediately hide the lines using GSAP (best practice)
+                  // Using yPercent for better performance in some cases, but y works fine too
                   gsap.set(split.lines, { y: "-110%" });
                 }
               } catch (error) {
@@ -110,11 +115,13 @@ export default function PushOverNav() {
         });
       });
 
+      // Cleanup function (best practice with useGSAP)
       return () => {
         cancelAnimationFrame(initRAF);
+        // SplitText instances will be cleaned up in the separate cleanup useGSAP
       };
     },
-    { scope: menuOverlayRef, dependencies: [pathname] },
+    { scope: menuOverlayRef, dependencies: [] },
   );
 
   // Set initial state for overlay container
@@ -1068,7 +1075,7 @@ export default function PushOverNav() {
           opacity: 0.3;
         }
         .menu-link-active:hover {
-          opacity: 0.3;
+          opacity: 1;
         }
       `}</style>
       <nav className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
@@ -1262,18 +1269,15 @@ export default function PushOverNav() {
             {/* Content Wrapper - Now on the left */}
             <div className="relative flex w-full flex-[3] flex-col">
               <div className="absolute top-1/2 left-4 flex w-full -translate-y-1/2 transform flex-col items-start gap-12 py-8 md:left-8 md:w-3/4 md:flex-row md:items-end md:gap-8">
-                {/* Main Menu Links - current page is still <a> but non-clickable (preventDefault) so SplitText animates all the same */}
+                {/* Main Menu Links */}
                 <div className="menu-col text-secondary flex flex-[3] flex-col gap-2">
                   <div
                     className={`menu-link ${pathname === "/" ? "menu-link-active" : ""}`}
                   >
                     <Link
                       href="/"
-                      onClick={(e) =>
-                        pathname === "/" ? e.preventDefault() : handleLinkClick(e, "/")
-                      }
-                      className={`font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl ${pathname === "/" ? "cursor-default" : ""}`}
-                      aria-current={pathname === "/" ? "page" : undefined}
+                      onClick={(e) => handleLinkClick(e, "/")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Home
                     </Link>
@@ -1283,13 +1287,8 @@ export default function PushOverNav() {
                   >
                     <Link
                       href="/about"
-                      onClick={(e) =>
-                        pathname === "/about"
-                          ? e.preventDefault()
-                          : handleLinkClick(e, "/about")
-                      }
-                      className={`font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl ${pathname === "/about" ? "cursor-default" : ""}`}
-                      aria-current={pathname === "/about" ? "page" : undefined}
+                      onClick={(e) => handleLinkClick(e, "/about")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       About
                     </Link>
@@ -1299,13 +1298,8 @@ export default function PushOverNav() {
                   >
                     <Link
                       href="/restaurant"
-                      onClick={(e) =>
-                        pathname === "/restaurant"
-                          ? e.preventDefault()
-                          : handleLinkClick(e, "/restaurant")
-                      }
-                      className={`font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl ${pathname === "/restaurant" ? "cursor-default" : ""}`}
-                      aria-current={pathname === "/restaurant" ? "page" : undefined}
+                      onClick={(e) => handleLinkClick(e, "/restaurant")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Restaurant
                     </Link>
@@ -1315,13 +1309,8 @@ export default function PushOverNav() {
                   >
                     <Link
                       href="/experiences"
-                      onClick={(e) =>
-                        pathname === "/experiences"
-                          ? e.preventDefault()
-                          : handleLinkClick(e, "/experiences")
-                      }
-                      className={`font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl ${pathname === "/experiences" ? "cursor-default" : ""}`}
-                      aria-current={pathname === "/experiences" ? "page" : undefined}
+                      onClick={(e) => handleLinkClick(e, "/experiences")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Experiences
                     </Link>
@@ -1331,13 +1320,8 @@ export default function PushOverNav() {
                   >
                     <Link
                       href="/events"
-                      onClick={(e) =>
-                        pathname === "/events"
-                          ? e.preventDefault()
-                          : handleLinkClick(e, "/events")
-                      }
-                      className={`font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl ${pathname === "/events" ? "cursor-default" : ""}`}
-                      aria-current={pathname === "/events" ? "page" : undefined}
+                      onClick={(e) => handleLinkClick(e, "/events")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Events
                     </Link>
@@ -1347,13 +1331,8 @@ export default function PushOverNav() {
                   >
                     <Link
                       href="/contact"
-                      onClick={(e) =>
-                        pathname === "/contact"
-                          ? e.preventDefault()
-                          : handleLinkClick(e, "/contact")
-                      }
-                      className={`font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl ${pathname === "/contact" ? "cursor-default" : ""}`}
-                      aria-current={pathname === "/contact" ? "page" : undefined}
+                      onClick={(e) => handleLinkClick(e, "/contact")}
+                      className="font-ivy-headline text-secondary block text-5xl leading-tight font-medium md:text-7xl"
                     >
                       Contact
                     </Link>
