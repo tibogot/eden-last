@@ -194,9 +194,24 @@ export default function Footer() {
 
       {/* Bottom Section - pushed to bottom */}
       <div className="border-secondary/20 text-secondary mt-4 flex flex-col items-start justify-between gap-4 border-t pt-4 pb-5 md:flex-row md:items-center">
-        <p className="text-sm">
-          © 2025 Eden Garden Abuja. All rights reserved.
-        </p>
+        <div className="flex flex-col gap-1">
+          <p className="text-sm">
+            © 2025 Eden Garden Abuja. All rights reserved.
+          </p>
+          <div className="flex gap-3 text-[10px] opacity-50">
+            <TransitionLink href="/test" className="text-secondary transition-opacity hover:opacity-100">
+              test
+            </TransitionLink>
+            <span className="text-secondary/70">·</span>
+            <TransitionLink href="/test2" className="text-secondary transition-opacity hover:opacity-100">
+              test2
+            </TransitionLink>
+            <span className="text-secondary/70">·</span>
+            <TransitionLink href="/test3" className="text-secondary transition-opacity hover:opacity-100">
+              test3
+            </TransitionLink>
+          </div>
+        </div>
         <div className="flex gap-8 text-sm">
           <Link
             href="/privacy"
