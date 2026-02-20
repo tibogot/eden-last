@@ -18,6 +18,8 @@ import StickyClipRevealText from "./components/StickyClipRevealText";
 import HubsSection from "./components/HubsSection";
 import WhyUsSection from "./components/WhyUs";
 import AnimatedText from "./components/AnimatedText3";
+import HomeServicesGrid from "./components/HomeServicesGrid";
+import HomeOverlappingCardSwiper from "./components/HomeOverlappingCardSwiper";
 
 interface SanityImageAsset {
   _ref?: string;
@@ -96,7 +98,8 @@ export default async function Home() {
             <p className="mx-auto max-w-lg text-base text-white">
               Eden Park & Garden is a vibrant oasis in Abuja, offering a unique
               blend of entertainment and relaxation. From live music and dance
-              shows to thrilling football matches, there&apos;s something for everyone.
+              shows to thrilling football matches, there&apos;s something for
+              everyone.
             </p>
           </div>
         </div>
@@ -215,7 +218,8 @@ export default async function Home() {
           </div>
         </div>
       </section> */}
-      <ServicesGrid />
+      {/* <ServicesGrid /> */}
+      <HomeServicesGrid />
       <section className="sticky top-0 z-0 h-screen w-full overflow-hidden">
         <div className="relative h-full w-full">
           <Image
@@ -228,7 +232,8 @@ export default async function Home() {
         </div>
       </section>
       <div className="bg-secondary relative z-10">
-        <HubsSection />
+        {/* <HubsSection /> */}
+        <HomeOverlappingCardSwiper />
 
         {/* <ExpandingImageReveal
         imageSrc="/images/hero-2.jpg"

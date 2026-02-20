@@ -9,6 +9,8 @@ import ExperiencesImageTimeline from "@/app/components/ExperiencesImageTimeline"
 import HubsSectionInverted from "@/app/components/HubsSectionInverted";
 import StickyClipRevealText from "@/app/components/StickyClipRevealText";
 import ParallaxHeroImage from "../components/ParallaxHeroImage";
+import ParallaxImage from "../components/ParallaxImage";
+import ScrollCoupledTicker from "../components/ScrollCoupledTicker";
 
 export default function About() {
   return (
@@ -37,10 +39,12 @@ export default function About() {
             <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
               PHILOSOPHY
             </span>
-            <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl leading-tight md:text-5xl">
-              Where people gather, moments become memories, and the ordinary
-              turns extraordinary.
-            </h2>
+            <AnimatedText>
+              <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl leading-tight md:text-5xl">
+                Where people gather, moments become memories, and the ordinary
+                turns extraordinary.
+              </h2>
+            </AnimatedText>
           </div>
         </div>
       </section>
@@ -145,7 +149,7 @@ export default function About() {
         </TextReveal>
       </section> */}
 
-      <section className="bg-secondary text-primary py-20">
+      {/* <section className="bg-secondary text-primary py-20">
         <div className="px-4 md:px-8">
           <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
             <div className="relative h-[800px] w-full md:w-1/2">
@@ -176,7 +180,7 @@ export default function About() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="bg-secondary text-primary py-20">
         <div className="px-4 md:px-8">
@@ -209,6 +213,23 @@ export default function About() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="bg-secondary text-primary flex justify-center py-12 md:py-32">
+        <ParallaxImage
+          className="mx-auto aspect-6/5 w-[min(600px,90vw)] overflow-hidden rounded-sm"
+          speed={0.6}
+        >
+          <div className="relative h-full w-full">
+            <Image
+              src="/images/ani-augustine.jpg"
+              alt="Eden Garden atmosphere"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 90vw, 600px"
+            />
+          </div>
+        </ParallaxImage>
       </section>
 
       <ExperiencesImageTimeline
@@ -222,7 +243,9 @@ export default function About() {
         ]}
       />
 
-      <HubsSectionInverted />
+      <ScrollCoupledTicker />
+
+      {/* <HubsSectionInverted /> */}
 
       {/* <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">
