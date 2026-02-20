@@ -1,6 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import Link from "next/link";
+import { useRef, useEffect, useCallback, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { gsap, Draggable } from "@/app/lib/gsapConfig";
 
 const TAP_THRESHOLD = 12;
@@ -8,23 +10,22 @@ const GAP_VW = 0.02;
 const FLING_ROTATE = 15;
 const FLING_SCALE = 0.4;
 const VW_OFFSET = 0.1;
-const CARD_WIDTH_VW = 0.22;
-const CARD_HEIGHT_VW = 0.32;
+const CARD_WIDTH_VW = 0.28;
+const CARD_HEIGHT_VW = 0.38;
 const SLIDE_COUNT = 5;
 
-const BACKGROUND_COLORS = [
-  "#FFFF00",
-  "#55DB9C",
-  "#E9CCFF",
-  "#FB4903",
-  "#4DA2FF",
+const CARD_IMAGES = [
+  "/images/susie.jpg",
+  "/images/connor.jpg",
+  "/images/keesha.jpg",
+  "/images/solo-seafood.jpg",
+  "/images/shourav-sheikh.jpg",
 ];
 
 function applyFlingToSlides(
   track: HTMLElement,
   currentX: number,
   slideCount: number,
-  backgroundColorMap: string[],
 ) {
   const slides = [...track.children] as HTMLElement[];
   const vwOffset =
@@ -33,7 +34,6 @@ function applyFlingToSlides(
   slides.forEach((slide, i) => {
     const slideWidth = slide.offsetWidth;
     const slideLeft = slide.offsetLeft + currentX;
-    const bgColor = backgroundColorMap[i] ?? "var(--color-primary)";
     const isLast = i === slideCount - 1;
 
     if (slideLeft < 0 && !isLast) {
@@ -44,14 +44,12 @@ function applyFlingToSlides(
         rotation: -FLING_ROTATE * ratio,
         scale: 1 - FLING_SCALE * ratio,
         zIndex: i + 1,
-        backgroundColor: bgColor,
       });
     } else {
       gsap.set(slide, {
         clearProps: "transformOrigin,rotation,scale",
         x: 0,
         zIndex: i + 1,
-        backgroundColor: bgColor,
       });
     }
   });
@@ -61,12 +59,35 @@ export default function HomeOverlappingCardSwiper() {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const draggableRef = useRef<Draggable | null>(null);
+  const boundsRef = useRef<{ maxScroll: number; step: number }>({
+    maxScroll: 0,
+    step: 0,
+  });
+  const [trackState, setTrackState] = useState({
+    trackX: 0,
+    maxScroll: 0,
+  });
+
+  const syncTrackState = useCallback(() => {
+    const track = trackRef.current;
+    const draggable = draggableRef.current;
+    const { maxScroll } = boundsRef.current;
+    const x =
+      track && draggable
+        ? ((draggable.x ?? gsap.getProperty(track, "x")) as number)
+        : 0;
+    setTrackState((prev) =>
+      prev.trackX === x && prev.maxScroll === maxScroll
+        ? prev
+        : { trackX: x, maxScroll },
+    );
+  }, []);
 
   const updateFling = useCallback(() => {
     const track = trackRef.current;
     if (!track) return;
-    const x = (draggableRef.current?.x ?? 0) as number;
-    applyFlingToSlides(track, x, SLIDE_COUNT, BACKGROUND_COLORS);
+    const x = (gsap.getProperty(track, "x") as number) ?? 0;
+    applyFlingToSlides(track, x, SLIDE_COUNT);
   }, []);
 
   useEffect(() => {
@@ -81,7 +102,11 @@ export default function HomeOverlappingCardSwiper() {
     const cardWidth = window.innerWidth * CARD_WIDTH_VW;
     const totalWidth = SLIDE_COUNT * cardWidth + (SLIDE_COUNT - 1) * gap;
     const viewportWidth = viewport.offsetWidth;
-    const maxScroll = Math.min(0, viewportWidth - totalWidth);
+    // End position: last card's left edge at viewport left (no scroll past that)
+    const lastCardAtLeft = -(SLIDE_COUNT - 1) * (cardWidth + gap);
+    const maxScroll = Math.min(0, viewportWidth - totalWidth, lastCardAtLeft);
+    const step = cardWidth + gap;
+    boundsRef.current = { maxScroll, step };
 
     gsap.set(track, { x: 0, force3D: true });
 
@@ -98,10 +123,13 @@ export default function HomeOverlappingCardSwiper() {
       onThrowUpdate() {
         updateFling();
       },
+      onDragEnd: syncTrackState,
+      onThrowComplete: syncTrackState,
     })[0];
 
     draggableRef.current = draggableInstance;
     updateFling();
+    setTrackState({ trackX: 0, maxScroll });
 
     const handleResize = () => {
       const newGap = window.innerWidth * GAP_VW;
@@ -109,7 +137,16 @@ export default function HomeOverlappingCardSwiper() {
       const newTotalWidth =
         SLIDE_COUNT * newCardWidth + (SLIDE_COUNT - 1) * newGap;
       const newViewportWidth = viewport.offsetWidth;
-      const newMaxScroll = Math.min(0, newViewportWidth - newTotalWidth);
+      const newLastCardAtLeft = -(SLIDE_COUNT - 1) * (newCardWidth + newGap);
+      const newMaxScroll = Math.min(
+        0,
+        newViewportWidth - newTotalWidth,
+        newLastCardAtLeft,
+      );
+      boundsRef.current = {
+        maxScroll: newMaxScroll,
+        step: newCardWidth + newGap,
+      };
       draggableInstance.applyBounds({
         minX: newMaxScroll,
         maxX: 0,
@@ -121,6 +158,11 @@ export default function HomeOverlappingCardSwiper() {
       gsap.set(track, { x: clampedX });
       draggableInstance.update();
       updateFling();
+      setTrackState((prev) => ({
+        ...prev,
+        trackX: clampedX,
+        maxScroll: newMaxScroll,
+      }));
     };
 
     window.addEventListener("resize", handleResize);
@@ -130,131 +172,109 @@ export default function HomeOverlappingCardSwiper() {
       draggableInstance.kill();
       draggableRef.current = null;
     };
-  }, [updateFling]);
+  }, [updateFling, syncTrackState]);
+
+  const go = useCallback(
+    (direction: 1 | -1) => {
+      const track = trackRef.current;
+      const draggable = draggableRef.current;
+      const { maxScroll, step } = boundsRef.current;
+      if (!track || !draggable || step <= 0) return;
+      const currentX = (draggable.x ?? gsap.getProperty(track, "x")) as number;
+      const newX = Math.max(
+        maxScroll,
+        Math.min(0, currentX - direction * step),
+      );
+      if (newX === currentX) return;
+      gsap.to(track, {
+        x: newX,
+        duration: 0.35,
+        ease: "power2.out",
+        onUpdate: updateFling,
+        onComplete: () => {
+          draggable.update();
+          setTrackState((prev) => ({ ...prev, trackX: newX }));
+        },
+      });
+    },
+    [updateFling],
+  );
+
+  const atStart = trackState.trackX >= -1;
+  const atEnd = trackState.trackX <= trackState.maxScroll + 1;
 
   const gapVw = GAP_VW * 100;
   const widthVw = CARD_WIDTH_VW * 100;
   const heightVw = CARD_HEIGHT_VW * 100;
 
   return (
-    <section
-      className="flex w-full items-start gap-[2vw] overflow-hidden bg-secondary py-20 text-primary"
-      style={{ minHeight: "80vh" }}
-    >
-      <div className="flex w-1/2 shrink-0 flex-col items-start justify-start px-[4vw]">
-        <span className="font-neue-haas mb-4 block text-xs tracking-wider uppercase">
-          TESTIMONIALS
+    <section className="bg-secondary text-primary w-full overflow-hidden py-20">
+      <div className="px-4 md:px-8">
+        <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
+          Experiences
         </span>
-        <h2 className="font-ivy-headline max-w-lg text-4xl leading-tight md:text-5xl">
-          What our guests say about Eden Garden
-        </h2>
       </div>
-      <div
-        ref={viewportRef}
-        className="relative flex-1 cursor-grab overflow-hidden active:cursor-grabbing"
-        style={{
-          touchAction: "pan-y",
-          userSelect: "none",
-          WebkitUserSelect: "none",
-        }}
-      >
+      <div className="mt-12 flex w-full items-stretch gap-[2vw] lg:mt-30">
+        <div className="flex w-1/2 shrink-0 flex-col items-start justify-between self-stretch px-4 md:px-8">
+          <div>
+            <h2 className="font-ivy-headline max-w-lg text-4xl leading-tight md:text-5xl">
+              Discover the best of Eden Park & Garden
+            </h2>
+            <Link
+              href="/experiences"
+              className="font-neue-haas text-primary mt-6 inline-block text-xs tracking-wider uppercase underline transition-opacity hover:opacity-70"
+            >
+              View all experiences
+            </Link>
+          </div>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              disabled={atStart}
+              className="bg-primary/10 text-primary hover:bg-primary/20 focus-visible:ring-primary/50 flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center transition-opacity focus:outline-none focus-visible:ring-2 disabled:cursor-default disabled:opacity-40 disabled:hover:opacity-40"
+              aria-label="Previous testimonial"
+              aria-disabled={atStart}
+            >
+              <ChevronLeft className="h-5 w-5" strokeWidth={2} />
+            </button>
+            <button
+              type="button"
+              onClick={() => go(1)}
+              disabled={atEnd}
+              className="bg-primary/10 text-primary hover:bg-primary/20 focus-visible:ring-primary/50 flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center transition-opacity focus:outline-none focus-visible:ring-2 disabled:cursor-default disabled:opacity-40 disabled:hover:opacity-40"
+              aria-label="Next testimonial"
+              aria-disabled={atEnd}
+            >
+              <ChevronRight className="h-5 w-5" strokeWidth={2} />
+            </button>
+          </div>
+        </div>
         <div
-          ref={trackRef}
-          className="flex h-full min-h-full cursor-grab items-center will-change-transform active:cursor-grabbing"
-          style={{ gap: `${gapVw}vw` }}
+          ref={viewportRef}
+          className="relative flex-1 cursor-grab overflow-hidden active:cursor-grabbing"
+          style={{
+            touchAction: "pan-y",
+            userSelect: "none",
+            WebkitUserSelect: "none",
+          }}
         >
-          {/* Card 1 */}
           <div
-            className="pointer-events-none relative flex shrink-0 flex-col justify-between overflow-hidden p-[2vw]"
-            style={{
-              width: `${widthVw}vw`,
-              height: `${heightVw}vw`,
-              backgroundColor: BACKGROUND_COLORS[0],
-            }}
+            ref={trackRef}
+            className="flex h-full min-h-full cursor-grab items-center will-change-transform active:cursor-grabbing"
+            style={{ gap: `${gapVw}vw` }}
           >
-            <div className="text-white">
-              <p className="font-neue-haas text-base leading-tight font-medium text-black md:text-lg">
-                Success is not final, failure is not fatal: it is the courage
-                to continue that counts.
-              </p>
-              <p className="font-neue-haas text-sm font-medium text-black/60">
-                @john_doe
-              </p>
-            </div>
-          </div>
-          {/* Card 2 */}
-          <div
-            className="pointer-events-none relative flex shrink-0 flex-col justify-between overflow-hidden p-[2vw]"
-            style={{
-              width: `${widthVw}vw`,
-              height: `${heightVw}vw`,
-              backgroundColor: BACKGROUND_COLORS[1],
-            }}
-          >
-            <div className="text-white">
-              <p className="font-neue-haas text-base leading-tight font-medium text-black md:text-lg">
-                The only way to do great work is to love what you do.
-                Don&apos;t settle.
-              </p>
-              <p className="font-neue-haas text-sm font-medium text-black/60">
-                @jane_smith
-              </p>
-            </div>
-          </div>
-          {/* Card 3 */}
-          <div
-            className="pointer-events-none relative flex shrink-0 flex-col justify-between overflow-hidden p-[2vw]"
-            style={{
-              width: `${widthVw}vw`,
-              height: `${heightVw}vw`,
-              backgroundColor: BACKGROUND_COLORS[2],
-            }}
-          >
-            <div className="text-white">
-              <p className="font-neue-haas text-base leading-tight font-medium text-black md:text-lg">
-                Believe you can and you&apos;re halfway there. Push yourself.
-              </p>
-              <p className="font-neue-haas text-sm font-medium text-black/60">
-                @mike_wilson
-              </p>
-            </div>
-          </div>
-          {/* Card 4 */}
-          <div
-            className="pointer-events-none relative flex shrink-0 flex-col justify-between overflow-hidden p-[2vw]"
-            style={{
-              width: `${widthVw}vw`,
-              height: `${heightVw}vw`,
-              backgroundColor: BACKGROUND_COLORS[3],
-            }}
-          >
-            <div className="text-white">
-              <p className="font-neue-haas text-base leading-tight font-medium text-black md:text-lg">
-                The journey of a thousand miles begins with a single step.
-              </p>
-              <p className="font-neue-haas text-sm font-medium text-black/60">
-                @sarah_jones
-              </p>
-            </div>
-          </div>
-          {/* Card 5 */}
-          <div
-            className="pointer-events-none relative flex shrink-0 flex-col justify-between overflow-hidden p-[2vw]"
-            style={{
-              width: `${widthVw}vw`,
-              height: `${heightVw}vw`,
-              backgroundColor: BACKGROUND_COLORS[4],
-            }}
-          >
-            <div className="text-white">
-              <p className="font-neue-haas text-base leading-tight font-medium text-black md:text-lg">
-                Dream big, work hard, stay focused, and surround yourself with
-                good people.
-              </p>
-              <p className="font-neue-haas text-sm font-medium text-black/60">
-                @emma_davis
-              </p>
-            </div>
+            {CARD_IMAGES.map((src, i) => (
+              <div
+                key={i}
+                className="pointer-events-none relative shrink-0 overflow-hidden bg-cover bg-center"
+                style={{
+                  width: `${widthVw}vw`,
+                  height: `${heightVw}vw`,
+                  backgroundImage: `url(${src})`,
+                }}
+              />
+            ))}
           </div>
         </div>
       </div>
