@@ -236,6 +236,13 @@ export default function Footer() {
             >
               test3
             </TransitionLink>
+            <span className="text-secondary/70">·</span>
+            <TransitionLink
+              href="/test4"
+              className="text-secondary transition-opacity hover:opacity-100"
+            >
+              test4
+            </TransitionLink>
           </div>
         </div>
         <div className="flex gap-8 text-sm">

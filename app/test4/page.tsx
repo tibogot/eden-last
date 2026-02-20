@@ -3,37 +3,14 @@ import TextReveal from "@/app/components/TextReveal";
 import Image from "next/image";
 import AnimatedText from "@/app/components/AnimatedText3";
 import HorizontalScrollCards from "../components/HorizontalScrollCards2";
+import Test4Hero from "./Test4Hero";
+import StickyScaleCardsScroll from "../components/StickyScaleCardsScroll";
+import StackingCardsPin3D from "../components/StackingCardsPin3D";
 
 export default function Test4() {
   return (
     <main className="bg-secondary text-primary">
-      <section className="relative flex min-h-[150vh] w-full flex-col items-center justify-center gap-5 px-4 md:gap-6 md:px-8">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/diego.jpg"
-            alt=""
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
-        </div>
-        <div className="relative z-10 w-full max-w-4xl text-center">
-          <h1 className="font-ivy-headline mx-auto w-full text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
-            Where Every Meal Becomes a Moment
-          </h1>
-          <p className="mx-auto mt-10 max-w-lg text-center text-sm leading-relaxed text-white/90 drop-shadow-sm md:max-w-md md:text-base md:leading-relaxed">
-            Our restaurant brings together seasonal ingredients, traditional
-            recipes, and the warmth of the garden. Come for the food; stay for
-            the experience.
-          </p>
-        </div>
-        <p className="font-neue-haas absolute right-4 bottom-8 left-4 z-10 max-w-lg text-left text-sm leading-relaxed text-white/80 md:right-auto md:bottom-20 md:left-8 md:text-lg">
-          Dinner in the garden is more than a meal—it’s a chance to slow down,
-          taste the season, and share the table with people you care about. We
-          welcome you to stay as long as you like.
-        </p>
-      </section>
+      <Test4Hero />
 
       <section className="bg-secondary text-primary py-10 md:py-24">
         <div className="container mx-auto px-4 md:px-8">
@@ -197,6 +174,8 @@ export default function Test4() {
           </div>
         </div>
       </section>
+      <StickyScaleCardsScroll />
+      <StackingCardsPin3D />
     </main>
   );
 }

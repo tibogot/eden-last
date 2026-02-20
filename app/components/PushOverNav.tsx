@@ -13,7 +13,7 @@ CustomEase.create("hop", ".87, 0, .13, 1");
 const customEase = "hop";
 
 // Pages that have a hero image at the top (navbar should start white)
-const pagesWithHero = ["/", "/about", "/restaurant", "/experiences"];
+const pagesWithHero = ["/", "/about", "/restaurant", "/experiences", "/test4"];
 
 export default function PushOverNav() {
   const lenis = useLenis();
