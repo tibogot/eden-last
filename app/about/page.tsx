@@ -6,7 +6,9 @@ import HeroParallax from "@/app/components/HeroParallax";
 import TextReveal from "@/app/components/TextReveal";
 import AnimatedText from "@/app/components/AnimatedText3";
 import ExperiencesImageTimeline from "@/app/components/ExperiencesImageTimeline";
+import HubsSectionInverted from "@/app/components/HubsSectionInverted";
 import StickyClipRevealText from "@/app/components/StickyClipRevealText";
+import ParallaxHeroImage from "../components/ParallaxHeroImage";
 
 export default function About() {
   return (
@@ -30,36 +32,44 @@ export default function About() {
 
       <section className="bg-secondary text-primary pt-32">
         <div className="container px-4 md:px-8">
-          <AnimatedText>
-            <div className="flex flex-col">
-              <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
-                OUR STORY
-              </span>
-              <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl leading-tight md:text-5xl">
-                A place rooted in connection.
-              </h2>
-            </div>
-          </AnimatedText>
+          {/* First Section - PHILOSOPHY label and title */}
+          <div className="flex flex-col">
+            <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
+              PHILOSOPHY
+            </span>
+            <h2 className="font-ivy-headline text-primary max-w-2xl text-4xl leading-tight md:text-5xl">
+              Where people gather, moments become memories, and the ordinary
+              turns extraordinary.
+            </h2>
+          </div>
         </div>
       </section>
-
       <section className="bg-secondary text-primary pt-20 pb-32">
         <div className="container px-4 md:px-8">
+          {/* Second Section - Paragraphs and link, aligned to the right */}
           <div className="flex flex-col gap-8 md:ml-auto md:w-1/2">
             <p className="font-neue-haas text-primary text-lg">
               Eden Park & Garden was born from a simple belief: the best
               experiences happen when people gather. In the heart of Abuja, we
               created a space where entertainment and tranquility coexist—where
-              live music fills the air, gardens invite reflection, and every
-              corner holds the possibility of connection.
+              lush gardens meet open-air stages, and every corner holds the
+              possibility of connection.
             </p>
             <p className="font-neue-haas text-primary text-lg">
-              From our restaurant&apos;s culinary artistry to our open-air
-              stage, terrace bar, and vibrant events, we bring together the
-              rhythms of city life with the calm of nature. Whether you&apos;re
-              here for football, food, or simply the atmosphere, Eden Garden is
-              where moments become memories.
+              From live music and dance shows to thrilling football matches
+              under the stars, from traditional cuisine to contemporary dishes,
+              there&apos;s something for everyone. Whether you&apos;re here for
+              a quiet dinner, a celebration, or a night of entertainment, Eden
+              Park & Garden is designed to bring people together.
             </p>
+            <p className="font-neue-haas text-primary text-lg">
+              We believe in the power of place—in creating somewhere that feels
+              both intimate and expansive, where you can lose yourself in the
+              moment while feeling right at home. That&apos;s the philosophy
+              behind every meal we serve, every event we host, and every detail
+              we tend to.
+            </p>
+
             <Link
               href="/experiences"
               className="font-neue-haas text-primary mt-4 text-xs tracking-wider uppercase underline transition-opacity hover:opacity-70"
@@ -70,7 +80,15 @@ export default function About() {
         </div>
       </section>
 
-      <StickyClipRevealText
+      <div className="px-4 md:px-8">
+        <ParallaxHeroImage
+          src="/images/sam-hojati.jpg"
+          alt="Experiences hero"
+          className="mt-40"
+        />
+      </div>
+
+      {/* <StickyClipRevealText
         imageSrc="/images/real.jpg"
         imageAlt="Eden Garden"
         textContent={
@@ -94,20 +112,38 @@ export default function About() {
             </p>
           </>
         }
-      />
+      /> */}
 
-      <section className="py-32 md:py-80">
+      <section className="bg-secondary text-primary py-40">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col items-center justify-center text-center">
+            <TextReveal
+              className="max-w-3xl"
+              startColor="rgba(70, 86, 67, 0.2)"
+              endColor="rgb(70, 86, 67)"
+            >
+              <p className="font-ivy-headline text-primary text-3xl leading-tight md:text-4xl">
+                Of all the vibrant spaces, it is the only one that becomes even
+                more captivating as you explore, ending not with a grand finale
+                but by seamlessly blending into the natural landscape.
+              </p>
+            </TextReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* <section className="py-32 md:py-80">
         <TextReveal
           className="mx-auto w-full max-w-6xl px-4 text-center text-balance md:px-8"
           startColor="rgba(70, 86, 67, 0.2)"
           endColor="rgb(70, 86, 67)"
         >
           <h4 className="font-ivy-headline text-4xl leading-tight md:text-6xl">
-            Fragments of thought arranged in sequence become patterns. They
-            unfold step by step, shaping meaning as they move forward.
+            We didn&apos;t build a venue. We built a place where ordinary
+            moments become extraordinary.
           </h4>
         </TextReveal>
-      </section>
+      </section> */}
 
       <section className="bg-secondary text-primary py-20">
         <div className="px-4 md:px-8">
@@ -142,6 +178,39 @@ export default function About() {
         </div>
       </section>
 
+      <section className="bg-secondary text-primary py-20">
+        <div className="px-4 md:px-8">
+          <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
+            <div className="flex w-full flex-col md:w-1/2">
+              <div className="flex flex-col justify-start md:sticky md:top-24">
+                <span className="font-neue-haas text-primary mb-4 text-xs tracking-wider uppercase">
+                  THE PLACE
+                </span>
+                <h2 className="font-ivy-headline text-primary mb-6 max-w-xl text-3xl leading-tight md:text-4xl">
+                  An oasis in the heart of Abuja.
+                </h2>
+                <p className="font-neue-haas text-primary max-w-xl text-lg">
+                  Our grounds blend lush gardens with open-air venues, creating
+                  a destination that feels both intimate and expansive. From the
+                  terrace bar to the open stage, every space is designed for
+                  gathering—for sharing a meal, celebrating an evening, or
+                  simply being present.
+                </p>
+              </div>
+            </div>
+            <div className="relative h-[800px] w-full md:w-1/2">
+              <Image
+                src="/images/colin.jpg"
+                alt="Eden Garden atmosphere"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <ExperiencesImageTimeline
         title="Eden Garden at a Glance"
         body="Eden Park & Garden is a vibrant oasis in Abuja, offering a unique blend of entertainment and relaxation. From live music and dance shows to thrilling football matches, fine dining, and award-winning hospitality—there's something for everyone. Every visit unfolds as a new chapter in our story."
@@ -152,6 +221,8 @@ export default function About() {
           { src: "/images/roberto-nickson.jpg", alt: "Events" },
         ]}
       />
+
+      <HubsSectionInverted />
 
       {/* <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">

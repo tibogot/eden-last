@@ -5,6 +5,93 @@ import RestaurantHeroTitle from "@/app/components/RestaurantHeroTitle";
 import StackingCardsPin3D from "@/app/components/StackingCardsPin3D2";
 import ExperiencesImageTimeline from "../components/ExperiencesImageTimeline";
 import TextReveal from "../components/TextReveal";
+import FoodMenu from "@/app/components/FoodMenu";
+import OverlappingCardSwiper, {
+  type OverlappingSlide,
+} from "@/app/components/OverlappingCardSwiper";
+
+const FOOD_DRINK_SLIDES: OverlappingSlide[] = [
+  {
+    imageSrc: "/images/food1.jpeg",
+    imageAlt: "Jollof Rice",
+    backgroundColor: "transparent",
+    content: (
+      <>
+        <p className="font-neue-haas text-base leading-tight font-medium text-white md:text-lg">
+          Jollof Rice — Our signature blend of aromatic rice, tomato, and
+          peppers, slow-cooked to perfection.
+        </p>
+        <p className="font-neue-haas text-sm font-medium text-white/80">
+          Mains
+        </p>
+      </>
+    ),
+  },
+  {
+    imageSrc: "/images/food2.jpeg",
+    imageAlt: "Grilled Suya",
+    backgroundColor: "transparent",
+    content: (
+      <>
+        <p className="font-neue-haas text-base leading-tight font-medium text-white md:text-lg">
+          Grilled Suya — Tender beef skewers marinated in Hausa spices, served
+          with onions and pepper sauce.
+        </p>
+        <p className="font-neue-haas text-sm font-medium text-white/80">
+          Starters
+        </p>
+      </>
+    ),
+  },
+  {
+    imageSrc: "/images/food3.jpeg",
+    imageAlt: "Chapman",
+    backgroundColor: "transparent",
+    content: (
+      <>
+        <p className="font-neue-haas text-base leading-tight font-medium text-white md:text-lg">
+          Chapman — A refreshing blend of Fanta, Sprite, grenadine, and bitters,
+          a Nigerian classic.
+        </p>
+        <p className="font-neue-haas text-sm font-medium text-white/80">
+          Drinks
+        </p>
+      </>
+    ),
+  },
+  {
+    imageSrc: "/images/food4.jpeg",
+    imageAlt: "Pepper Soup",
+    backgroundColor: "transparent",
+    content: (
+      <>
+        <p className="font-neue-haas text-base leading-tight font-medium text-white md:text-lg">
+          Pepper Soup — A warming broth with goat meat, local herbs, and
+          aromatic spices.
+        </p>
+        <p className="font-neue-haas text-sm font-medium text-white/80">
+          Soups
+        </p>
+      </>
+    ),
+  },
+  {
+    imageSrc: "/images/shourav-sheikh.jpg",
+    imageAlt: "Dining at Eden Garden",
+    backgroundColor: "transparent",
+    content: (
+      <>
+        <p className="font-neue-haas text-base leading-tight font-medium text-white md:text-lg">
+          Palm Wine — Fresh, lightly fermented palm sap, served chilled in the
+          heart of the garden.
+        </p>
+        <p className="font-neue-haas text-sm font-medium text-white/80">
+          Drinks
+        </p>
+      </>
+    ),
+  },
+];
 
 export default function Restaurant() {
   return (
@@ -112,6 +199,22 @@ export default function Restaurant() {
         </div>
       </section>
       <StackingCardsPin3D />
+      <section className="bg-secondary py-20">
+        <OverlappingCardSwiper
+          slides={FOOD_DRINK_SLIDES}
+          title={
+            <>
+              <h2 className="font-ivy-headline text-primary max-w-xl text-3xl leading-tight md:text-5xl">
+                Discover the best of Eden Park & Garden
+              </h2>
+              <p className="font-neue-haas text-primary/60 mt-[2vw] w-[85%] text-base font-medium md:w-[60%] md:text-lg">
+                Explore our signature dishes, local favourites, and crafted
+                drinks from the kitchen and bar.
+              </p>
+            </>
+          }
+        />
+      </section>
       <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center justify-center text-center">
@@ -141,6 +244,7 @@ export default function Restaurant() {
           { src: "/images/iris-lavoie.jpg", alt: "Live music" },
         ]}
       />
+      <FoodMenu />
     </main>
   );
 }
