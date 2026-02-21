@@ -35,15 +35,15 @@ body {
   will-change: transform;
 }
 
-/* View Transitions - Slide Up Animation (matching PushOverNav style) */
+/* View Transitions - Slide Up Animation (matching PushOverNav "hop" ease) */
 /* Old page slides up and fades out (matching PushOverNav behavior) */
 ::view-transition-old(root) {
-  animation: slideUpAndFadeOut 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  animation: slideUpAndFadeOut 1s cubic-bezier(0.87, 0, 0.13, 1) forwards;
 }
 
 /* New page slides up from bottom */
 ::view-transition-new(root) {
-  animation: slideUpFromBottom 1s cubic-bezier(0.19, 1, 0.22, 1);
+  animation: slideUpFromBottom 1s cubic-bezier(0.87, 0, 0.13, 1);
 }
 
 @keyframes slideUpAndFadeOut {
@@ -62,10 +62,10 @@ body {
   }
 }
 
-/* Set animation duration and timing */
+/* Set animation duration and timing (hop ease - matches PushOverNav) */
 ::view-transition-group(root) {
   animation-duration: 1s;
-  animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  animation-timing-function: cubic-bezier(0.87, 0, 0.13, 1);
 }
 
 /* Respect user preferences for reduced motion */

@@ -257,7 +257,8 @@ export default async function Home() {
                   </h2>
                   <p className="font-neue-haas text-primary max-w-xl text-lg">
                     From live music and dance shows to outdoor gatherings and
-                    fine dining under the trees, Eden Garden brings together the best of Abuja in one place. Whether you come for a meal, a
+                    fine dining under the trees, Eden Garden brings together the
+                    best of Abuja in one place. Whether you come for a meal, a
                     concert, or a night out with friends—every moment becomes a
                     memory.
                   </p>
@@ -296,7 +297,39 @@ export default async function Home() {
         </section>
         <ScrollCoupledTicker />
 
-        <section className="relative mt-24 min-h-screen w-full overflow-hidden">
+        <section className="bg-secondary text-primary py-20">
+          <div className="px-4 md:px-8">
+            <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
+              <div className="flex w-full flex-col md:w-1/2">
+                <div className="flex flex-col justify-start md:sticky md:top-24">
+                  <span className="font-neue-haas text-primary mb-4 text-xs tracking-wider uppercase">
+                    THE TERRACE
+                  </span>
+                  <h2 className="font-ivy-headline text-primary mb-6 max-w-xl text-3xl leading-tight md:text-4xl">
+                    Dine outdoors, surrounded by greenery.
+                  </h2>
+                  <p className="font-neue-haas text-primary max-w-xl text-lg">
+                    The terrace is where the garden and the table meet. Book for
+                    lunch or dinner and enjoy seasonal dishes in the open
+                    air—ideal for a quiet meal for two or a gathering with
+                    friends and family.
+                  </p>
+                </div>
+              </div>
+              <div className="relative h-[800px] w-full md:w-1/2">
+                <Image
+                  src="/images/colin.jpg"
+                  alt="Eden Garden terrace dining"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* <section className="relative mt-24 min-h-screen w-full overflow-hidden">
           <Image
             src="/images/real.jpg"
             alt=""
@@ -304,7 +337,7 @@ export default async function Home() {
             className="object-cover"
             sizes="100vw"
           />
-        </section>
+        </section> */}
 
         <StickyClipRevealText
           imageSrc="/images/roberto-nickson.jpg"
@@ -382,7 +415,7 @@ export default async function Home() {
             </div>
           </div>
         </section> */}
-        {/* {blogPosts.length > 0 && (
+        {blogPosts.length > 0 && (
           <section className="bg-secondary text-primary py-12 md:py-16">
             <div className="mb-8 flex flex-col justify-between gap-4 px-4 md:mb-16 md:flex-row md:items-end md:px-8">
               <div>
@@ -408,7 +441,7 @@ export default async function Home() {
               ))}
             </ul>
           </section>
-        )} */}
+        )}
       </div>
     </main>
   );
