@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/app/lib/gsapConfig";
 
 const CARD_SPEEDS = [0.17, 0.3];
 const IMAGE_PARALLAX_RANGE = 18;
@@ -21,8 +20,6 @@ const HOME_SERVICES = [
     image: "/images/olena.jpg",
   },
 ];
-
-const REVEAL_OVERLAY_COLOR = "#465643";
 
 export default function HomeServicesGrid() {
   const [ourGarden, theExperience] = HOME_SERVICES;
@@ -74,48 +71,6 @@ export default function HomeServicesGrid() {
     return () => cancelAnimationFrame(rafId);
   }, []);
 
-  useGSAP(
-    () => {
-      const boxes = sectionRef.current?.querySelectorAll(".reveal-box");
-      if (!boxes?.length) return;
-
-      const triggers: ScrollTrigger[] = [];
-
-      boxes.forEach((box) => {
-        const inner = box.querySelector(".reveal-box__inner") as HTMLElement;
-        const overlay = box.querySelector(
-          ".reveal-box__overlay",
-        ) as HTMLElement;
-        const img = box.querySelector(".reveal-box__image") as HTMLElement;
-
-        if (!inner || !overlay || !img) return;
-
-        gsap.set(inner, { x: "-100%" });
-        gsap.set(overlay, { x: "0%" });
-        gsap.set(img, { scale: 1.3 });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: box,
-            start: "top 75%",
-            end: "top 25%",
-            toggleActions: "play none none none",
-          },
-          defaults: { ease: "power2.inOut" },
-        });
-
-        tl.to(inner, { x: "0%", duration: 0.9 }, 0);
-        tl.to(overlay, { x: "100%", duration: 0.9 }, 0.6);
-        tl.to(img, { scale: 1, duration: 1.5 }, 0.3);
-
-        if (tl.scrollTrigger) triggers.push(tl.scrollTrigger);
-      });
-
-      return () => triggers.forEach((t) => t.kill());
-    },
-    { scope: sectionRef, dependencies: [] },
-  );
-
   return (
     <section
       ref={sectionRef}
@@ -129,28 +84,19 @@ export default function HomeServicesGrid() {
           style={{ transform: `translateY(${parallax.cardY[0]}px)` }}
         >
           <div className="relative min-h-[280px] w-full flex-1 overflow-hidden md:min-h-0">
-            <div className="reveal-box absolute inset-0">
-              <div className="reveal-box__inner relative h-full w-full overflow-hidden">
-                <div
-                  className="reveal-box__overlay absolute inset-0 z-10"
-                  style={{ backgroundColor: REVEAL_OVERLAY_COLOR }}
-                  aria-hidden
-                />
-                <div
-                  className="absolute inset-0 -top-[15%] h-[130%] w-full will-change-transform"
-                  style={{
-                    transform: `translateY(${parallax.imageY[0]}%)`,
-                  }}
-                >
-                  <Image
-                    src={ourGarden.image}
-                    alt={ourGarden.title}
-                    fill
-                    className="reveal-box__image object-cover object-center"
-                    sizes="(max-width: 768px) 100vw, 38vw"
-                  />
-                </div>
-              </div>
+            <div
+              className="absolute inset-0 -top-[15%] h-[130%] w-full will-change-transform"
+              style={{
+                transform: `translateY(${parallax.imageY[0]}%)`,
+              }}
+            >
+              <Image
+                src={ourGarden.image}
+                alt={ourGarden.title}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 38vw"
+              />
             </div>
           </div>
           <div className="w-full text-left">
@@ -169,28 +115,19 @@ export default function HomeServicesGrid() {
           style={{ transform: `translateY(${parallax.cardY[1]}px)` }}
         >
           <div className="relative min-h-[280px] w-full flex-1 overflow-hidden md:min-h-0">
-            <div className="reveal-box absolute inset-0">
-              <div className="reveal-box__inner relative h-full w-full overflow-hidden">
-                <div
-                  className="reveal-box__overlay absolute inset-0 z-10"
-                  style={{ backgroundColor: REVEAL_OVERLAY_COLOR }}
-                  aria-hidden
-                />
-                <div
-                  className="absolute inset-0 -top-[15%] h-[130%] w-full will-change-transform"
-                  style={{
-                    transform: `translateY(${parallax.imageY[1]}%)`,
-                  }}
-                >
-                  <Image
-                    src={theExperience.image}
-                    alt={theExperience.title}
-                    fill
-                    className="reveal-box__image object-cover object-center"
-                    sizes="(max-width: 768px) 100vw, 42vw"
-                  />
-                </div>
-              </div>
+            <div
+              className="absolute inset-0 -top-[15%] h-[130%] w-full will-change-transform"
+              style={{
+                transform: `translateY(${parallax.imageY[1]}%)`,
+              }}
+            >
+              <Image
+                src={theExperience.image}
+                alt={theExperience.title}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 42vw"
+              />
             </div>
           </div>
           <div className="w-full text-left">
