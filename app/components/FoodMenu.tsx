@@ -103,7 +103,7 @@ function MenuSectionBlock({
 }) {
   return (
     <div className="mb-10 last:mb-0">
-      <h3 className="font-ivy-headline text-primary mb-4 border-primary/30 border-b border-solid pb-2 text-xl tracking-tight md:text-2xl">
+      <h3 className="font-ivy-headline text-primary border-primary/30 mb-4 border-b border-solid pb-2 text-xl tracking-tight md:text-2xl">
         {label}
       </h3>
       <ul className="font-ivy-headline text-primary space-y-2.5 text-[15px] leading-relaxed md:text-base">
@@ -123,7 +123,7 @@ export default function FoodMenu({ className = "" }: { className?: string }) {
       className={`bg-secondary text-primary py-20 md:py-28 ${className}`}
       aria-labelledby="food-menu-title"
     >
-      <div className=" px-4 md:px-8">
+      <div className="px-4 md:px-8">
         <header className="mx-auto mb-14 max-w-2xl text-center md:mb-20">
           <span className="font-neue-haas text-primary/70 mb-3 block text-xs tracking-[0.2em] uppercase">
             Menu
@@ -140,7 +140,7 @@ export default function FoodMenu({ className = "" }: { className?: string }) {
         </header>
 
         {/* Menu card: two columns on large screens */}
-        <div className="border-primary/15 bg-primary/5 mx-auto max-w-5xl rounded-sm border border-solid shadow-[0_2px_20px_rgba(70,86,67,0.06)] md:px-10 md:py-12 lg:flex lg:gap-16 lg:px-14 lg:py-14">
+        <div className="border-primary/15 bg-primary/5 mx-auto border border-solid shadow-[0_2px_20px_rgba(70,86,67,0.06)] md:px-10 md:py-12 lg:flex lg:gap-16 lg:px-14 lg:py-14">
           {/* Left: Food */}
           <div className="flex-1 space-y-2 px-4 py-8 md:px-0 md:py-0">
             {FOOD_SECTIONS.map((section) => (
@@ -153,7 +153,7 @@ export default function FoodMenu({ className = "" }: { className?: string }) {
           </div>
 
           {/* Right: Drinks */}
-          <div className="border-primary/10 flex-1 space-y-2 border-t border-solid pt-8 lg:border-t-0 lg:border-l lg:pl-16 lg:pt-0">
+          <div className="border-primary/10 flex-1 space-y-2 border-t border-solid pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-16">
             {DRINK_SECTIONS.map((section) => (
               <MenuSectionBlock
                 key={section.label}

@@ -467,8 +467,7 @@ export default function HubsSectionInverted() {
       const updateParallax = () => {
         const viewportCenter = window.innerWidth / 2;
         items.forEach((card) => {
-          const parallaxEl =
-            card.querySelector<HTMLElement>(".hub-card-parallax");
+          const parallaxEl = card.querySelector<HTMLElement>(".hub-card-parallax");
           if (!parallaxEl) return;
           const rect = card.getBoundingClientRect();
           const cardCenterX = rect.left + rect.width / 2;
@@ -534,24 +533,22 @@ export default function HubsSectionInverted() {
 
   return (
     <section className="bg-primary relative w-full py-16 md:py-24">
-      <div className="px-4 text-center md:px-8">
-        {/* <span className="font-neue-haas text-secondary mb-6 block text-xs tracking-wider uppercase">
+      <div className="px-4 md:px-8">
+        <span className="font-neue-haas mb-6 block text-xs tracking-wider text-secondary uppercase">
           Experiences
-        </span> */}
-        <div className="mt-20 flex flex-col items-center gap-6 text-center">
+        </span>
+        <div className="mt-20 flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-8">
           <AnimatedText>
-            <h2 className="font-ivy-headline text-secondary max-w-3xl text-4xl leading-tight font-normal md:text-5xl lg:text-6xl">
+            <h2 className="font-ivy-headline max-w-3xl text-4xl leading-tight font-normal text-secondary md:text-5xl lg:text-6xl">
               Discover the best of Eden Park & Garden
             </h2>
           </AnimatedText>
-          <p className="font-neue-haas text-secondary/90 max-w-xl text-lg leading-tight">
-            From our restaurant’s traditional and contemporary dishes to live
-            music and football under the stars, Eden Park & Garden brings
-            together food, culture, and celebration. Whether you’re here for a
-            meal, a show, or a private event, each visit is designed to feel
-            both relaxed and memorable. Discover the spaces and experiences that
-            make this place unique.
-          </p>
+          <Link
+            href="/experiences"
+            className="font-neue-haas shrink-0 text-xs tracking-wider text-secondary uppercase underline transition-opacity hover:opacity-70"
+          >
+            View all experiences
+          </Link>
         </div>
       </div>
 
@@ -560,7 +557,7 @@ export default function HubsSectionInverted() {
           <button
             type="button"
             onClick={() => go(-1)}
-            className="bg-secondary/10 text-secondary hover:bg-secondary/20 focus-visible:ring-secondary/50 flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center transition-opacity focus:outline-none focus-visible:ring-2"
+            className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center bg-secondary/10 text-secondary transition-opacity hover:bg-secondary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
             aria-label="Previous hub"
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={2} />
@@ -568,7 +565,7 @@ export default function HubsSectionInverted() {
           <button
             type="button"
             onClick={() => go(1)}
-            className="bg-secondary/10 text-secondary hover:bg-secondary/20 focus-visible:ring-secondary/50 flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center transition-opacity focus:outline-none focus-visible:ring-2"
+            className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center bg-secondary/10 text-secondary transition-opacity hover:bg-secondary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
             aria-label="Next hub"
           >
             <ChevronRight className="h-5 w-5" strokeWidth={2} />
@@ -589,7 +586,7 @@ export default function HubsSectionInverted() {
               >
                 <div className="absolute inset-0 overflow-hidden">
                   <div
-                    className="hub-card-parallax absolute inset-0 -left-[30%] w-[160%]"
+                    className="hub-card-parallax absolute inset-0 w-[160%] -left-[30%]"
                     style={{ willChange: "transform" }}
                   >
                     <Image
@@ -603,10 +600,10 @@ export default function HubsSectionInverted() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 z-10 flex flex-col gap-1 p-4 md:p-5">
-                  <p className="font-neue-haas text-primary max-w-xs text-base font-normal md:text-2xl lg:text-2xl">
+                  <p className="font-neue-haas max-w-xs text-base font-normal text-primary md:text-2xl lg:text-2xl">
                     {card.title}
                   </p>
-                  <p className="font-neue-haas text-primary/80 max-w-xs text-sm md:text-base">
+                  <p className="font-neue-haas max-w-xs text-sm text-primary/80 md:text-base">
                     {card.description}
                   </p>
                 </div>
