@@ -6,6 +6,7 @@ import StackingCardsPin3D from "@/app/components/StackingCardsPin3D2";
 import ExperiencesImageTimeline from "../components/ExperiencesImageTimeline";
 import TextReveal from "../components/TextReveal";
 import FoodMenu from "@/app/components/FoodMenu";
+import ImageRevealSection from "@/app/components/ImageRevealSection";
 import OverlappingCardSwiper, {
   type OverlappingSlide,
 } from "@/app/components/OverlappingCardSwiper";
@@ -250,6 +251,22 @@ export default function Restaurant() {
           </div>
         </div>
       </section>
+      <ImageRevealSection
+        title="A glimpse of our world"
+        subtitle="Scroll to reveal each moment."
+        images={[
+          { src: "/images/colin.jpg", alt: "Dining at Eden Garden", span: "wide" },
+          { src: "/images/food1.jpeg", alt: "Jollof Rice", span: "tall" },
+          { src: "/images/shourav-sheikh.jpg", alt: "Garden dining", span: "sm" },
+          { src: "/images/iris-lavoie.jpg", alt: "Atmosphere", span: "large" },
+          { src: "/images/roberto-nickson.jpg", alt: "Ambiance", span: "sm" },
+          { src: "/images/annie-lang.jpg", alt: "Experience", span: "wide" },
+          { src: "/images/pool-game.jpg", alt: "Recreation", span: "tall" },
+          { src: "/images/food2.jpeg", alt: "Grilled Suya", span: "sm" },
+          { src: "/images/diego.jpg", alt: "Eden Garden", span: "wide" },
+        ]}
+        overlayColor="#c1b294"
+      />
       <ExperiencesImageTimeline
         title="Restaurant at Eden Garden"
         body="Eden Park & Garden Restaurant is a vibrant culinary oasis in Abuja, offering a unique blend of traditional cuisine and contemporary dining experiences. From authentic local dishes to innovative culinary creations, there's something for everyone. Indulge in traditional cuisine while enjoying the intimate ambiance of our restaurant."
