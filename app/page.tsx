@@ -1,4 +1,4 @@
-import { Link } from "next-view-transitions";
+﻿import { Link } from "next-view-transitions";
 import Image from "next/image";
 import TextReveal from "@/app/components/TextReveal";
 import TestimonialsTicker from "@/app/components/TestimonialsTicker";
@@ -20,6 +20,7 @@ import WhyUsSection from "./components/WhyUs";
 import AnimatedText from "./components/AnimatedText3";
 import HomeServicesGrid from "./components/HomeServicesGrid";
 import HomeOverlappingCardSwiper from "./components/HomeOverlappingCardSwiper";
+import ScrollCoupledTicker from "./components/ScrollCoupledTicker";
 
 interface SanityImageAsset {
   _ref?: string;
@@ -234,6 +235,37 @@ export default async function Home() {
       <div className="bg-secondary relative z-10">
         {/* <HubsSection /> */}
         <HomeOverlappingCardSwiper />
+        <section className="bg-secondary text-primary py-20">
+          <div className="px-4 md:px-8">
+            <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
+              <div className="relative h-[800px] w-full md:w-1/2">
+                <Image
+                  src="/images/colin.jpg"
+                  alt="Eden Garden experiences"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div className="flex w-full flex-col md:w-1/2">
+                <div className="flex flex-col justify-start md:sticky md:top-24">
+                  <span className="font-neue-haas text-primary mb-4 text-xs tracking-wider uppercase">
+                    EXPERIENCES
+                  </span>
+                  <h2 className="font-ivy-headline text-primary mb-6 max-w-xl text-3xl leading-tight md:text-4xl">
+                    Where every visit unfolds as a new chapter.
+                  </h2>
+                  <p className="font-neue-haas text-primary max-w-xl text-lg">
+                    From live music and dance shows to outdoor gatherings and
+                    fine dining under the trees, Eden Garden brings together the best of Abuja in one place. Whether you come for a meal, a
+                    concert, or a night out with friends—every moment becomes a
+                    memory.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* <ExpandingImageReveal
         imageSrc="/images/hero-2.jpg"
@@ -262,6 +294,8 @@ export default async function Home() {
             </div>
           </div>
         </section>
+        <ScrollCoupledTicker />
+
         <section className="relative mt-24 min-h-screen w-full overflow-hidden">
           <Image
             src="/images/real.jpg"

@@ -133,9 +133,8 @@ export default function Restaurant() {
           </div>
         </div>
       </section>
-      <section className="bg-secondary text-primary pt-32">
+      {/* <section className="bg-secondary text-primary pt-16">
         <div className="container px-4 md:px-8">
-          {/* First Section - PHILOSOPHY label and title */}
           <div className="flex flex-col">
             <span className="font-neue-haas text-primary mb-6 text-xs tracking-wider uppercase">
               PHILOSOPHY
@@ -146,10 +145,9 @@ export default function Restaurant() {
             </h2>
           </div>
         </div>
-      </section>
-      <section className="bg-secondary text-primary pt-20 pb-32">
+      </section> */}
+      {/* <section className="bg-secondary text-primary pt-20 pb-32">
         <div className="container px-4 md:px-8">
-          {/* Second Section - Paragraphs and link, aligned to the right */}
           <div className="flex flex-col gap-8 md:ml-auto md:w-1/2">
             <p className="font-neue-haas text-primary text-lg">
               Eden Park & Garden Restaurant is a vibrant culinary oasis in
@@ -183,7 +181,7 @@ export default function Restaurant() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
       <section className="bg-secondary text-primary py-20">
         <div className="px-4 md:px-8">
           {/* items-stretch so text column is tall; sticky text needs a tall containing block */}
@@ -255,9 +253,17 @@ export default function Restaurant() {
         title="A glimpse of our world"
         subtitle="Scroll to reveal each moment."
         images={[
-          { src: "/images/colin.jpg", alt: "Dining at Eden Garden", span: "wide" },
+          {
+            src: "/images/colin.jpg",
+            alt: "Dining at Eden Garden",
+            span: "wide",
+          },
           { src: "/images/food1.jpeg", alt: "Jollof Rice", span: "tall" },
-          { src: "/images/shourav-sheikh.jpg", alt: "Garden dining", span: "sm" },
+          {
+            src: "/images/shourav-sheikh.jpg",
+            alt: "Garden dining",
+            span: "sm",
+          },
           { src: "/images/iris-lavoie.jpg", alt: "Atmosphere", span: "large" },
           { src: "/images/roberto-nickson.jpg", alt: "Ambiance", span: "sm" },
           { src: "/images/annie-lang.jpg", alt: "Experience", span: "wide" },

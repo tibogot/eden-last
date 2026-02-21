@@ -245,7 +245,7 @@ export default function About() {
 
       <ScrollCoupledTicker />
 
-      {/* <HubsSectionInverted /> */}
+      <HubsSectionInverted />
 
       {/* <section className="bg-secondary text-primary py-32">
         <div className="container mx-auto px-4 md:px-8">
