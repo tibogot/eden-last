@@ -318,7 +318,7 @@ export default async function Home() {
               </div>
               <div className="relative h-[800px] w-full md:w-1/2">
                 <Image
-                  src="/images/colin.jpg"
+                  src="/images/connor.jpg"
                   alt="Eden Garden terrace dining"
                   fill
                   className="object-cover"
