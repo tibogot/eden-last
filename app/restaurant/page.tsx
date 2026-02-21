@@ -9,6 +9,7 @@ import FoodMenu from "@/app/components/FoodMenu";
 import OverlappingCardSwiper, {
   type OverlappingSlide,
 } from "@/app/components/OverlappingCardSwiper";
+import AnimatedText from "../components/AnimatedText3";
 
 const FOOD_DRINK_SLIDES: OverlappingSlide[] = [
   {
@@ -96,10 +97,7 @@ const FOOD_DRINK_SLIDES: OverlappingSlide[] = [
 export default function Restaurant() {
   return (
     <main className="bg-secondary text-primary">
-      <HeroParallax
-        imageSrc="/images/shourav-sheikh.jpg"
-        imageAlt="Restaurant image"
-      >
+      <HeroParallax imageSrc="/images/diego.jpg" imageAlt="Restaurant image">
         <div className="absolute inset-0 flex flex-col items-center justify-end gap-5 px-4 pb-10 md:gap-6 md:pb-14">
           <h1 className="font-ivy-headline max-w-4xl text-center text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
             Where Every Bite Tells a Story
@@ -114,6 +112,26 @@ export default function Restaurant() {
         </div>
         {/* <RestaurantHeroTitle /> */}
       </HeroParallax>
+
+      <section className="bg-secondary text-primary py-10 md:py-24">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col items-center text-center">
+            <AnimatedText>
+              <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
+                VISIT US
+              </span>
+              <h2 className="font-ivy-headline mt-10 mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
+                Dine with us in the heart of Abuja
+              </h2>
+              <p className="mx-auto mb-10 max-w-xl text-center text-lg">
+                Reserve a table for lunch or dinner—enjoy traditional cuisine in
+                the garden, on the terrace, or in our main dining room. Your
+                table is waiting.
+              </p>
+            </AnimatedText>
+          </div>
+        </div>
+      </section>
       <section className="bg-secondary text-primary pt-32">
         <div className="container px-4 md:px-8">
           {/* First Section - PHILOSOPHY label and title */}

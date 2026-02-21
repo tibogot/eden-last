@@ -27,7 +27,7 @@ export default function Test4Hero() {
       {/* Only the image bg has parallax (same as home HeroParallax) */}
       <div
         ref={imageRef}
-        className="absolute inset-0 h-[120%] w-full -top-[10%] will-change-transform"
+        className="absolute inset-0 -top-[10%] h-[120%] w-full will-change-transform"
       >
         <Image
           src="/images/diego.jpg"
@@ -44,11 +44,11 @@ export default function Test4Hero() {
           <h1 className="font-ivy-headline mx-auto w-full text-5xl leading-tight text-white drop-shadow-md md:text-8xl">
             Where Every Meal Becomes a Moment
           </h1>
-          <p className="mx-auto mt-10 max-w-lg text-center text-sm leading-relaxed text-white/90 drop-shadow-sm md:max-w-md md:text-base md:leading-relaxed">
+          {/* <p className="mx-auto mt-10 max-w-lg text-center text-sm leading-relaxed text-white/90 drop-shadow-sm md:max-w-md md:text-base md:leading-relaxed">
             Our restaurant brings together seasonal ingredients, traditional
             recipes, and the warmth of the garden. Come for the food; stay for
             the experience.
-          </p>
+          </p> */}
         </div>
         <p className="font-neue-haas absolute right-4 bottom-8 left-4 z-10 max-w-lg text-left text-sm leading-relaxed text-white/80 md:right-auto md:bottom-40 md:left-8 md:text-lg">
           Dinner in the garden is more than a meal—it’s a chance to slow down,
