@@ -32,7 +32,7 @@ export default function About() {
         </div>
       </HeroParallax>
 
-      <section className="bg-secondary text-primary pt-32">
+      <section className="bg-secondary text-primary py-20">
         <div className="container px-4 md:px-8">
           {/* First Section - PHILOSOPHY label and title */}
           <div className="flex flex-col">
@@ -48,7 +48,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="bg-secondary text-primary pt-20 pb-32">
+      <section className="bg-secondary text-primary py-20">
         <div className="container px-4 md:px-8">
           {/* Second Section - Paragraphs and link, aligned to the right */}
           <div className="flex flex-col gap-8 md:ml-auto md:w-1/2">
@@ -88,7 +88,7 @@ export default function About() {
         <ParallaxHeroImage
           src="/images/sam-hojati.jpg"
           alt="Experiences hero"
-          className="mt-40"
+          // className="mt-40"
         />
       </div>
 
@@ -118,7 +118,7 @@ export default function About() {
         }
       /> */}
 
-      <section className="bg-secondary text-primary py-40">
+      <section className="bg-secondary text-primary py-20 md:py-40">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col items-center justify-center text-center">
             <TextReveal
@@ -152,7 +152,7 @@ export default function About() {
       {/* <section className="bg-secondary text-primary py-20">
         <div className="px-4 md:px-8">
           <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
-            <div className="relative h-[800px] w-full md:w-1/2">
+            <div className="relative h-[320px] w-full md:h-[800px] md:w-1/2">
               <Image
                 src="/images/colin.jpg"
                 alt="Eden Garden atmosphere"
@@ -182,7 +182,7 @@ export default function About() {
         </div>
       </section> */}
 
-      <section className="bg-secondary text-primary py-20">
+      <section className="bg-secondary text-primary py-8 md:py-20">
         <div className="px-4 md:px-8">
           <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
             <div className="flex w-full flex-col md:w-1/2">
@@ -202,7 +202,7 @@ export default function About() {
                 </p>
               </div>
             </div>
-            <div className="relative h-[800px] w-full md:w-1/2">
+            <div className="relative h-[320px] w-full md:h-[800px] md:w-1/2">
               <Image
                 src="/images/colin.jpg"
                 alt="Eden Garden atmosphere"

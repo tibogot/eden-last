@@ -12,7 +12,10 @@ const FLING_SCALE = 0.4;
 const VW_OFFSET = 0.1;
 const CARD_WIDTH_VW = 0.28;
 const CARD_HEIGHT_VW = 0.38;
+const MOBILE_CARD_WIDTH_VW = 0.58;
+const MOBILE_CARD_HEIGHT_VW = 0.62;
 const SLIDE_COUNT = 5;
+const MOBILE_BREAKPOINT = 1024;
 
 const CARD_IMAGES = [
   "/images/susie.jpg",
@@ -67,6 +70,17 @@ export default function HomeOverlappingCardSwiper() {
     trackX: 0,
     maxScroll: 0,
   });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () =>
+      setIsMobile(
+        typeof window !== "undefined" && window.innerWidth < MOBILE_BREAKPOINT,
+      );
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const syncTrackState = useCallback(() => {
     const track = trackRef.current;
@@ -99,7 +113,8 @@ export default function HomeOverlappingCardSwiper() {
     if (trackSlides.length === 0) return;
 
     const gap = window.innerWidth * GAP_VW;
-    const cardWidth = window.innerWidth * CARD_WIDTH_VW;
+    const cardWidthVw = isMobile ? MOBILE_CARD_WIDTH_VW : CARD_WIDTH_VW;
+    const cardWidth = window.innerWidth * cardWidthVw;
     const totalWidth = SLIDE_COUNT * cardWidth + (SLIDE_COUNT - 1) * gap;
     const viewportWidth = viewport.offsetWidth;
     // End position: last card's left edge at viewport left (no scroll past that)
@@ -132,8 +147,10 @@ export default function HomeOverlappingCardSwiper() {
     setTrackState({ trackX: 0, maxScroll });
 
     const handleResize = () => {
+      const nowMobile = window.innerWidth < MOBILE_BREAKPOINT;
+      const newCardWidthVw = nowMobile ? MOBILE_CARD_WIDTH_VW : CARD_WIDTH_VW;
       const newGap = window.innerWidth * GAP_VW;
-      const newCardWidth = window.innerWidth * CARD_WIDTH_VW;
+      const newCardWidth = window.innerWidth * newCardWidthVw;
       const newTotalWidth =
         SLIDE_COUNT * newCardWidth + (SLIDE_COUNT - 1) * newGap;
       const newViewportWidth = viewport.offsetWidth;
@@ -172,7 +189,7 @@ export default function HomeOverlappingCardSwiper() {
       draggableInstance.kill();
       draggableRef.current = null;
     };
-  }, [updateFling, syncTrackState]);
+  }, [updateFling, syncTrackState, isMobile]);
 
   const go = useCallback(
     (direction: 1 | -1) => {
@@ -204,18 +221,18 @@ export default function HomeOverlappingCardSwiper() {
   const atEnd = trackState.trackX <= trackState.maxScroll + 1;
 
   const gapVw = GAP_VW * 100;
-  const widthVw = CARD_WIDTH_VW * 100;
-  const heightVw = CARD_HEIGHT_VW * 100;
+  const widthVw = (isMobile ? MOBILE_CARD_WIDTH_VW : CARD_WIDTH_VW) * 100;
+  const heightVw = (isMobile ? MOBILE_CARD_HEIGHT_VW : CARD_HEIGHT_VW) * 100;
 
   return (
-    <section className="bg-secondary text-primary w-full overflow-hidden py-20">
+    <section className="bg-secondary text-primary w-full overflow-hidden py-8 md:py-20">
       <div className="px-4 md:px-8">
         <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
           Experiences
         </span>
       </div>
-      <div className="mt-12 flex w-full items-stretch gap-[2vw] lg:mt-30">
-        <div className="flex w-1/2 shrink-0 flex-col items-start justify-between self-stretch px-4 md:px-8">
+      <div className="mt-12 flex w-full flex-col items-stretch gap-8 lg:mt-30 lg:flex-row lg:gap-[2vw]">
+        <div className="flex w-full shrink-0 flex-col items-start justify-between self-stretch px-4 md:px-8 lg:w-1/2">
           <div>
             <h2 className="font-ivy-headline max-w-lg text-4xl leading-tight md:text-5xl">
               Discover the best of Eden Park & Garden
@@ -227,7 +244,7 @@ export default function HomeOverlappingCardSwiper() {
               View all experiences
             </Link>
           </div>
-          <div className="flex gap-3">
+          <div className="mt-6 flex gap-3 lg:mt-0">
             <button
               type="button"
               onClick={() => go(-1)}
@@ -252,7 +269,7 @@ export default function HomeOverlappingCardSwiper() {
         </div>
         <div
           ref={viewportRef}
-          className="relative flex-1 cursor-grab overflow-hidden active:cursor-grabbing"
+          className="relative w-full cursor-grab overflow-hidden active:cursor-grabbing lg:flex-1"
           style={{
             touchAction: "pan-y",
             userSelect: "none",

@@ -235,10 +235,10 @@ export default async function Home() {
       <div className="bg-secondary relative z-10">
         {/* <HubsSection /> */}
         <HomeOverlappingCardSwiper />
-        <section className="bg-secondary text-primary py-20">
+        <section className="bg-secondary text-primary py-8 md:py-20">
           <div className="px-4 md:px-8">
             <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
-              <div className="relative h-[800px] w-full md:w-1/2">
+              <div className="relative order-2 h-[320px] w-full md:order-1 md:h-[800px] md:w-1/2">
                 <Image
                   src="/images/colin.jpg"
                   alt="Eden Garden experiences"
@@ -247,7 +247,7 @@ export default async function Home() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
-              <div className="flex w-full flex-col md:w-1/2">
+              <div className="order-1 flex w-full flex-col md:order-2 md:w-1/2">
                 <div className="flex flex-col justify-start md:sticky md:top-24">
                   <span className="font-neue-haas text-primary mb-4 text-xs tracking-wider uppercase">
                     EXPERIENCES
@@ -278,7 +278,7 @@ export default async function Home() {
         {/* <StickyImageTextReveal /> */}
         {/* <StickyClipReveal /> */}
 
-        <section className="bg-secondary text-primary py-40">
+        <section className="bg-secondary text-primary py-20 md:py-40">
           <div className="container mx-auto px-4 md:px-8">
             <div className="flex flex-col items-center justify-center text-center">
               <TextReveal
@@ -297,7 +297,7 @@ export default async function Home() {
         </section>
         <ScrollCoupledTicker />
 
-        <section className="bg-secondary text-primary py-20">
+        <section className="bg-secondary text-primary py-8 md:py-20">
           <div className="px-4 md:px-8">
             <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:gap-12">
               <div className="flex w-full flex-col md:w-1/2">
@@ -316,7 +316,7 @@ export default async function Home() {
                   </p>
                 </div>
               </div>
-              <div className="relative h-[800px] w-full md:w-1/2">
+              <div className="relative h-[320px] w-full md:h-[800px] md:w-1/2">
                 <Image
                   src="/images/connor.jpg"
                   alt="Eden Garden terrace dining"
