@@ -49,7 +49,7 @@ const cardData: CardData[] = [
 function Card({ data }: { data: CardData }) {
   return (
     <div className="card relative w-full">
-      <div className="card-inner bg-secondary text-primary border-primary/20 h-[400px] w-full overflow-hidden border-t px-4 pt-4 md:h-[400px] md:px-8 md:pt-6">
+      <div className="card-inner bg-secondary text-primary border-primary/20 h-[400px] w-full overflow-hidden border-t px-4 pt-4 md:px-8 md:pt-6">
         <div className="flex h-full w-full flex-col md:flex-row">
           {/* Number */}
           <div className="mb-3 flex w-full items-start md:mb-0 md:w-1/12">
@@ -59,7 +59,7 @@ function Card({ data }: { data: CardData }) {
           </div>
 
           {/* Title + Copy */}
-          <div className="mb-4 flex w-full flex-col items-start md:mb-0 md:w-5/12 md:pr-6">
+          <div className="mb-3 flex w-full flex-col items-start md:mb-0 md:w-5/12 md:pr-6">
             <div>
               <h3 className="font-ivy-headline text-primary -mt-1 text-4xl leading-none">
                 {data.title}
@@ -74,7 +74,7 @@ function Card({ data }: { data: CardData }) {
           </div>
 
           {/* Image */}
-          <div className="relative h-48 w-full overflow-hidden rounded-sm md:h-full md:w-1/2">
+          <div className="relative h-56 w-full overflow-hidden rounded-sm md:h-full md:w-1/2">
             <Image
               src={data.image}
               alt={data.imageAlt}
@@ -120,7 +120,7 @@ export default function StickyStackScrollCSS() {
               }
               style={{
                 zIndex: index + 1,
-                marginTop: index === 0 ? 0 : "10vh",
+                marginTop: index === 0 ? 0 : "clamp(4rem, 5vh, 10vh)",
               }}
             >
               <Card data={data} />
