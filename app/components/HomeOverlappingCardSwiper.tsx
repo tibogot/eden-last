@@ -226,11 +226,11 @@ export default function HomeOverlappingCardSwiper() {
 
   return (
     <section className="bg-secondary text-primary w-full overflow-hidden py-8 md:py-20">
-      <div className="px-4 md:px-8">
+      {/* <div className="px-4 md:px-8">
         <span className="font-neue-haas text-primary mb-6 block text-xs tracking-wider uppercase">
           Experiences
         </span>
-      </div>
+      </div> */}
       <div className="mt-12 flex w-full flex-col items-stretch gap-8 lg:mt-30 lg:flex-row lg:gap-[2vw]">
         <div className="flex w-full shrink-0 flex-col items-start justify-between self-stretch px-4 md:px-8 lg:w-1/2">
           <div>

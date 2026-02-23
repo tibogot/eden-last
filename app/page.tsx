@@ -21,6 +21,7 @@ import AnimatedText from "./components/AnimatedText3";
 import HomeServicesGrid from "./components/HomeServicesGrid";
 import HomeOverlappingCardSwiper from "./components/HomeOverlappingCardSwiper";
 import ScrollCoupledTicker from "./components/ScrollCoupledTicker";
+import HomeServicesGridAlt from "./components/HomeServicesGridAlt";
 
 interface SanityImageAsset {
   _ref?: string;
@@ -234,6 +235,25 @@ export default async function Home() {
       </section>
       <div className="bg-secondary relative z-10">
         {/* <HubsSection /> */}
+        <section className="bg-secondary text-primary pt-10 md:pt-24">
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="flex flex-col items-center text-center">
+              <AnimatedText>
+                <span className="font-neue-haas mb-6 text-xs tracking-wider uppercase">
+                  EXPERIENCES
+                </span>
+                <h2 className="font-ivy-headline mt-10 mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
+                  From live shows to garden dining—every moment is an experience
+                </h2>
+                <p className="mx-auto mb-10 max-w-xl text-center text-lg">
+                  Whether you&apos;re here for a concert, a meal under the
+                  trees, or a night out with friends, Eden Garden brings
+                  together the best of Abuja in one place.
+                </p>
+              </AnimatedText>
+            </div>
+          </div>
+        </section>
         <HomeOverlappingCardSwiper />
         <section className="bg-secondary text-primary py-8 md:py-20">
           <div className="px-4 md:px-8">
@@ -296,6 +316,7 @@ export default async function Home() {
           </div>
         </section>
         <ScrollCoupledTicker />
+        <HomeServicesGridAlt />
 
         <section className="bg-secondary text-primary py-8 md:py-20">
           <div className="px-4 md:px-8">
