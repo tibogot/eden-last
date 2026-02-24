@@ -83,8 +83,8 @@ export default function Footer() {
             </TransitionLink>
           )}
           <p className="text-secondary max-w-xs text-base leading-relaxed">
-            A construction company, offering integrated solution and related
-            services.
+            A park and garden project offering green spaces, recreation, and
+            nature experiences.
           </p>
         </div>
 
