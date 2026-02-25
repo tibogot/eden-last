@@ -1,4 +1,4 @@
-﻿import { Link } from "next-view-transitions";
+import { Link } from "next-view-transitions";
 import Image from "next/image";
 import TextReveal from "@/app/components/TextReveal";
 import TestimonialsTicker from "@/app/components/TestimonialsTicker";
@@ -401,17 +401,18 @@ export default async function Home() {
           />
         </section> */}
 
-        <section className="bg-secondary text-primary py-40">
+        <section className="bg-primary text-secondary py-40">
           <div className="container mx-auto px-4 md:px-8">
             <div className="flex flex-col items-center justify-center text-center">
               <TextReveal
                 className="max-w-4xl"
-                startColor="rgba(70, 86, 67, 0.2)"
-                endColor="rgb(70, 86, 67)"
+                startColor="rgba(255, 253, 246, 0.2)"
+                endColor="rgb(255, 253, 246)"
               >
-                <p className="font-ivy-headline text-primary text-3xl leading-tight text-balance md:text-5xl">
-                  In the heart of Abuja, Eden is where the garden meets the
-                  city—and moments become memories.
+                <p className="font-ivy-headline text-secondary text-3xl leading-tight text-balance md:text-5xl">
+                  &ldquo;In the heart of Abuja, Eden is where the garden meets
+                  the city—where people gather, stories unfold, and moments
+                  become memories.&rdquo;
                 </p>
               </TextReveal>
             </div>
