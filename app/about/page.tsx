@@ -195,10 +195,21 @@ export default function About() {
                 </h2>
                 <p className="font-neue-haas text-primary max-w-xl text-lg">
                   Our grounds blend lush gardens with open-air venues, creating
-                  a destination that feels both intimate and expansive. From the
-                  terrace bar to the open stage, every space is designed for
-                  gathering—for sharing a meal, celebrating an evening, or
-                  simply being present.
+                  a destination that feels both intimate and expansive. The main
+                  garden winds between shaded walkways and sunlit lawns—where
+                  you might settle under the trees for a long lunch or follow the
+                  path toward the terrace bar as the light softens. The open
+                  stage anchors one end of the space, built for live music and
+                  gatherings that spill into the evening; closer to the kitchen,
+                  the dining terrace and event lawns offer room for everything
+                  from an intimate dinner to a celebration under the stars.
+                </p>
+                <p className="font-neue-haas text-primary max-w-xl mt-6 text-lg">
+                  Every corner is designed for gathering—for sharing a meal,
+                  celebrating an evening, or simply being present. The sound of
+                  the city fades behind the greenery; what remains is the hum of
+                  conversation, the clink of glasses, and the sense that you’re
+                  somewhere set apart from the everyday.
                 </p>
               </div>
             </div>

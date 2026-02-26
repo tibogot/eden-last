@@ -1,4 +1,4 @@
-import { Link } from "next-view-transitions";
+﻿import { Link } from "next-view-transitions";
 import Image from "next/image";
 import TextReveal from "@/app/components/TextReveal";
 import TestimonialsTicker from "@/app/components/TestimonialsTicker";
@@ -405,7 +405,7 @@ export default async function Home() {
           <div className="container mx-auto px-4 md:px-8">
             <div className="flex flex-col items-center justify-center text-center">
               <TextReveal
-                className="max-w-4xl"
+                className="max-w-6xl"
                 startColor="rgba(255, 253, 246, 0.2)"
                 endColor="rgb(255, 253, 246)"
               >
@@ -415,6 +415,12 @@ export default async function Home() {
                   become memories.&rdquo;
                 </p>
               </TextReveal>
+              <Link
+                href="/contact"
+                className="font-neue-haas text-secondary mt-16 shrink-0 text-xs tracking-wider uppercase underline transition-opacity hover:opacity-70"
+              >
+                CONTACT US
+              </Link>
             </div>
           </div>
         </section>
