@@ -9,8 +9,6 @@ interface HeroParallaxProps {
   imageAlt: string;
   children: React.ReactNode;
   className?: string;
-  /** Reserve space before load to avoid layout shift (e.g. "16/9", "21/9"). Default 16/9. */
-  imageAspectRatio?: string;
 }
 
 export default function HeroParallax({
@@ -18,7 +16,6 @@ export default function HeroParallax({
   imageAlt,
   children,
   className = "",
-  imageAspectRatio = "16/9",
 }: HeroParallaxProps) {
   const imageRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
@@ -42,7 +39,6 @@ export default function HeroParallax({
       <div
         ref={imageRef}
         className="absolute inset-0 h-[120%] w-full"
-        style={{ aspectRatio: imageAspectRatio }}
       >
         <Image
           src={imageSrc}

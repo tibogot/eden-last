@@ -1,4 +1,4 @@
-﻿import { Link } from "next-view-transitions";
+import { Link } from "next-view-transitions";
 import Image from "next/image";
 import TextReveal from "@/app/components/TextReveal";
 import TestimonialsTicker from "@/app/components/TestimonialsTicker";
@@ -222,6 +222,14 @@ export default async function Home() {
       </section> */}
       {/* <ServicesGrid /> */}
       <HomeServicesGrid />
+      <div className="bg-secondary px-4 pb-10 md:px-8 md:pb-16">
+        <Link
+          href="/about"
+          className="font-neue-haas text-primary text-xs tracking-wider uppercase underline transition-opacity hover:opacity-70"
+        >
+          LEARN OUR STORY
+        </Link>
+      </div>
       <section className="sticky top-0 z-0 h-screen w-full overflow-hidden">
         <div className="relative h-full w-full">
           <Image
@@ -282,6 +290,12 @@ export default async function Home() {
                     concert, or a night out with friends—every moment becomes a
                     memory.
                   </p>
+                  <Link
+                    href="/experiences"
+                    className="font-neue-haas text-primary mt-6 text-xs tracking-wider uppercase underline transition-opacity hover:opacity-70"
+                  >
+                    EXPLORE EXPERIENCES
+                  </Link>
                 </div>
               </div>
             </div>
@@ -316,6 +330,22 @@ export default async function Home() {
           </div>
         </section>
         <ScrollCoupledTicker />
+        <section className="bg-secondary text-primary pt-10 md:pt-24">
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="flex flex-col items-center text-center">
+              <AnimatedText>
+                <h2 className="font-ivy-headline mt-10 mb-8 max-w-3xl text-4xl leading-tight md:text-5xl">
+                  From live shows to garden dining—every moment is an experience
+                </h2>
+                <p className="mx-auto mb-10 max-w-xl text-center text-lg">
+                  Whether you&apos;re here for a concert, a meal under the
+                  trees, or a night out with friends, Eden Garden brings
+                  together the best of Abuja in one place.
+                </p>
+              </AnimatedText>
+            </div>
+          </div>
+        </section>
         <HomeServicesGridAlt />
 
         <section className="bg-secondary text-primary py-8 md:py-20">
